@@ -1,8 +1,14 @@
-
 # CLI tool, only in development environment.
 # https://goframe.org/pages/viewpage.action?pageId=3673173
 gfcli:
-  docker:
-    build: "-a amd64 -s linux -p temp -ew"
-    tagPrefixes:
-      - my.image.pub/my-app
+  gen:
+    pbentity:
+      - link: "pgsql:postgres:12345678@tcp(127.0.0.1:5432)/36hour_user"
+
+    dao:
+      - link: "pgsql:postgres:12345678@tcp(127.0.0.1:5432)/36hour_user"
+
+  build:
+    name: "github.com/oldme-git/36hour/user"
+    arch: "amd64"
+    system: "linux"
