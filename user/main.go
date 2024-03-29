@@ -1,13 +1,14 @@
 package main
 
 import (
-	"github.com/gogf/gf/contrib/registry/etcd/v2"
-	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
+	_ "user/internal/logic"
 	_ "user/internal/packed"
 
-	"github.com/gogf/gf/v2/os/gctx"
-
 	"user/internal/cmd"
+
+	"github.com/gogf/gf/contrib/registry/etcd/v2"
+	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
+	"github.com/gogf/gf/v2/os/gctx"
 )
 
 func main() {

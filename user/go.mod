@@ -6,6 +6,7 @@ require github.com/gogf/gf/v2 v2.6.4
 
 require (
 	github.com/BurntSushi/toml v1.2.0 // indirect
+	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/clbanning/mxj/v2 v2.7.0 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
