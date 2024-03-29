@@ -5,5 +5,6 @@
 package logic
 
 import (
+	_ "user/internal/logic/snowflake"
 	_ "user/internal/logic/user"
 )
