@@ -12,7 +12,7 @@ import (
 
 type (
 	IUser interface {
-		Cre(ctx context.Context, in *model.User) (id int, err error)
+		Cre(ctx context.Context, user *model.User) (id model.Id, err error)
 	}
 )
 

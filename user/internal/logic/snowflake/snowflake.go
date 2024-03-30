@@ -2,7 +2,6 @@ package snowflake
 
 import (
 	sf "github.com/bwmarrin/snowflake"
-	"user/internal/model"
 	"user/internal/service"
 )
 
@@ -22,7 +21,7 @@ func New() *sSnowflake {
 	return &sSnowflake{node: node}
 }
 
-func (s *sSnowflake) Get() model.Id {
+func (s *sSnowflake) Get() sf.ID {
 	id := s.node.Generate()
-	return model.Id(id.Int64())
+	return id
 }

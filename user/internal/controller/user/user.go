@@ -2,7 +2,10 @@ package user
 
 import (
 	"context"
+
 	v1 "user/api/user/v1"
+	"user/internal/model"
+	"user/internal/service"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 	"github.com/gogf/gf/v2/errors/gcode"
@@ -18,7 +21,13 @@ func Register(s *grpcx.GrpcServer) {
 }
 
 func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.CreateRes, err error) {
-	return nil, gerror.NewCode(gcode.CodeNotImplemented)
+	user := &model.User{
+		Username: "test",
+		Password: "123456",
+		Phone:    "12345678901",
+	}
+	_, err = service.User().Cre(ctx, user)
+	return nil, err
 }
 
 func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.UpdateRes, err error) {

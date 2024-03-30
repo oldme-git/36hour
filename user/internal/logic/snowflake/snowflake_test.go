@@ -10,6 +10,6 @@ import (
 func TestGet(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		id := service.Snowflake().Get()
-		t.AssertNQ(id, 0)
+		t.AssertNE(id, 0)
 	})
 }

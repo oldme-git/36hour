@@ -6,12 +6,12 @@
 package service
 
 import (
-	"user/internal/model"
+	sf "github.com/bwmarrin/snowflake"
 )
 
 type (
 	ISnowflake interface {
-		Get() model.Id
+		Get() sf.ID
 	}
 )
 
