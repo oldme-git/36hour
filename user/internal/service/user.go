@@ -12,8 +12,11 @@ import (
 
 type (
 	IUser interface {
-		Cre(ctx context.Context, user *model.User) (id model.Id, err error)
-		Del(ctx context.Context, id model.Id) (err error)
+		Create(ctx context.Context, user *model.User) (id model.Id, err error)
+		GetList(ctx context.Context, page int, pageSize int) (users []*model.User, err error)
+		GetOne(ctx context.Context, id model.Id) (user *model.User, err error)
+		Update(ctx context.Context, user *model.User) (err error)
+		Delete(ctx context.Context, id model.Id) (err error)
 	}
 )
 
