@@ -23,9 +23,9 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	User_Create_FullMethodName  = "/user.User/Create"
-	User_Update_FullMethodName  = "/user.User/Update"
 	User_GetOne_FullMethodName  = "/user.User/GetOne"
 	User_GetList_FullMethodName = "/user.User/GetList"
+	User_Update_FullMethodName  = "/user.User/Update"
 	User_Delete_FullMethodName  = "/user.User/Delete"
 )
 
@@ -34,9 +34,9 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserClient interface {
 	Create(ctx context.Context, in *CreateReq, opts ...grpc.CallOption) (*CreateRes, error)
-	Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateRes, error)
 	GetOne(ctx context.Context, in *GetOneReq, opts ...grpc.CallOption) (*GetOneRes, error)
 	GetList(ctx context.Context, in *GetListReq, opts ...grpc.CallOption) (*GetListRes, error)
+	Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateRes, error)
 	Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteRes, error)
 }
 
@@ -51,15 +51,6 @@ func NewUserClient(cc grpc.ClientConnInterface) UserClient {
 func (c *userClient) Create(ctx context.Context, in *CreateReq, opts ...grpc.CallOption) (*CreateRes, error) {
 	out := new(CreateRes)
 	err := c.cc.Invoke(ctx, User_Create_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userClient) Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateRes, error) {
-	out := new(UpdateRes)
-	err := c.cc.Invoke(ctx, User_Update_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -84,6 +75,15 @@ func (c *userClient) GetList(ctx context.Context, in *GetListReq, opts ...grpc.C
 	return out, nil
 }
 
+func (c *userClient) Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateRes, error) {
+	out := new(UpdateRes)
+	err := c.cc.Invoke(ctx, User_Update_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *userClient) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteRes, error) {
 	out := new(DeleteRes)
 	err := c.cc.Invoke(ctx, User_Delete_FullMethodName, in, out, opts...)
@@ -98,9 +98,9 @@ func (c *userClient) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.Cal
 // for forward compatibility
 type UserServer interface {
 	Create(context.Context, *CreateReq) (*CreateRes, error)
-	Update(context.Context, *UpdateReq) (*UpdateRes, error)
 	GetOne(context.Context, *GetOneReq) (*GetOneRes, error)
 	GetList(context.Context, *GetListReq) (*GetListRes, error)
+	Update(context.Context, *UpdateReq) (*UpdateRes, error)
 	Delete(context.Context, *DeleteReq) (*DeleteRes, error)
 	mustEmbedUnimplementedUserServer()
 }
@@ -112,14 +112,14 @@ type UnimplementedUserServer struct {
 func (UnimplementedUserServer) Create(context.Context, *CreateReq) (*CreateRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedUserServer) Update(context.Context, *UpdateReq) (*UpdateRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
-}
 func (UnimplementedUserServer) GetOne(context.Context, *GetOneReq) (*GetOneRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOne not implemented")
 }
 func (UnimplementedUserServer) GetList(context.Context, *GetListReq) (*GetListRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
+}
+func (UnimplementedUserServer) Update(context.Context, *UpdateReq) (*UpdateRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
 func (UnimplementedUserServer) Delete(context.Context, *DeleteReq) (*DeleteRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -151,24 +151,6 @@ func _User_Create_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServer).Create(ctx, req.(*CreateReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _User_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServer).Update(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: User_Update_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServer).Update(ctx, req.(*UpdateReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -209,6 +191,24 @@ func _User_GetList_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_Update_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).Update(ctx, req.(*UpdateReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _User_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteReq)
 	if err := dec(in); err != nil {
@@ -239,16 +239,16 @@ var User_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _User_Create_Handler,
 		},
 		{
-			MethodName: "Update",
-			Handler:    _User_Update_Handler,
-		},
-		{
 			MethodName: "GetOne",
 			Handler:    _User_GetOne_Handler,
 		},
 		{
 			MethodName: "GetList",
 			Handler:    _User_GetList_Handler,
+		},
+		{
+			MethodName: "Update",
+			Handler:    _User_Update_Handler,
 		},
 		{
 			MethodName: "Delete",

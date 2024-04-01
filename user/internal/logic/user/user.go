@@ -3,7 +3,6 @@ package user
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/crypto/gmd5"
 	"user/internal/dao"
 	"user/internal/model"
 	"user/internal/model/do"
@@ -32,8 +31,10 @@ func (s *sUser) Create(ctx context.Context, user *model.User) (id model.Id, err 
 		user.Id = s.newId()
 	}
 
-	// 密码加密
-	user.Password, _ = gmd5.EncryptString(user.Password)
+	user.Password, err = EncryptPwd(user.Password)
+	if err != nil {
+		return 0, err
+	}
 
 	_, err = dao.UserMain.Ctx(ctx).Data(do.UserMain{
 		Id:       user.Id,
@@ -66,13 +67,10 @@ func (s *sUser) GetOne(ctx context.Context, id model.Id) (user *model.User, err 
 	return
 }
 
+// Update 不允许修改密码
 func (s *sUser) Update(ctx context.Context, user *model.User) (err error) {
-	// 密码加密
-	user.Password, _ = gmd5.EncryptString(user.Password)
-
 	_, err = dao.UserMain.Ctx(ctx).Data(do.UserMain{
 		Username: user.Username,
-		Password: user.Password,
 		Phone:    user.Phone,
 	}).Where("id", user.Id).Update()
 	return err

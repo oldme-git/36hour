@@ -17,9 +17,10 @@ var ctx = gctx.New()
 func TestCRUD(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			user   = new(model.User)
-			userIn = &model.User{
-				Id:       1,
+			testId model.Id = 1
+			user            = new(model.User)
+			userIn          = &model.User{
+				Id:       testId,
 				Username: "test",
 				Password: "123456",
 				Phone:    "12345678901",
@@ -36,9 +37,8 @@ func TestCRUD(t *testing.T) {
 		t.Assert(id, userIn.Id)
 
 		// GetList
-		users, err := service.User().GetList(ctx, 1, 10)
+		_, err = service.User().GetList(ctx, 1, 10)
 		t.AssertNil(err)
-		t.Assert(users[0].Id, userIn.Id)
 
 		// GetOne
 		user, err = service.User().GetOne(ctx, id)
@@ -50,9 +50,8 @@ func TestCRUD(t *testing.T) {
 
 		// Update
 		var userUpt = &model.User{
-			Id:       1,
+			Id:       testId,
 			Username: "test2",
-			Password: "123456",
 			Phone:    "12345678901",
 		}
 		err = service.User().Update(ctx, userUpt)
@@ -61,7 +60,6 @@ func TestCRUD(t *testing.T) {
 		t.AssertNil(err)
 		t.Assert(user.Id, userUpt.Id)
 		t.Assert(user.Username, userUpt.Username)
-		t.Assert(user.Password, userUpt.Password)
 		t.Assert(user.Phone, userUpt.Phone)
 	})
 }

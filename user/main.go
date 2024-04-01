@@ -9,7 +9,6 @@ import (
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 	_ "user/internal/logic"
-	_ "user/internal/packed"
 )
 
 func main() {

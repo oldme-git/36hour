@@ -10,9 +10,9 @@ import "pbentity/user_main.proto";
 
 service User{
   rpc Create(CreateReq) returns (CreateRes) {}
-  rpc Update(UpdateReq) returns (UpdateRes) {}
   rpc GetOne(GetOneReq) returns (GetOneRes) {}
   rpc GetList(GetListReq) returns (GetListRes) {}
+  rpc Update(UpdateReq) returns (UpdateRes) {}
   rpc Delete(DeleteReq) returns (DeleteRes) {}
 }
 
@@ -23,21 +23,11 @@ message CreateReq {
 }
 
 message CreateRes {
-  uint64 id = 1;
-}
-
-message UpdateReq {
-  uint64 id = 1; // v: required
-  string Password = 2; // v: required|length: 8,30
-  string Phone = 3; // v: required|phone
-}
-
-message UpdateRes {
-  uint64 id = 1;
+  int64 id = 1;
 }
 
 message GetOneReq {
-  uint64 id = 1; // v: required
+  int64 id = 1; // v: required
 }
 
 message GetOneRes {
@@ -45,18 +35,28 @@ message GetOneRes {
 }
 
 message GetListReq {
-  uint64 page = 1; // v: required
-  uint64 pageSize = 2; // v: required|max: 100
+  int64 page = 1; // v: required
+  int64 pageSize = 2; // v: required|max: 100
 }
 
 message GetListRes {
   repeated pbentity.UserMain users = 1;
 }
 
+message UpdateReq {
+  int64 id = 1; // v: required
+  string Username = 2; // v: required|length: 1,20
+  string Phone = 3; // v: required|phone
+}
+
+message UpdateRes {
+  int64 id = 1;
+}
+
 message DeleteReq {
-  uint64 id = 1; // v: required
+  int64 id = 1; // v: required
 }
 
 message DeleteRes {
-  uint64 id = 1;
+  int64 id = 1;
 }
