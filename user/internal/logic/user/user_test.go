@@ -14,7 +14,7 @@ import (
 
 var ctx = gctx.New()
 
-func TestCURD(t *testing.T) {
+func TestCRUD(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			user   = new(model.User)
