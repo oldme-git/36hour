@@ -18,5 +18,4 @@ type UserMain struct {
 	Phone     interface{} //
 	CreatedAt *gtime.Time //
 	UpdatedAt *gtime.Time //
-	DeletedAt *gtime.Time //
 }

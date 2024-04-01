@@ -16,5 +16,4 @@ type UserMain struct {
 	Phone     string      `json:"phone"     ` //
 	CreatedAt *gtime.Time `json:"createdAt" ` //
 	UpdatedAt *gtime.Time `json:"updatedAt" ` //
-	DeletedAt *gtime.Time `json:"deletedAt" ` //
 }

@@ -17,5 +17,4 @@ message UserMain {
     string                    Phone     = 4; //   
     google.protobuf.Timestamp CreatedAt = 5; //   
     google.protobuf.Timestamp UpdatedAt = 6; //   
-    google.protobuf.Timestamp DeletedAt = 7; //   
 }

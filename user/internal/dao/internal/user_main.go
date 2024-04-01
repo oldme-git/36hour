@@ -26,7 +26,6 @@ type UserMainColumns struct {
 	Phone     string //
 	CreatedAt string //
 	UpdatedAt string //
-	DeletedAt string //
 }
 
 // userMainColumns holds the columns for table user_main.
@@ -37,7 +36,6 @@ var userMainColumns = UserMainColumns{
 	Phone:     "phone",
 	CreatedAt: "created_at",
 	UpdatedAt: "updated_at",
-	DeletedAt: "deleted_at",
 }
 
 // NewUserMainDao creates and returns a new DAO object for table data access.

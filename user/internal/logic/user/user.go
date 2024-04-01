@@ -39,3 +39,8 @@ func (s *sUser) Cre(ctx context.Context, user *model.User) (id model.Id, err err
 	}
 	return
 }
+
+func (s *sUser) Del(ctx context.Context, id model.Id) (err error) {
+	_, err = dao.UserMain.Ctx(ctx).Where("id", id).Delete()
+	return err
+}
