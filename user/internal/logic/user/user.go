@@ -67,7 +67,16 @@ func (s *sUser) GetOne(ctx context.Context, id model.Id) (user *model.User, err 
 	return
 }
 
-// Update 不允许修改密码
+func (s *sUser) GetOneByUsername(ctx context.Context, username string) (user *model.User, err error) {
+	user = new(model.User)
+	err = dao.UserMain.Ctx(ctx).Where("username", username).Scan(user)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
+// Update 不会修改密码
 func (s *sUser) Update(ctx context.Context, user *model.User) (err error) {
 	_, err = dao.UserMain.Ctx(ctx).Data(do.UserMain{
 		Username: user.Username,
@@ -79,4 +88,16 @@ func (s *sUser) Update(ctx context.Context, user *model.User) (err error) {
 func (s *sUser) Delete(ctx context.Context, id model.Id) (err error) {
 	_, err = dao.UserMain.Ctx(ctx).Where("id", id).Delete()
 	return err
+}
+
+// CheckPassword 输入明文和密码，判断密码是否正确
+func (s *sUser) CheckPassword(ctx context.Context, plainPwd, hashedPwd string) (bool, error) {
+	encrypt, err := EncryptPwd(plainPwd)
+	if err != nil {
+		return false, err
+	}
+	if encrypt != hashedPwd {
+		return false, nil
+	}
+	return true, nil
 }

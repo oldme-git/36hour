@@ -11,7 +11,7 @@ import (
 
 type (
 	IAuth interface {
-		Login(ctx context.Context) (token string, err error)
+		Login(ctx context.Context, Username, Password string) (token string, err error)
 		Logout(ctx context.Context) (err error)
 		Register(ctx context.Context) (err error)
 		ChangePassword(ctx context.Context) (err error)

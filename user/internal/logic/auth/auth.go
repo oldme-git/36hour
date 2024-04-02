@@ -7,6 +7,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 	"user/internal/consts"
 	"user/internal/model"
+	"user/internal/packed"
 	"user/internal/service"
 )
 
@@ -27,10 +28,24 @@ type UserClaims struct {
 	jwt.RegisteredClaims
 }
 
-func (s *sAuth) Login(ctx context.Context) (token string, err error) {
+func (s *sAuth) Login(ctx context.Context, Username, Password string) (token string, err error) {
+	// 1. 根据用户名查询用户信息
+	user, err := service.User().GetOneByUsername(ctx, Username)
+	if err != nil {
+		return "", err
+	}
+
+	// 2. 验证密码
+	ok, err := service.User().CheckPassword(ctx, Password, user.Password)
+	if err != nil {
+		return "", err
+	}
+	if !ok {
+		return "", packed.Err.New(1001)
+	}
 	userClaims := &UserClaims{
-		Id:       1,
-		Username: "admin",
+		Id:       user.Id,
+		Username: user.Username,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(6 * time.Hour)),
 		},
