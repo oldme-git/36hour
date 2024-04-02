@@ -8,6 +8,7 @@ require (
 	github.com/gogf/gf/contrib/registry/etcd/v2 v2.6.4
 	github.com/gogf/gf/contrib/rpc/grpcx/v2 v2.6.4
 	github.com/gogf/gf/v2 v2.6.4
+	github.com/golang-jwt/jwt/v4 v4.5.0
 	google.golang.org/grpc v1.59.0
 	google.golang.org/protobuf v1.31.0
 )
