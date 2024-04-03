@@ -1,0 +1,21 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/gogf/gf-demo-grpc/api/user/v1";
+
+
+service User{
+  rpc Create(CreateReq) returns (CreateRes) {}
+}
+
+message CreateReq {
+  string Username = 1; // v: required
+  string Password = 2; // v: required
+}
+
+message CreateRes {
+  uint64 id = 1;
+}
