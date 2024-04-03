@@ -1,4 +1,6 @@
-# GoFrame Template For SingleRepo
+# 图书馆管理
 
-Quick Start: 
-- https://goframe.org/pages/viewpage.action?pageId=1114399
+## 功能
+- 图书馆的 CRUD
+- 楼层的 CRUD
+- 大厅走廊的 CRUD
