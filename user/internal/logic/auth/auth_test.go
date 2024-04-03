@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/gogf/gf/v2/os/gctx"
@@ -31,7 +30,11 @@ func TestLogin(t *testing.T) {
 
 		token, err := service.Auth().Login(ctx, user.Username, plainPwd)
 		t.AssertNil(err)
-		fmt.Println(token)
+
+		user2, err := service.Auth().GetUserInfo(ctx, token)
+		t.AssertNil(err)
+		t.Assert(user.Id, user2.Id)
+		t.Assert(user.Username, user2.Username)
 
 		err = service.User().Delete(ctx, id)
 	})

@@ -3,11 +3,12 @@ package user
 import (
 	"context"
 
-	"google.golang.org/protobuf/types/known/timestamppb"
 	"user/api/pbentity"
 	v1 "user/api/user/v1"
 	"user/internal/model"
 	"user/internal/service"
+
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 )

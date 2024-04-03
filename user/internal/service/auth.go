@@ -7,16 +7,17 @@ package service
 
 import (
 	"context"
+	"user/internal/model"
 )
 
 type (
 	IAuth interface {
 		Login(ctx context.Context, Username, Password string) (token string, err error)
-		Logout(ctx context.Context) (err error)
+		Logout(ctx context.Context, id model.Id) (err error)
 		Register(ctx context.Context) (err error)
 		ChangePassword(ctx context.Context) (err error)
 		ResetPassword(ctx context.Context) (err error)
-		GetUserInfo(ctx context.Context) (err error)
+		GetUserInfo(ctx context.Context, token string) (user *model.User, err error)
 	}
 )
 

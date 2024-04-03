@@ -6,6 +6,7 @@ import (
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"google.golang.org/grpc"
+	"user/internal/controller/auth"
 	"user/internal/controller/user"
 )
 
@@ -23,6 +24,7 @@ var (
 			)
 			s := grpcx.Server.New(c)
 			user.Register(s)
+			auth.Register(s)
 			s.Run()
 			return nil
 		},

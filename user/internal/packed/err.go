@@ -12,6 +12,7 @@ type err struct {
 var Err = &err{
 	maps: map[int]string{
 		1001: "密码错误",
+		1002: "不正确的或者过期的token",
 	},
 }
 

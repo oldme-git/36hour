@@ -22,6 +22,8 @@ func New() *sAuth {
 	return &sAuth{}
 }
 
+var jwtKey = consts.JwtKey
+
 type UserClaims struct {
 	Id       model.Id
 	Username string
@@ -47,18 +49,18 @@ func (s *sAuth) Login(ctx context.Context, Username, Password string) (token str
 		Id:       user.Id,
 		Username: user.Username,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(6 * time.Hour)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(12 * time.Hour)),
 		},
 	}
 	tokenRaw := jwt.NewWithClaims(jwt.SigningMethodHS256, userClaims)
-	token, err = tokenRaw.SignedString(consts.JwtKey)
+	token, err = tokenRaw.SignedString(jwtKey)
 	if err != nil {
 		return "", err
 	}
 	return token, err
 }
 
-func (s *sAuth) Logout(ctx context.Context) (err error) {
+func (s *sAuth) Logout(ctx context.Context, id model.Id) (err error) {
 	return err
 }
 
@@ -74,6 +76,20 @@ func (s *sAuth) ResetPassword(ctx context.Context) (err error) {
 	return err
 }
 
-func (s *sAuth) GetUserInfo(ctx context.Context) (err error) {
-	return err
+func (s *sAuth) GetUserInfo(ctx context.Context, token string) (user *model.User, err error) {
+	tokenClaims, _ := jwt.ParseWithClaims(token, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return jwtKey, nil
+	})
+
+	claims, ok := tokenClaims.Claims.(*UserClaims)
+	if !(ok && tokenClaims.Valid) {
+		err = packed.Err.New(1002)
+		return
+	}
+	user = new(model.User)
+	user, err = service.User().GetOne(ctx, claims.Id)
+	if err != nil {
+		return nil, err
+	}
+	return
 }
