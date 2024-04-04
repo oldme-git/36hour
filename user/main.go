@@ -1,11 +1,10 @@
 package main
 
 import (
-	"user/internal/cmd"
-
 	"github.com/gogf/gf/contrib/registry/etcd/v2"
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 	"github.com/gogf/gf/v2/os/gctx"
+	"user/internal/cmd"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 	_ "user/internal/logic"
