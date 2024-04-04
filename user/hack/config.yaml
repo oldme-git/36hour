@@ -8,7 +8,3 @@ gfcli:
     dao:
       - link: "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_user"
 
-  build:
-    name: "github.com/oldme-git/36hour/user"
-    arch: "amd64"
-    system: "linux"

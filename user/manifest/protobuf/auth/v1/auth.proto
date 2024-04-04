@@ -4,7 +4,7 @@ syntax = "proto3";
 
 package user;
 
-option go_package = "github.com/oldme-git/36hour/user/api/auth/v1";
+option go_package = "user/api/user/v1";
 
 import "pbentity/user_main.proto";
 
