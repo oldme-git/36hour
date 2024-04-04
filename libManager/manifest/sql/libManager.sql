@@ -3,7 +3,7 @@
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."floor";
 CREATE TABLE "public"."floor" (
-  "id" int4 NOT NULL,
+  "id" serial4 NOT NULL,
   "lib_id" int4 NOT NULL,
   "floor_name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "created_at" timestamptz(6) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE "public"."floor" (
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."hall";
 CREATE TABLE "public"."hall" (
-  "id" int4 NOT NULL,
+  "id" serial4 NOT NULL,
   "lib_id" int4 NOT NULL,
   "floor_id" int4 NOT NULL,
   "hall_name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE "public"."hall" (
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."lib";
 CREATE TABLE "public"."lib" (
-  "id" int4 NOT NULL,
+  "id" serial4 NOT NULL,
   "name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "address" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "active" bool NOT NULL
