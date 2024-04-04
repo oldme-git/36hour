@@ -1,0 +1,19 @@
+// ==========================================================================
+// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
+// ==========================================================================
+
+syntax = "proto3";
+
+package pbentity;
+
+option go_package = "user/api/pbentity";
+
+import "google/protobuf/timestamp.proto";
+
+message Floor {
+    int32                     Id        = 1; //   
+    int32                     LibId     = 2; //   
+    string                    FloorName = 3; //   
+    google.protobuf.Timestamp CreatedAt = 4; //   
+    google.protobuf.Timestamp UpdatedAt = 5; //   
+}

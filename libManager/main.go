@@ -1,11 +1,9 @@
 package main
 
 import (
-	_ "user/internal/packed"
-
 	"github.com/gogf/gf/v2/os/gctx"
 
-	"user/internal/cmd"
+	"libManager/internal/cmd"
 )
 
 func main() {

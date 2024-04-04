@@ -6,7 +6,6 @@ import (
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"google.golang.org/grpc"
-	"user/internal/controller/user"
 )
 
 var (
@@ -22,7 +21,6 @@ var (
 				)}...,
 			)
 			s := grpcx.Server.New(c)
-			user.Register(s)
 			s.Run()
 			return nil
 		},
