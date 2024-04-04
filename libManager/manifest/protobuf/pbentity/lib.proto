@@ -6,7 +6,7 @@ syntax = "proto3";
 
 package pbentity;
 
-option go_package = "user/api/pbentity";
+option go_package = "libManager/api/pbentity";
 
 
 
