@@ -12,6 +12,8 @@ github.com/go-logr/logr v1.2.4 h1:g01GSCwiDw2xSZfjJ2/T9M+S6pFdcNtFYsp+Y43HYDQ=
 github.com/go-logr/logr v1.2.4/go.mod h1:jdQByPbusPIv2/zmleS9BjJVeZ6kBagPoEUsqbVz/1A=
 github.com/go-logr/stdr v1.2.2 h1:hSWxHoqTgW2S2qGc0LTAI563KZ5YKYRhT3MFKZMbjag=
 github.com/go-logr/stdr v1.2.2/go.mod h1:mMo/vtBO5dYbehREoey6XUKy/eSumjCCveDpRre4VKE=
+github.com/gogf/gf/contrib/drivers/pgsql/v2 v2.6.4 h1:a+zIohGG1mv+1/9lBb/C0coM+MbmPYOWKo2SL1tJhTU=
+github.com/gogf/gf/contrib/drivers/pgsql/v2 v2.6.4/go.mod h1:I7TGm/kilpNGwT8h8Frc5vGWRLgn5Vn9ce2gIBHcfbg=
 github.com/gogf/gf/contrib/registry/file/v2 v2.6.4 h1:XWZNgRTm4dOFe4geUP7QAWKv7OBrSTPFmN1FCrcT9bc=
 github.com/gogf/gf/contrib/registry/file/v2 v2.6.4/go.mod h1:p68In8LsWms4d0tVgBsbK3j56OmJT9+NOhPW0iG0U20=
 github.com/gogf/gf/contrib/rpc/grpcx/v2 v2.6.4 h1:owHiTdFBhVnMFZCi56YiuEogRxF2hAu77vrrfk9Ud48=
@@ -27,6 +29,8 @@ github.com/gorilla/websocket v1.5.0 h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWm
 github.com/gorilla/websocket v1.5.0/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/grokify/html-strip-tags-go v0.0.1 h1:0fThFwLbW7P/kOiTBs03FsJSV9RM2M/Q/MOnCQxKMo0=
 github.com/grokify/html-strip-tags-go v0.0.1/go.mod h1:2Su6romC5/1VXOQMaWL2yb618ARB8iVo6/DR99A6d78=
+github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
+github.com/lib/pq v1.10.9/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
 github.com/magiconair/properties v1.8.6 h1:5ibWZ6iY0NctNGWo87LalDlEZ6R41TqbbDamhfG/Qzo=
 github.com/magiconair/properties v1.8.6/go.mod h1:y3VJvCyxH9uVvJTWEGAELF3aiYNyPKd5NZ3oSwXrF60=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=

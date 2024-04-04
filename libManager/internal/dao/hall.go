@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"user/internal/dao/internal"
+	"libManager/internal/dao/internal"
 )
 
 // internalHallDao is internal type for wrapping internal DAO implements.

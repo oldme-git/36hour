@@ -3,6 +3,7 @@ module libManager
 go 1.18
 
 require (
+	github.com/gogf/gf/contrib/drivers/pgsql/v2 v2.6.4
 	github.com/gogf/gf/contrib/rpc/grpcx/v2 v2.6.4
 	github.com/gogf/gf/v2 v2.6.4
 	google.golang.org/grpc v1.57.2
@@ -20,6 +21,7 @@ require (
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grokify/html-strip-tags-go v0.0.1 // indirect
+	github.com/lib/pq v1.10.9 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"user/internal/dao/internal"
+	"libManager/internal/dao/internal"
 )
 
 // internalFloorDao is internal type for wrapping internal DAO implements.
