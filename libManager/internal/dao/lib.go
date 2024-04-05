@@ -25,3 +25,12 @@ var (
 )
 
 // Fill with you ideas below.
+
+// LibSearchCondition 定义搜索条件
+type LibSearchCondition struct {
+	Page     int
+	PageSize int
+	Name     string
+	Address  string
+	Active   bool
+}

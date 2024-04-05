@@ -25,3 +25,10 @@ var (
 )
 
 // Fill with you ideas below.
+
+// FloorSearchCondition 定义搜索条件
+type FloorSearchCondition struct {
+	Page     int
+	PageSize int
+	LibId    int
+}

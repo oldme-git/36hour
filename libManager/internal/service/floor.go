@@ -7,15 +7,17 @@ package service
 
 import (
 	"context"
+	"libManager/internal/dao"
+	"libManager/internal/model/entity"
 )
 
 type (
 	IFloor interface {
-		Create(ctx context.Context) (err error)
-		GetOne(ctx context.Context) (err error)
-		GetList(ctx context.Context) (err error)
-		Update(ctx context.Context) (err error)
-		Delete(ctx context.Context) (err error)
+		Create(ctx context.Context, floor *entity.Floor) (id int, err error)
+		GetOne(ctx context.Context, id int) (floor *entity.Floor, err error)
+		GetList(ctx context.Context, condition *dao.FloorSearchCondition) (floors []*entity.Floor, err error)
+		Update(ctx context.Context, floor *entity.Floor) (err error)
+		Delete(ctx context.Context, id int) (err error)
 	}
 )
 

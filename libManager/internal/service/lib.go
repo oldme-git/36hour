@@ -7,15 +7,17 @@ package service
 
 import (
 	"context"
+	"libManager/internal/dao"
+	"libManager/internal/model/entity"
 )
 
 type (
 	ILib interface {
-		Create(ctx context.Context) (err error)
-		GetOne(ctx context.Context) (err error)
-		GetList(ctx context.Context) (err error)
-		Update(ctx context.Context) (err error)
-		Delete(ctx context.Context) (err error)
+		Create(ctx context.Context, lib *entity.Lib) (id int, err error)
+		GetOne(ctx context.Context, id int) (lib *entity.Lib, err error)
+		GetList(ctx context.Context, condition *dao.LibSearchCondition) (libs []*entity.Lib, err error)
+		Update(ctx context.Context, lib *entity.Lib) (err error)
+		Delete(ctx context.Context, id int) (err error)
 	}
 )
 
