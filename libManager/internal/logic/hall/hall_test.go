@@ -6,6 +6,7 @@ import (
 
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
+	"libManager/internal/dao"
 	"libManager/internal/model/entity"
 	"libManager/internal/service"
 
@@ -29,7 +30,13 @@ func TestCRUD(t *testing.T) {
 		t.AssertNil(err)
 
 		// GetList
-		halls, err := service.Hall().GetList(ctx, 1, 1)
+		condition := &dao.HallSearchCondition{
+			Page:     1,
+			PageSize: 1,
+			LibId:    1,
+			FloorId:  1,
+		}
+		halls, err := service.Hall().GetList(ctx, condition)
 		t.AssertNil(err)
 		t.Assert(len(halls), 1)
 

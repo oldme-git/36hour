@@ -25,3 +25,11 @@ var (
 )
 
 // Fill with you ideas below.
+
+// HallSearchCondition 定义搜索条件
+type HallSearchCondition struct {
+	Page     int
+	PageSize int
+	LibId    int
+	FloorId  int
+}

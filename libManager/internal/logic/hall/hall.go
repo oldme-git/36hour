@@ -42,9 +42,23 @@ func (s *sHall) GetOne(ctx context.Context, id int) (hall *entity.Hall, err erro
 	return hall, nil
 }
 
-func (s *sHall) GetList(ctx context.Context, page, pageSize int) (halls []*entity.Hall, err error) {
-	halls = make([]*entity.Hall, pageSize)
-	err = dao.Hall.Ctx(ctx).Page(page, pageSize).Scan(&halls)
+func (s *sHall) GetList(ctx context.Context, condition *dao.HallSearchCondition) (halls []*entity.Hall, err error) {
+	if condition.Page <= 0 {
+		condition.Page = 1
+	}
+	if condition.PageSize <= 0 {
+		condition.PageSize = 20
+	}
+	halls = make([]*entity.Hall, condition.PageSize)
+	db := dao.Hall.Ctx(ctx)
+	if condition.LibId > 0 {
+		db = db.Where("lib_id", condition.LibId)
+	}
+	if condition.FloorId > 0 {
+		db = db.Where("floor_id", condition.FloorId)
+	}
+
+	err = db.Page(condition.Page, condition.PageSize).Scan(&halls)
 	if err != nil {
 		return nil, err
 	}

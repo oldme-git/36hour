@@ -7,6 +7,7 @@ package service
 
 import (
 	"context"
+	"libManager/internal/dao"
 	"libManager/internal/model/entity"
 )
 
@@ -14,7 +15,7 @@ type (
 	IHall interface {
 		Create(ctx context.Context, hall *entity.Hall) (id int, err error)
 		GetOne(ctx context.Context, id int) (hall *entity.Hall, err error)
-		GetList(ctx context.Context, page, pageSize int) (halls []*entity.Hall, err error)
+		GetList(ctx context.Context, condition *dao.HallSearchCondition) (halls []*entity.Hall, err error)
 		Update(ctx context.Context, hall *entity.Hall) (err error)
 		Delete(ctx context.Context, id int) (err error)
 	}
