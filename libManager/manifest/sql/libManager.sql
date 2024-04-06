@@ -31,9 +31,11 @@ CREATE TABLE "public"."hall" (
 DROP TABLE IF EXISTS "public"."lib";
 CREATE TABLE "public"."lib" (
   "id" serial4 NOT NULL,
-  "name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "lib_name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
   "address" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "active" bool NOT NULL
+  "active" bool NOT NULL,
+  "created_at" timestamptz(6) NOT NULL,
+   "updated_at" timestamptz(6) NOT NULL
 )
 ;
 COMMENT ON COLUMN "public"."lib"."address" IS '地址';

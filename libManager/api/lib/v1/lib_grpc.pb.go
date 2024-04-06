@@ -22,11 +22,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Lib_Create_FullMethodName  = "/user.Lib/Create"
-	Lib_GetOne_FullMethodName  = "/user.Lib/GetOne"
-	Lib_GetList_FullMethodName = "/user.Lib/GetList"
-	Lib_Update_FullMethodName  = "/user.Lib/Update"
-	Lib_Delete_FullMethodName  = "/user.Lib/Delete"
+	Lib_Create_FullMethodName  = "/lib.Lib/Create"
+	Lib_GetOne_FullMethodName  = "/lib.Lib/GetOne"
+	Lib_GetList_FullMethodName = "/lib.Lib/GetList"
+	Lib_Update_FullMethodName  = "/lib.Lib/Update"
+	Lib_Delete_FullMethodName  = "/lib.Lib/Delete"
 )
 
 // LibClient is the client API for Lib service.
@@ -231,7 +231,7 @@ func _Lib_Delete_Handler(srv interface{}, ctx context.Context, dec func(interfac
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Lib_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user.Lib",
+	ServiceName: "lib.Lib",
 	HandlerType: (*LibServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

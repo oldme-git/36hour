@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package user;
+package hall;
 
 option go_package = "libManager/api/hall/v1";
 
@@ -48,7 +48,7 @@ message GetListRes {
 message UpdateReq {
   int32 id = 1; // v:required
   int32 floorId = 2; // v:required
-  string floorName = 3; // v:required
+  string hallName = 3; // v:required
 }
 
 message UpdateRes {

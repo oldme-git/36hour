@@ -20,18 +20,22 @@ type LibDao struct {
 
 // LibColumns defines and stores column names for table lib.
 type LibColumns struct {
-	Id      string //
-	Name    string //
-	Address string // 地址
-	Active  string // 是否正在使用
+	Id        string //
+	LibName   string //
+	Address   string // 地址
+	Active    string // 是否正在使用
+	CreatedAt string //
+	UpdatedAt string //
 }
 
 // libColumns holds the columns for table lib.
 var libColumns = LibColumns{
-	Id:      "id",
-	Name:    "name",
-	Address: "address",
-	Active:  "active",
+	Id:        "id",
+	LibName:   "lib_name",
+	Address:   "address",
+	Active:    "active",
+	CreatedAt: "created_at",
+	UpdatedAt: "updated_at",
 }
 
 // NewLibDao creates and returns a new DAO object for table data access.

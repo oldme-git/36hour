@@ -2,13 +2,13 @@
 
 syntax = "proto3";
 
-package user;
+package floor;
 
 option go_package = "floorManager/api/floor/v1";
 
 import "pbentity/floor.proto";
 
-service Lib{
+service Floor{
   rpc Create(CreateReq) returns (CreateRes) {}
   rpc GetOne(GetOneReq) returns (GetOneRes) {}
   rpc GetList(GetListReq) returns (GetListRes) {}

@@ -22,11 +22,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Hall_Create_FullMethodName  = "/user.Hall/Create"
-	Hall_GetOne_FullMethodName  = "/user.Hall/GetOne"
-	Hall_GetList_FullMethodName = "/user.Hall/GetList"
-	Hall_Update_FullMethodName  = "/user.Hall/Update"
-	Hall_Delete_FullMethodName  = "/user.Hall/Delete"
+	Hall_Create_FullMethodName  = "/hall.Hall/Create"
+	Hall_GetOne_FullMethodName  = "/hall.Hall/GetOne"
+	Hall_GetList_FullMethodName = "/hall.Hall/GetList"
+	Hall_Update_FullMethodName  = "/hall.Hall/Update"
+	Hall_Delete_FullMethodName  = "/hall.Hall/Delete"
 )
 
 // HallClient is the client API for Hall service.
@@ -231,7 +231,7 @@ func _Hall_Delete_Handler(srv interface{}, ctx context.Context, dec func(interfa
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Hall_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user.Hall",
+	ServiceName: "hall.Hall",
 	HandlerType: (*HallServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

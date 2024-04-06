@@ -4,10 +4,16 @@
 
 package entity
 
+import (
+	"github.com/gogf/gf/v2/os/gtime"
+)
+
 // Lib is the golang structure for table lib.
 type Lib struct {
-	Id      int    `json:"id"      ` //
-	Name    string `json:"name"    ` //
-	Address string `json:"address" ` // 地址
-	Active  bool   `json:"active"  ` // 是否正在使用
+	Id        int         `json:"id"        ` //
+	LibName   string      `json:"libName"   ` //
+	Address   string      `json:"address"   ` // 地址
+	Active    bool        `json:"active"    ` // 是否正在使用
+	CreatedAt *gtime.Time `json:"createdAt" ` //
+	UpdatedAt *gtime.Time `json:"updatedAt" ` //
 }

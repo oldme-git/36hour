@@ -67,7 +67,6 @@ func (s *sHall) GetList(ctx context.Context, condition *dao.HallSearchCondition)
 
 func (s *sHall) Update(ctx context.Context, hall *entity.Hall) (err error) {
 	_, err = dao.Hall.Ctx(ctx).Data(do.Hall{
-		LibId:    hall.LibId,
 		FloorId:  hall.FloorId,
 		HallName: hall.HallName,
 	}).Where("id", hall.Id).Update()

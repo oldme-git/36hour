@@ -22,17 +22,17 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Lib_Create_FullMethodName  = "/user.Lib/Create"
-	Lib_GetOne_FullMethodName  = "/user.Lib/GetOne"
-	Lib_GetList_FullMethodName = "/user.Lib/GetList"
-	Lib_Update_FullMethodName  = "/user.Lib/Update"
-	Lib_Delete_FullMethodName  = "/user.Lib/Delete"
+	Floor_Create_FullMethodName  = "/floor.Floor/Create"
+	Floor_GetOne_FullMethodName  = "/floor.Floor/GetOne"
+	Floor_GetList_FullMethodName = "/floor.Floor/GetList"
+	Floor_Update_FullMethodName  = "/floor.Floor/Update"
+	Floor_Delete_FullMethodName  = "/floor.Floor/Delete"
 )
 
-// LibClient is the client API for Lib service.
+// FloorClient is the client API for Floor service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type LibClient interface {
+type FloorClient interface {
 	Create(ctx context.Context, in *CreateReq, opts ...grpc.CallOption) (*CreateRes, error)
 	GetOne(ctx context.Context, in *GetOneReq, opts ...grpc.CallOption) (*GetOneRes, error)
 	GetList(ctx context.Context, in *GetListReq, opts ...grpc.CallOption) (*GetListRes, error)
@@ -40,219 +40,219 @@ type LibClient interface {
 	Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteRes, error)
 }
 
-type libClient struct {
+type floorClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewLibClient(cc grpc.ClientConnInterface) LibClient {
-	return &libClient{cc}
+func NewFloorClient(cc grpc.ClientConnInterface) FloorClient {
+	return &floorClient{cc}
 }
 
-func (c *libClient) Create(ctx context.Context, in *CreateReq, opts ...grpc.CallOption) (*CreateRes, error) {
+func (c *floorClient) Create(ctx context.Context, in *CreateReq, opts ...grpc.CallOption) (*CreateRes, error) {
 	out := new(CreateRes)
-	err := c.cc.Invoke(ctx, Lib_Create_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Floor_Create_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *libClient) GetOne(ctx context.Context, in *GetOneReq, opts ...grpc.CallOption) (*GetOneRes, error) {
+func (c *floorClient) GetOne(ctx context.Context, in *GetOneReq, opts ...grpc.CallOption) (*GetOneRes, error) {
 	out := new(GetOneRes)
-	err := c.cc.Invoke(ctx, Lib_GetOne_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Floor_GetOne_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *libClient) GetList(ctx context.Context, in *GetListReq, opts ...grpc.CallOption) (*GetListRes, error) {
+func (c *floorClient) GetList(ctx context.Context, in *GetListReq, opts ...grpc.CallOption) (*GetListRes, error) {
 	out := new(GetListRes)
-	err := c.cc.Invoke(ctx, Lib_GetList_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Floor_GetList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *libClient) Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateRes, error) {
+func (c *floorClient) Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateRes, error) {
 	out := new(UpdateRes)
-	err := c.cc.Invoke(ctx, Lib_Update_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Floor_Update_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *libClient) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteRes, error) {
+func (c *floorClient) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteRes, error) {
 	out := new(DeleteRes)
-	err := c.cc.Invoke(ctx, Lib_Delete_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Floor_Delete_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// LibServer is the server API for Lib service.
-// All implementations must embed UnimplementedLibServer
+// FloorServer is the server API for Floor service.
+// All implementations must embed UnimplementedFloorServer
 // for forward compatibility
-type LibServer interface {
+type FloorServer interface {
 	Create(context.Context, *CreateReq) (*CreateRes, error)
 	GetOne(context.Context, *GetOneReq) (*GetOneRes, error)
 	GetList(context.Context, *GetListReq) (*GetListRes, error)
 	Update(context.Context, *UpdateReq) (*UpdateRes, error)
 	Delete(context.Context, *DeleteReq) (*DeleteRes, error)
-	mustEmbedUnimplementedLibServer()
+	mustEmbedUnimplementedFloorServer()
 }
 
-// UnimplementedLibServer must be embedded to have forward compatible implementations.
-type UnimplementedLibServer struct {
+// UnimplementedFloorServer must be embedded to have forward compatible implementations.
+type UnimplementedFloorServer struct {
 }
 
-func (UnimplementedLibServer) Create(context.Context, *CreateReq) (*CreateRes, error) {
+func (UnimplementedFloorServer) Create(context.Context, *CreateReq) (*CreateRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedLibServer) GetOne(context.Context, *GetOneReq) (*GetOneRes, error) {
+func (UnimplementedFloorServer) GetOne(context.Context, *GetOneReq) (*GetOneRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOne not implemented")
 }
-func (UnimplementedLibServer) GetList(context.Context, *GetListReq) (*GetListRes, error) {
+func (UnimplementedFloorServer) GetList(context.Context, *GetListReq) (*GetListRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
 }
-func (UnimplementedLibServer) Update(context.Context, *UpdateReq) (*UpdateRes, error) {
+func (UnimplementedFloorServer) Update(context.Context, *UpdateReq) (*UpdateRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedLibServer) Delete(context.Context, *DeleteReq) (*DeleteRes, error) {
+func (UnimplementedFloorServer) Delete(context.Context, *DeleteReq) (*DeleteRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedLibServer) mustEmbedUnimplementedLibServer() {}
+func (UnimplementedFloorServer) mustEmbedUnimplementedFloorServer() {}
 
-// UnsafeLibServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to LibServer will
+// UnsafeFloorServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to FloorServer will
 // result in compilation errors.
-type UnsafeLibServer interface {
-	mustEmbedUnimplementedLibServer()
+type UnsafeFloorServer interface {
+	mustEmbedUnimplementedFloorServer()
 }
 
-func RegisterLibServer(s grpc.ServiceRegistrar, srv LibServer) {
-	s.RegisterService(&Lib_ServiceDesc, srv)
+func RegisterFloorServer(s grpc.ServiceRegistrar, srv FloorServer) {
+	s.RegisterService(&Floor_ServiceDesc, srv)
 }
 
-func _Lib_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Floor_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LibServer).Create(ctx, in)
+		return srv.(FloorServer).Create(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Lib_Create_FullMethodName,
+		FullMethod: Floor_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibServer).Create(ctx, req.(*CreateReq))
+		return srv.(FloorServer).Create(ctx, req.(*CreateReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Lib_GetOne_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Floor_GetOne_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetOneReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LibServer).GetOne(ctx, in)
+		return srv.(FloorServer).GetOne(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Lib_GetOne_FullMethodName,
+		FullMethod: Floor_GetOne_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibServer).GetOne(ctx, req.(*GetOneReq))
+		return srv.(FloorServer).GetOne(ctx, req.(*GetOneReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Lib_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Floor_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LibServer).GetList(ctx, in)
+		return srv.(FloorServer).GetList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Lib_GetList_FullMethodName,
+		FullMethod: Floor_GetList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibServer).GetList(ctx, req.(*GetListReq))
+		return srv.(FloorServer).GetList(ctx, req.(*GetListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Lib_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Floor_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LibServer).Update(ctx, in)
+		return srv.(FloorServer).Update(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Lib_Update_FullMethodName,
+		FullMethod: Floor_Update_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibServer).Update(ctx, req.(*UpdateReq))
+		return srv.(FloorServer).Update(ctx, req.(*UpdateReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Lib_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Floor_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LibServer).Delete(ctx, in)
+		return srv.(FloorServer).Delete(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Lib_Delete_FullMethodName,
+		FullMethod: Floor_Delete_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibServer).Delete(ctx, req.(*DeleteReq))
+		return srv.(FloorServer).Delete(ctx, req.(*DeleteReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Lib_ServiceDesc is the grpc.ServiceDesc for Lib service.
+// Floor_ServiceDesc is the grpc.ServiceDesc for Floor service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Lib_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "user.Lib",
-	HandlerType: (*LibServer)(nil),
+var Floor_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "floor.Floor",
+	HandlerType: (*FloorServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Create",
-			Handler:    _Lib_Create_Handler,
+			Handler:    _Floor_Create_Handler,
 		},
 		{
 			MethodName: "GetOne",
-			Handler:    _Lib_GetOne_Handler,
+			Handler:    _Floor_GetOne_Handler,
 		},
 		{
 			MethodName: "GetList",
-			Handler:    _Lib_GetList_Handler,
+			Handler:    _Floor_GetList_Handler,
 		},
 		{
 			MethodName: "Update",
-			Handler:    _Lib_Update_Handler,
+			Handler:    _Floor_Update_Handler,
 		},
 		{
 			MethodName: "Delete",
-			Handler:    _Lib_Delete_Handler,
+			Handler:    _Floor_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

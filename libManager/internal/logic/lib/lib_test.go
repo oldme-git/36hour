@@ -21,7 +21,7 @@ func TestCRUD(t *testing.T) {
 			ctx   = gctx.New()
 			lib   = new(entity.Lib)
 			libIn = &entity.Lib{
-				Name:    "libTest",
+				LibName: "libTest",
 				Address: "libTestAddress",
 				Active:  true,
 			}
@@ -35,7 +35,7 @@ func TestCRUD(t *testing.T) {
 		condition := &dao.LibSearchCondition{
 			Page:     1,
 			PageSize: 1,
-			Name:     "lib",
+			LibName:  "lib",
 			Address:  "Add",
 			Active:   true,
 		}
@@ -47,14 +47,14 @@ func TestCRUD(t *testing.T) {
 		lib, err = service.Lib().GetOne(ctx, id)
 		t.AssertNil(err)
 		t.Assert(lib.Id, id)
-		t.Assert(lib.Name, libIn.Name)
+		t.Assert(lib.LibName, libIn.LibName)
 		t.Assert(lib.Address, libIn.Address)
 		t.Assert(lib.Active, libIn.Active)
 
 		// Update
 		var libUptIn = &entity.Lib{
 			Id:      id,
-			Name:    "libTestUpt",
+			LibName: "libTestUpt",
 			Address: "libTestAddressUpt",
 			Active:  false,
 		}
@@ -62,7 +62,7 @@ func TestCRUD(t *testing.T) {
 		t.AssertNil(err)
 		lib, err = service.Lib().GetOne(ctx, id)
 		t.AssertNil(err)
-		t.Assert(lib.Name, libUptIn.Name)
+		t.Assert(lib.LibName, libUptIn.LibName)
 		t.Assert(lib.Address, libUptIn.Address)
 		t.Assert(lib.Active, libUptIn.Active)
 

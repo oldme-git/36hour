@@ -2,7 +2,7 @@
 
 syntax = "proto3";
 
-package user;
+package lib;
 
 option go_package = "libManager/api/lib/v1";
 
@@ -17,7 +17,7 @@ service Lib{
 }
 
 message CreateReq {
-  string name = 1; // v:required
+  string libName = 1; // v:required
   string address = 2; // v:required
   bool active = 3; // v:required
 }
@@ -37,7 +37,7 @@ message GetOneRes {
 message GetListReq {
   int32 page = 1; // v:required
   int32 pageSize = 2; // v:required|max:100
-  string name = 3;
+  string libName = 3;
   string address = 4;
   bool active = 5;
 }
@@ -48,7 +48,7 @@ message GetListRes {
 
 message UpdateReq {
   int32 id = 1; // v:required
-  string name = 2; // v:required
+  string libName = 2; // v:required
   string address = 3; // v:required
   bool active = 4; // v:required
 }

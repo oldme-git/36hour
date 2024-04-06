@@ -65,7 +65,6 @@ func (s *sFloor) GetList(ctx context.Context, condition *dao.FloorSearchConditio
 
 func (s *sFloor) Update(ctx context.Context, floor *entity.Floor) (err error) {
 	_, err = dao.Floor.Ctx(ctx).Data(do.Floor{
-		LibId:     floor.LibId,
 		FloorName: floor.FloorName,
 	}).Where("id", floor.Id).Update()
 	return err

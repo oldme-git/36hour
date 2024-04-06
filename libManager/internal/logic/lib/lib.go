@@ -24,7 +24,7 @@ func New() *sLib {
 
 func (s *sLib) Create(ctx context.Context, lib *entity.Lib) (id int, err error) {
 	res, err := dao.Lib.Ctx(ctx).Data(do.Lib{
-		Name:    lib.Name,
+		LibName: lib.LibName,
 		Address: lib.Address,
 		Active:  lib.Active,
 	}).Insert()
@@ -53,8 +53,8 @@ func (s *sLib) GetList(ctx context.Context, condition *dao.LibSearchCondition) (
 	}
 	libs = make([]*entity.Lib, condition.PageSize)
 	db := dao.Lib.Ctx(ctx)
-	if condition.Name != "" {
-		db = db.WhereLike("name", "%"+condition.Name+"%")
+	if condition.LibName != "" {
+		db = db.WhereLike("lib_name", "%"+condition.LibName+"%")
 	}
 	if condition.Address != "" {
 		db = db.WhereLike("address", "%"+condition.Address+"%")
@@ -74,7 +74,7 @@ func (s *sLib) GetList(ctx context.Context, condition *dao.LibSearchCondition) (
 
 func (s *sLib) Update(ctx context.Context, lib *entity.Lib) (err error) {
 	_, err = dao.Lib.Ctx(ctx).Data(do.Lib{
-		Name:    lib.Name,
+		LibName: lib.LibName,
 		Address: lib.Address,
 		Active:  lib.Active,
 	}).Where("id", lib.Id).Update()

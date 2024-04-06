@@ -30,7 +30,7 @@ var (
 type LibSearchCondition struct {
 	Page     int
 	PageSize int
-	Name     string
+	LibName  string
 	Address  string
 	Active   bool
 }
