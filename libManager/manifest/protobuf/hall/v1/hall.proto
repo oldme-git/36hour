@@ -37,6 +37,8 @@ message GetOneRes {
 message GetListReq {
   int32 page = 1; // v:required
   int32 pageSize = 2; // v:required|max:100
+  int32 libId = 3;
+  int32 floorId = 4;
 }
 
 message GetListRes {

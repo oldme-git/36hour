@@ -37,6 +37,9 @@ message GetOneRes {
 message GetListReq {
   int32 page = 1; // v:required
   int32 pageSize = 2; // v:required|max:100
+  string name = 3;
+  string address = 4;
+  bool active = 5;
 }
 
 message GetListRes {
