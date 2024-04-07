@@ -12,7 +12,7 @@ import (
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 	_ "libManager/internal/logic/floor"
-	_ "libManager/internal/logic/hall"
+	_ "libManager/internal/logic/location"
 )
 
 func TestCRUD(t *testing.T) {
@@ -73,17 +73,17 @@ func TestCRUD(t *testing.T) {
 			FloorName: "floorTest",
 		})
 		t.AssertNil(err)
-		// 创建一些 hall 以便测试删除 lib 时的级联删除
-		_, err = service.Hall().Create(ctx, &entity.Hall{
-			LibId:    id,
-			FloorId:  floorId,
-			HallName: "hallTest",
+		// 创建一些 location 以便测试删除 lib 时的级联删除
+		_, err = service.Location().Create(ctx, &entity.Location{
+			LibId:        id,
+			FloorId:      floorId,
+			LocationName: "locationTest",
 		})
 		t.AssertNil(err)
-		_, err = service.Hall().Create(ctx, &entity.Hall{
-			LibId:    id,
-			FloorId:  floorId,
-			HallName: "hallTest2",
+		_, err = service.Location().Create(ctx, &entity.Location{
+			LibId:        id,
+			FloorId:      floorId,
+			LocationName: "locationTest2",
 		})
 
 		err = service.Lib().Delete(ctx, id)
@@ -95,8 +95,8 @@ func TestCRUD(t *testing.T) {
 			LibId: id,
 		})
 		t.Assert(err, sql.ErrNoRows)
-		// 获取 hall 列表，验证 lib 删除时的级联删除
-		_, err = service.Hall().GetList(ctx, &dao.HallSearchCondition{
+		// 获取 location 列表，验证 lib 删除时的级联删除
+		_, err = service.Location().GetList(ctx, &dao.LocationSearchCondition{
 			LibId: id,
 		})
 		t.Assert(err, sql.ErrNoRows)

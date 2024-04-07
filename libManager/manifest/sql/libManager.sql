@@ -1,57 +1,41 @@
--- ----------------------------
--- Table structure for floor
--- ----------------------------
-DROP TABLE IF EXISTS "public"."floor";
-CREATE TABLE "public"."floor" (
-  "id" serial4 NOT NULL,
-  "lib_id" int4 NOT NULL,
-  "floor_name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
-  "created_at" timestamptz(6) NOT NULL,
-  "updated_at" timestamptz(6) NOT NULL
-)
-;
+create table floor
+(
+	id serial
+		primary key,
+	lib_id integer not null,
+	floor_name varchar(100) not null,
+	created_at timestamp(6) with time zone not null,
+	updated_at timestamp(6) with time zone not null
+);
 
--- ----------------------------
--- Table structure for hall
--- ----------------------------
-DROP TABLE IF EXISTS "public"."hall";
-CREATE TABLE "public"."hall" (
-  "id" serial4 NOT NULL,
-  "lib_id" int4 NOT NULL,
-  "floor_id" int4 NOT NULL,
-  "hall_name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
-  "created_at" timestamptz(6) NOT NULL,
-  "updated_at" timestamptz(6) NOT NULL
-)
-;
+alter table floor owner to postgres;
 
--- ----------------------------
--- Table structure for lib
--- ----------------------------
-DROP TABLE IF EXISTS "public"."lib";
-CREATE TABLE "public"."lib" (
-  "id" serial4 NOT NULL,
-  "lib_name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
-  "address" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "active" bool NOT NULL,
-  "created_at" timestamptz(6) NOT NULL,
-   "updated_at" timestamptz(6) NOT NULL
-)
-;
-COMMENT ON COLUMN "public"."lib"."address" IS '地址';
-COMMENT ON COLUMN "public"."lib"."active" IS '是否正在使用';
+create table location
+(
+	id serial
+		primary key,
+	lib_id integer not null,
+	floor_id integer not null,
+	location_name varchar(100) not null,
+	created_at timestamp(6) with time zone not null,
+	updated_at timestamp(6) with time zone not null
+);
 
--- ----------------------------
--- Primary Key structure for table floor
--- ----------------------------
-ALTER TABLE "public"."floor" ADD CONSTRAINT "floor_pkey" PRIMARY KEY ("id");
+alter table location owner to postgres;
 
--- ----------------------------
--- Primary Key structure for table hall
--- ----------------------------
-ALTER TABLE "public"."hall" ADD CONSTRAINT "hall_pkey" PRIMARY KEY ("id");
+create table lib
+(
+	id serial
+		primary key,
+	lib_name varchar(100) not null,
+	address varchar(255) not null,
+	active boolean not null,
+	created_at timestamp(6) with time zone not null,
+	updated_at timestamp(6) with time zone not null
+);
 
--- ----------------------------
--- Primary Key structure for table lib
--- ----------------------------
-ALTER TABLE "public"."lib" ADD CONSTRAINT "lib_pkey" PRIMARY KEY ("id");
+comment on column lib.address is '地址';
+
+comment on column lib.active is '是否正在使用';
+
+alter table lib owner to postgres;

@@ -6,6 +6,6 @@ package logic
 
 import (
 	_ "libManager/internal/logic/floor"
-	_ "libManager/internal/logic/hall"
 	_ "libManager/internal/logic/lib"
+	_ "libManager/internal/logic/location"
 )

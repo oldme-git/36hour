@@ -2,13 +2,13 @@
 
 syntax = "proto3";
 
-package hall;
+package location;
 
-option go_package = "libManager/api/hall/v1";
+option go_package = "libManager/api/location/v1";
 
-import "pbentity/hall.proto";
+import "pbentity/location.proto";
 
-service Hall {
+service Location {
   rpc Create(CreateReq) returns (CreateRes) {}
   rpc GetOne(GetOneReq) returns (GetOneRes) {}
   rpc GetList(GetListReq) returns (GetListRes) {}
@@ -19,7 +19,7 @@ service Hall {
 message CreateReq {
   int32 libId = 1; // v:required
   int32 floorId = 2; // v:required
-  string hallName = 3; // v:required
+  string locationName = 3; // v:required
 }
 
 message CreateRes {
@@ -31,7 +31,7 @@ message GetOneReq {
 }
 
 message GetOneRes {
-  pbentity.Hall hall = 1;
+  pbentity.Location location = 1;
 }
 
 message GetListReq {
@@ -42,13 +42,13 @@ message GetListReq {
 }
 
 message GetListRes {
-  repeated pbentity.Hall halls = 1;
+  repeated pbentity.Location locations = 1;
 }
 
 message UpdateReq {
   int32 id = 1; // v:required
   int32 floorId = 2; // v:required
-  string hallName = 3; // v:required
+  string locationName = 3; // v:required
 }
 
 message UpdateRes {

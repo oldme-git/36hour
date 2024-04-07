@@ -7,8 +7,8 @@ import (
 	"github.com/gogf/gf/v2/os/gcmd"
 	"google.golang.org/grpc"
 	"libManager/internal/controller/floor"
-	"libManager/internal/controller/hall"
 	"libManager/internal/controller/lib"
+	"libManager/internal/controller/location"
 )
 
 var (
@@ -26,7 +26,7 @@ var (
 			s := grpcx.Server.New(c)
 			lib.Register(s)
 			floor.Register(s)
-			hall.Register(s)
+			location.Register(s)
 			s.Run()
 			return nil
 		},

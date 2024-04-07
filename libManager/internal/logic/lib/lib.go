@@ -95,7 +95,7 @@ func (s *sLib) Delete(ctx context.Context, id int) (err error) {
 			return err
 		}
 
-		_, err = tx.Ctx(ctx).Model(dao.Hall.Table()).Where("lib_id", id).Delete()
+		_, err = tx.Ctx(ctx).Model(dao.Location.Table()).Where("lib_id", id).Delete()
 		if err != nil {
 			return err
 		}

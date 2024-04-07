@@ -10,11 +10,11 @@ option go_package = "libManager/api/pbentity";
 
 import "google/protobuf/timestamp.proto";
 
-message Hall {
-    int32                     Id        = 1; //   
-    int32                     LibId     = 2; //   
-    int32                     FloorId   = 3; //   
-    string                    HallName  = 4; //   
-    google.protobuf.Timestamp CreatedAt = 5; //   
-    google.protobuf.Timestamp UpdatedAt = 6; //   
+message Location {
+    int32                     Id           = 1; //   
+    int32                     LibId        = 2; //   
+    int32                     FloorId      = 3; //   
+    string                    LocationName = 4; //   
+    google.protobuf.Timestamp CreatedAt    = 5; //   
+    google.protobuf.Timestamp UpdatedAt    = 6; //   
 }

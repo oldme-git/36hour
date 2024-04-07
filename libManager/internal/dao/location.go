@@ -8,26 +8,26 @@ import (
 	"libManager/internal/dao/internal"
 )
 
-// internalHallDao is internal type for wrapping internal DAO implements.
-type internalHallDao = *internal.HallDao
+// internalLocationDao is internal type for wrapping internal DAO implements.
+type internalLocationDao = *internal.LocationDao
 
-// hallDao is the data access object for table hall.
+// locationDao is the data access object for table location.
 // You can define custom methods on it to extend its functionality as you wish.
-type hallDao struct {
-	internalHallDao
+type locationDao struct {
+	internalLocationDao
 }
 
 var (
-	// Hall is globally public accessible object for table hall operations.
-	Hall = hallDao{
-		internal.NewHallDao(),
+	// Location is globally public accessible object for table location operations.
+	Location = locationDao{
+		internal.NewLocationDao(),
 	}
 )
 
 // Fill with you ideas below.
 
-// HallSearchCondition 定义搜索条件
-type HallSearchCondition struct {
+// LocationSearchCondition 定义搜索条件
+type LocationSearchCondition struct {
 	Page     int
 	PageSize int
 	LibId    int

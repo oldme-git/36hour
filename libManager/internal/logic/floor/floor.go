@@ -79,7 +79,7 @@ func (s *sFloor) Delete(ctx context.Context, id int) (err error) {
 			return err
 		}
 
-		_, err = tx.Ctx(ctx).Model(dao.Hall.Table()).Where("floor_id", id).Delete()
+		_, err = tx.Ctx(ctx).Model(dao.Location.Table()).Where("floor_id", id).Delete()
 		if err != nil {
 			return err
 		}
