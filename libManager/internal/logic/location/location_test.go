@@ -11,6 +11,8 @@ import (
 	"libManager/internal/service"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
+	_ "libManager/internal/logic/floor"
+	_ "libManager/internal/logic/lib"
 )
 
 func TestCRUD(t *testing.T) {
@@ -25,6 +27,24 @@ func TestCRUD(t *testing.T) {
 			}
 		)
 
+		// 创建一个 lib
+		libId, err := service.Lib().Create(ctx, &entity.Lib{
+			LibName: "libTest",
+			Address: "libTestAddress",
+			Active:  true,
+		})
+		t.AssertNil(err)
+		locationIn.LibId = libId
+		defer service.Lib().Delete(ctx, libId)
+
+		// 创建一个 floor
+		floorId, err := service.Floor().Create(ctx, &entity.Floor{
+			LibId:     libId,
+			FloorName: "floorTest",
+		})
+		t.AssertNil(err)
+		locationIn.FloorId = floorId
+
 		// Create
 		id, err := service.Location().Create(ctx, locationIn)
 		t.AssertNil(err)
@@ -33,8 +53,8 @@ func TestCRUD(t *testing.T) {
 		condition := &dao.LocationSearchCondition{
 			Page:     1,
 			PageSize: 1,
-			LibId:    1,
-			FloorId:  1,
+			LibId:    libId,
+			FloorId:  floorId,
 		}
 		locations, err := service.Location().GetList(ctx, condition)
 		t.AssertNil(err)
@@ -51,8 +71,8 @@ func TestCRUD(t *testing.T) {
 		// Update
 		var locationUptIn = &entity.Location{
 			Id:           id,
-			LibId:        2,
-			FloorId:      2,
+			LibId:        libId,
+			FloorId:      floorId,
 			LocationName: "locationTestUpt",
 		}
 		err = service.Location().Update(ctx, locationUptIn)

@@ -11,6 +11,7 @@ import (
 	"libManager/internal/service"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
+	_ "libManager/internal/logic/lib"
 	_ "libManager/internal/logic/location"
 )
 
@@ -20,10 +21,18 @@ func TestCRUD(t *testing.T) {
 			ctx     = gctx.New()
 			floor   = new(entity.Floor)
 			floorIn = &entity.Floor{
-				LibId:     1,
 				FloorName: "floorTest",
 			}
 		)
+
+		// 创建一个 lib
+		libId, err := service.Lib().Create(ctx, &entity.Lib{
+			LibName: "libTest",
+			Address: "libTestAddress",
+			Active:  true,
+		})
+		floorIn.LibId = libId
+		defer service.Lib().Delete(ctx, libId)
 
 		// Create
 		id, err := service.Floor().Create(ctx, floorIn)
@@ -33,7 +42,7 @@ func TestCRUD(t *testing.T) {
 		condition := &dao.FloorSearchCondition{
 			Page:     1,
 			PageSize: 1,
-			LibId:    1,
+			LibId:    libId,
 		}
 		floors, err := service.Floor().GetList(ctx, condition)
 		t.AssertNil(err)
@@ -49,7 +58,7 @@ func TestCRUD(t *testing.T) {
 		// Update
 		var floorUptIn = &entity.Floor{
 			Id:        id,
-			LibId:     2,
+			LibId:     libId,
 			FloorName: "floorTestUpt",
 		}
 		err = service.Floor().Update(ctx, floorUptIn)
@@ -62,13 +71,13 @@ func TestCRUD(t *testing.T) {
 		// Delete
 		// 创建一些 location 以便测试删除 floor 时的级联删除
 		_, err = service.Location().Create(ctx, &entity.Location{
-			LibId:        2,
+			LibId:        libId,
 			FloorId:      id,
 			LocationName: "locationTest",
 		})
 		t.AssertNil(err)
 		_, err = service.Location().Create(ctx, &entity.Location{
-			LibId:        2,
+			LibId:        libId,
 			FloorId:      id,
 			LocationName: "locationTest2",
 		})
@@ -83,5 +92,38 @@ func TestCRUD(t *testing.T) {
 			FloorId: id,
 		})
 		t.Assert(err, sql.ErrNoRows)
+	})
+}
+
+func TestExist(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		var ctx = gctx.New()
+
+		// 创建一个 lib
+		libId, err := service.Lib().Create(ctx, &entity.Lib{
+			LibName: "libTest",
+			Address: "libTestAddress",
+			Active:  true,
+		})
+		t.AssertNil(err)
+
+		// 创建一个 floor
+		id, err := service.Floor().Create(ctx, &entity.Floor{
+			LibId:     libId,
+			FloorName: "floorTest",
+		})
+		t.AssertNil(err)
+
+		// 验证存在
+		err = service.Floor().Exist(ctx, id)
+		t.AssertNil(err)
+
+		// 验证不存在
+		err = service.Floor().Exist(ctx, id+10000)
+		t.AssertNE(err, nil)
+
+		// 删除
+		err = service.Lib().Delete(ctx, libId)
+		t.AssertNil(err)
 	})
 }

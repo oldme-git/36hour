@@ -8,6 +8,7 @@ import (
 	"libManager/internal/dao"
 	"libManager/internal/model/do"
 	"libManager/internal/model/entity"
+	"libManager/internal/packed"
 	"libManager/internal/service"
 )
 
@@ -23,6 +24,10 @@ func New() *sFloor {
 }
 
 func (s *sFloor) Create(ctx context.Context, floor *entity.Floor) (id int, err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, floor); err != nil {
+		return 0, err
+	}
 	res, err := dao.Floor.Ctx(ctx).Data(do.Floor{
 		LibId:     floor.LibId,
 		FloorName: floor.FloorName,
@@ -64,6 +69,10 @@ func (s *sFloor) GetList(ctx context.Context, condition *dao.FloorSearchConditio
 }
 
 func (s *sFloor) Update(ctx context.Context, floor *entity.Floor) (err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, floor); err != nil {
+		return err
+	}
 	_, err = dao.Floor.Ctx(ctx).Data(do.Floor{
 		FloorName: floor.FloorName,
 	}).Where("id", floor.Id).Update()
@@ -86,4 +95,24 @@ func (s *sFloor) Delete(ctx context.Context, id int) (err error) {
 
 		return nil
 	})
+}
+
+func (s *sFloor) Exist(ctx context.Context, id int) error {
+	count, err := dao.Floor.Ctx(ctx).Where("id", id).Count()
+	if err != nil {
+		return err
+	}
+	if count == 0 {
+		return packed.Err.New(2001)
+	}
+	return nil
+}
+
+// hookValid 入库前的数据验证钩子
+func (s *sFloor) hookValid(ctx context.Context, floor *entity.Floor) error {
+	// 判断图书馆是否存在
+	if err := service.Lib().Exist(ctx, floor.LibId); err != nil {
+		return err
+	}
+	return nil
 }

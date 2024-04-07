@@ -8,6 +8,7 @@ import (
 	"libManager/internal/dao"
 	"libManager/internal/model/do"
 	"libManager/internal/model/entity"
+	"libManager/internal/packed"
 	"libManager/internal/service"
 )
 
@@ -102,4 +103,15 @@ func (s *sLib) Delete(ctx context.Context, id int) (err error) {
 
 		return nil
 	})
+}
+
+func (s *sLib) Exist(ctx context.Context, id int) error {
+	count, err := dao.Lib.Ctx(ctx).Where("id", id).Count()
+	if err != nil {
+		return err
+	}
+	if count == 0 {
+		return packed.Err.New(2001)
+	}
+	return nil
 }

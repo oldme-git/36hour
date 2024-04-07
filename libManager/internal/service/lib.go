@@ -18,6 +18,7 @@ type (
 		GetList(ctx context.Context, condition *dao.LibSearchCondition) (libs []*entity.Lib, err error)
 		Update(ctx context.Context, lib *entity.Lib) (err error)
 		Delete(ctx context.Context, id int) (err error)
+		Exist(ctx context.Context, id int) error
 	}
 )
 

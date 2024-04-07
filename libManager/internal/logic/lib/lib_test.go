@@ -102,3 +102,29 @@ func TestCRUD(t *testing.T) {
 		t.Assert(err, sql.ErrNoRows)
 	})
 }
+
+func TestExist(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		var ctx = gctx.New()
+
+		// 创建一个 lib
+		id, err := service.Lib().Create(ctx, &entity.Lib{
+			LibName: "libTest",
+			Address: "libTestAddress",
+			Active:  true,
+		})
+		t.AssertNil(err)
+
+		// 验证存在
+		err = service.Lib().Exist(ctx, id)
+		t.AssertNil(err)
+
+		// 验证不存在
+		err = service.Lib().Exist(ctx, id+10000)
+		t.AssertNE(err, nil)
+
+		// 删除
+		err = service.Lib().Delete(ctx, id)
+		t.AssertNil(err)
+	})
+}

@@ -18,6 +18,7 @@ type (
 		GetList(ctx context.Context, condition *dao.FloorSearchCondition) (floors []*entity.Floor, err error)
 		Update(ctx context.Context, floor *entity.Floor) (err error)
 		Delete(ctx context.Context, id int) (err error)
+		Exist(ctx context.Context, id int) error
 	}
 )
 

@@ -21,6 +21,10 @@ func New() *sLocation {
 }
 
 func (s *sLocation) Create(ctx context.Context, location *entity.Location) (id int, err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, location); err != nil {
+		return 0, err
+	}
 	res, err := dao.Location.Ctx(ctx).Data(do.Location{
 		LibId:        location.LibId,
 		FloorId:      location.FloorId,
@@ -66,6 +70,10 @@ func (s *sLocation) GetList(ctx context.Context, condition *dao.LocationSearchCo
 }
 
 func (s *sLocation) Update(ctx context.Context, location *entity.Location) (err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, location); err != nil {
+		return err
+	}
 	_, err = dao.Location.Ctx(ctx).Data(do.Location{
 		FloorId:      location.FloorId,
 		LocationName: location.LocationName,
@@ -76,4 +84,17 @@ func (s *sLocation) Update(ctx context.Context, location *entity.Location) (err 
 func (s *sLocation) Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.Location.Ctx(ctx).Where("id", id).Delete()
 	return err
+}
+
+// hookValid 入库前的数据验证钩子
+func (s *sLocation) hookValid(ctx context.Context, location *entity.Location) error {
+	// 判断图书馆是否存在
+	if err := service.Lib().Exist(ctx, location.LibId); err != nil {
+		return err
+	}
+	// 判断楼层是否存在
+	if err := service.Floor().Exist(ctx, location.FloorId); err != nil {
+		return err
+	}
+	return nil
 }
