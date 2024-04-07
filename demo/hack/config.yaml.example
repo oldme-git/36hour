@@ -1,0 +1,9 @@
+# CLI tool, only in development environment.
+# https://goframe.org/pages/viewpage.action?pageId=3673173
+gfcli:
+  gen:
+    pbentity:
+      - link: "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_demo"
+
+    dao:
+      - link: "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_demo"
