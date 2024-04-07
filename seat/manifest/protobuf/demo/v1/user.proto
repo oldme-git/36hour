@@ -1,0 +1,21 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package demo;
+
+option go_package = "demo/api/demo/v1";
+
+
+service Demo{
+  rpc Demo(CreateReq) returns (CreateRes) {}
+}
+
+message CreateReq {
+  string Username = 1; // v: required
+  string Password = 2; // v: required
+}
+
+message CreateRes {
+  uint64 id = 1;
+}

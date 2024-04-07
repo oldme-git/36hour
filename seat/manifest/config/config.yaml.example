@@ -1,0 +1,17 @@
+grpc:
+  name:             "demo"  # 服务名称
+  address:          ":6666" # 自定义服务监听地址
+  logPath:          "./log" # 日志存储目录路径
+  logStdout:        true    # 日志是否输出到终端
+  errorLogEnabled:  true    # 是否开启错误日志记录
+  errorStack:       true    # 当产生错误时，是否记录错误堆栈
+  logger:
+    path: "./log"           # 日志文件路径。默认为空，表示关闭，仅输出到终端
+    file: "{Y-m-d}.log"         # 日志文件格式。默认为"{Y-m-d}.log"
+    level: "all"                 # 日志输出级别
+    timeFormat: "2006-01-02T15:04:05" # 自定义日志输出的时间格式，使用Golang标准的时间格式配置
+
+database:
+  default:
+    link:  "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_demo"
+    debug: false
