@@ -1,3 +1,5 @@
+create database "36hour_lib";
+
 create table floor
 (
 	id serial
