@@ -3,7 +3,7 @@
 gfcli:
   gen:
     pbentity:
-      - link: "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_demo"
+      - link: "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_seat"
 
     dao:
-      - link: "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_demo"
+      - link: "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_seat"
