@@ -1,0 +1,16 @@
+// ==========================================================================
+// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
+// ==========================================================================
+
+syntax = "proto3";
+
+package pbentity;
+
+option go_package = "demo/api/pbentity";
+
+
+
+message PolicyLayout {
+    int32  Id   = 1; //           
+    string Info = 2; // 策略信息  
+}
