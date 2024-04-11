@@ -1,4 +1,5 @@
-DROP TABLE IF EXISTS "public"."user_main";
+create database "36hour_user";
+
 CREATE TABLE "public"."user_main" (
       "id" int8 NOT NULL,
       "username" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
