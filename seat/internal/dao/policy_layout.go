@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"demo/internal/dao/internal"
+	"seat/internal/dao/internal"
 )
 
 // internalPolicyLayoutDao is internal type for wrapping internal DAO implements.

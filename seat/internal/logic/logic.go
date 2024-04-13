@@ -5,5 +5,5 @@
 package logic
 
 import (
-	_ "demo/internal/logic/policy_prepare"
+	_ "seat/internal/logic/policy_prepare"
 )

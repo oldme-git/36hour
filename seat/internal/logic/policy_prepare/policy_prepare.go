@@ -3,8 +3,9 @@ package policy_prepare
 import (
 	"context"
 
-	"demo/internal/model/entity"
-	"demo/internal/service"
+	"seat/internal/model/entity"
+	"seat/internal/model/policy"
+	"seat/internal/service"
 )
 
 func init() {
@@ -18,7 +19,7 @@ func New() *sPolicyPrepare {
 	return &sPolicyPrepare{}
 }
 
-func (s *sPolicyPrepare) Create(ctx context.Context, policyPrepare *entity.PolicyPrepare) (id int, err error) {
+func (s *sPolicyPrepare) Create(ctx context.Context, name string, policy policy.Policy) (id int, err error) {
 	return 0, nil
 }
 

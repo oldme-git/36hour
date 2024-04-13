@@ -1,4 +1,4 @@
-module demo
+module seat
 
 go 1.21
 

@@ -6,7 +6,7 @@ syntax = "proto3";
 
 package pbentity;
 
-option go_package = "demo/api/pbentity";
+option go_package = "seat/api/pbentity";
 
 
 

@@ -3,7 +3,7 @@ package main
 import (
 	_ "user/internal/packed"
 
-	_ "demo/internal/logic"
+	_ "seat/internal/logic"
 
 	"github.com/gogf/gf/v2/os/gctx"
 

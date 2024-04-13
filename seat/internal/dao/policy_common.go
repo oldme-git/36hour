@@ -5,7 +5,7 @@
 package dao
 
 import (
-	"demo/internal/dao/internal"
+	"seat/internal/dao/internal"
 )
 
 // internalPolicyCommonDao is internal type for wrapping internal DAO implements.
