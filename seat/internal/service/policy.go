@@ -12,7 +12,8 @@ import (
 
 type (
 	IPolicy interface {
-		New(ctx context.Context, p *policy.Policy)
+		// New 从 json 字符串创建一个 Policy 对象
+		New(ctx context.Context, str string) (p *policy.Policy, err error)
 	}
 )
 
