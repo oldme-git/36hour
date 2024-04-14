@@ -1,13 +1,11 @@
 package main
 
 import (
-	_ "user/internal/packed"
-
-	_ "seat/internal/logic"
-
 	"github.com/gogf/gf/v2/os/gctx"
+	"seat/internal/cmd"
 
-	"user/internal/cmd"
+	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
+	_ "seat/internal/logic"
 )
 
 func main() {
