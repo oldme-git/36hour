@@ -70,8 +70,5 @@ func (s *sPolicyPrepare) Update(ctx context.Context, policyPrepare *entity.Polic
 
 func (s *sPolicyPrepare) Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.PolicyPrepare.Ctx(ctx).Where("id", id).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }

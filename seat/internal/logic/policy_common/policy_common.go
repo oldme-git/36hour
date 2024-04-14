@@ -70,8 +70,5 @@ func (s *sPolicyCommon) Update(ctx context.Context, policyCommon *entity.PolicyC
 
 func (s *sPolicyCommon) Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.PolicyCommon.Ctx(ctx).Where("id", id).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }

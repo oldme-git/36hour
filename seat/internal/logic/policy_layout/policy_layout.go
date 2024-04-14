@@ -44,13 +44,10 @@ func (s *sPolicyLayout) Update(ctx context.Context, policyLayout *entity.PolicyL
 	_, err = dao.PolicyLayout.Ctx(ctx).Data(do.PolicyLayout{
 		Info: policyLayout.Info,
 	}).Where("id", policyLayout.Id).Update()
-	return nil
+	return
 }
 
 func (s *sPolicyLayout) Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.PolicyLayout.Ctx(ctx).Where("id", id).Delete()
-	if err != nil {
-		return err
-	}
-	return nil
+	return
 }
