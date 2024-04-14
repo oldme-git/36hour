@@ -2,7 +2,8 @@ create database "36hour_seat"
 
 create table layout
 (
-    id          serial,
+    id          serial
+        primary key,
     location_id integer      not null,
     policy_c_id integer,
     policy_l_id integer,
@@ -32,7 +33,8 @@ alter table layout
 
 create table policy_prepare
 (
-    id   serial,
+    id   serial
+        primary key,
     name varchar(30) not null,
     info text        not null
 );
@@ -49,7 +51,8 @@ create unique index policy_prepare_name_unique
 
 create table policy_common
 (
-    id   serial,
+    id   serial
+        primary key,
     name varchar(30) not null,
     info text        not null
 );
@@ -66,7 +69,8 @@ create unique index policy_common_name_ununique
 
 create table policy_layout
 (
-    id   serial,
+    id   serial
+        primary key,
     info text not null
 );
 
