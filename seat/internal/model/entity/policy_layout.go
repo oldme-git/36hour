@@ -6,6 +6,6 @@ package entity
 
 // PolicyLayout is the golang structure for table policy_layout.
 type PolicyLayout struct {
-	Id   int    `json:"id"   orm:"id"   ` //
-	Info string `json:"info" orm:"info" ` // 策略信息
+	Id   int    `json:"id"   ` //
+	Info string `json:"info" ` // 策略信息
 }
