@@ -65,7 +65,7 @@ func (s *sPolicyPrepare) Update(ctx context.Context, policyPrepare *entity.Polic
 		Name: policyPrepare.Name,
 		Info: policyPrepare.Info,
 	}).Where("id", policyPrepare.Id).Update()
-	return nil
+	return
 }
 
 func (s *sPolicyPrepare) Delete(ctx context.Context, id int) (err error) {

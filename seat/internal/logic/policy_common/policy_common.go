@@ -65,7 +65,7 @@ func (s *sPolicyCommon) Update(ctx context.Context, policyCommon *entity.PolicyC
 		Name: policyCommon.Name,
 		Info: policyCommon.Info,
 	}).Where("id", policyCommon.Id).Update()
-	return nil
+	return
 }
 
 func (s *sPolicyCommon) Delete(ctx context.Context, id int) (err error) {
