@@ -18,7 +18,7 @@ type Layout struct {
 	PolicyLId  interface{} // 属于自己的策略id，最后使用
 	LayoutName interface{} //
 	Map        interface{} // 布局信息
-	Status     interface{} // 是否正常启用，0启用 1不启用
+	Status     interface{} // 是否正常启用，1启用 2不启用
 	Sort       interface{} // 排序，越小越靠前
 	Seats      interface{} // 座位总数
 	CreatedAt  *gtime.Time //

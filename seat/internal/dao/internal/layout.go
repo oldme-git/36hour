@@ -26,7 +26,7 @@ type LayoutColumns struct {
 	PolicyLId  string // 属于自己的策略id，最后使用
 	LayoutName string //
 	Map        string // 布局信息
-	Status     string // 是否正常启用，0启用 1不启用
+	Status     string // 是否正常启用，1启用 2不启用
 	Sort       string // 排序，越小越靠前
 	Seats      string // 座位总数
 	CreatedAt  string //

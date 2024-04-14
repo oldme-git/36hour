@@ -16,7 +16,7 @@ type Layout struct {
 	PolicyLId  int         `json:"policyLId"  ` // 属于自己的策略id，最后使用
 	LayoutName string      `json:"layoutName" ` //
 	Map        string      `json:"map"        ` // 布局信息
-	Status     int         `json:"status"     ` // 是否正常启用，0启用 1不启用
+	Status     int         `json:"status"     ` // 是否正常启用，1启用 2不启用
 	Sort       int         `json:"sort"       ` // 排序，越小越靠前
 	Seats      int         `json:"seats"      ` // 座位总数
 	CreatedAt  *gtime.Time `json:"createdAt"  ` //

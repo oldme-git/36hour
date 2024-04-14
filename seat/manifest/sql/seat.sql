@@ -22,7 +22,7 @@ comment on column layout.policy_c_id is '公共策略id，优先使用';
 
 comment on column layout.policy_l_id is '属于自己的策略id，最后使用';
 
-comment on column layout.status is '是否正常启用，0启用 1不启用';
+comment on column layout.status is '是否正常启用，1启用 2不启用';
 
 comment on column layout.sort is '排序，越小越靠前';
 
