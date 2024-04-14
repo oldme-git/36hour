@@ -1,0 +1,110 @@
+package layout
+
+import (
+	"context"
+
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"seat/internal/dao"
+	"seat/internal/model/do"
+	"seat/internal/model/entity"
+	"seat/internal/packed"
+	"seat/internal/service"
+)
+
+func init() {
+	service.RegisterLayout(New())
+}
+
+type sLayout struct {
+}
+
+func New() *sLayout {
+	return &sLayout{}
+}
+
+func (s *sLayout) Create(ctx context.Context, layout *entity.Layout) (id int, err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, layout); err != nil {
+		return 0, err
+	}
+	res, err := dao.Layout.Ctx(ctx).Data(do.Layout{
+		LocationId: layout.LocationId,
+		PolicyCId:  layout.PolicyCId,
+		PolicyLId:  layout.PolicyLId,
+		LayoutName: layout.LayoutName,
+		Map:        layout.Map,
+		Status:     layout.Status,
+		Sort:       layout.Sort,
+	}).Insert()
+	if err != nil {
+		return 0, err
+	}
+	id64, _ := res.LastInsertId()
+	return int(id64), nil
+}
+
+func (s *sLayout) GetOne(ctx context.Context, id int) (layout *entity.Layout, err error) {
+	layout = new(entity.Layout)
+	err = dao.Layout.Ctx(ctx).Where("id", id).Scan(layout)
+	if err != nil {
+		return nil, err
+	}
+
+	return layout, nil
+}
+
+func (s *sLayout) GetList(ctx context.Context, condition *dao.PolicyLayoutSearchCondition) (layouts []*entity.Layout, err error) {
+	if condition.Page <= 0 {
+		condition.Page = 1
+	}
+	if condition.PageSize <= 0 {
+		condition.PageSize = 20
+	}
+	layouts = make([]*entity.Layout, condition.PageSize)
+	db := dao.Layout.Ctx(ctx)
+	if condition.LayoutName != "" {
+		db = db.WhereLike("layout_name", "%"+condition.LayoutName+"%")
+	}
+	if condition.Status > 0 {
+		db = db.Where("status", condition.Status)
+	}
+	if condition.SeatsMin > 0 && condition.SeatsMax > 0 {
+		db = db.WhereBetween("seats", condition.SeatsMin, condition.SeatsMax)
+	}
+	err = db.Page(condition.Page, condition.PageSize).Scan(&layouts)
+	if err != nil {
+		return nil, err
+	}
+	return layouts, nil
+}
+
+func (s *sLayout) Update(ctx context.Context, layout *entity.Layout) (err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, layout); err != nil {
+		return err
+	}
+	_, err = dao.Layout.Ctx(ctx).Data(do.Layout{
+		LocationId: layout.LocationId,
+		PolicyCId:  layout.PolicyCId,
+		PolicyLId:  layout.PolicyLId,
+		LayoutName: layout.LayoutName,
+		Map:        layout.Map,
+		Status:     layout.Status,
+		Sort:       layout.Sort,
+	}).Where("id", layout.Id).Update()
+	return err
+}
+
+func (s *sLayout) Delete(ctx context.Context, id int) (err error) {
+	_, err = dao.Layout.Ctx(ctx).Where("id", id).Delete()
+	return
+}
+
+// hookValid 入库前的数据验证钩子
+func (s *sLayout) hookValid(ctx context.Context, layout *entity.Layout) error {
+	// 判断 map 是否为合法的 json
+	if !gjson.Valid(layout.Map) {
+		return packed.Err.New(3001)
+	}
+	return nil
+}
