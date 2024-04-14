@@ -25,3 +25,9 @@ var (
 )
 
 // Fill with you ideas below.
+
+type PolicyPrepareSearchCondition struct {
+	Name     string
+	Page     int
+	PageSize int
+}
