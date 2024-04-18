@@ -17,22 +17,22 @@ func Register(s *grpcx.GrpcServer) {
 	v1.RegisterPolicyPrepareServer(s.Server, &Controller{})
 }
 
-func (*Controller) Create(ctx context.Context, req *v1.CreatePolicyPrepareReq) (res *v1.CreatePolicyPrepareRes, err error) {
+func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.CreateRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (*Controller) GetOne(ctx context.Context, req *v1.GetOnePolicyPrepareReq) (res *v1.GetOnePolicyPrepareRes, err error) {
+func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOneRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (*Controller) GetList(ctx context.Context, req *v1.GetListPolicyPrepareReq) (res *v1.GetListPolicyPrepareRes, err error) {
+func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (*Controller) Update(ctx context.Context, req *v1.UpdatePolicyPrepareReq) (res *v1.UpdatePolicyPrepareRes, err error) {
+func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.UpdateRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }
 
-func (*Controller) Delete(ctx context.Context, req *v1.DeletePolicyPrepareReq) (res *v1.DeletePolicyPrepareRes, err error) {
+func (*Controller) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.DeleteRes, err error) {
 	return nil, gerror.NewCode(gcode.CodeNotImplemented)
 }

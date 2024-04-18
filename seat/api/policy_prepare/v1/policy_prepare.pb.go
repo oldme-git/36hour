@@ -15,6 +15,7 @@ import (
 
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 const (
@@ -24,7 +25,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type CreatePolicyPrepareReq struct {
+type CreateReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -33,8 +34,8 @@ type CreatePolicyPrepareReq struct {
 	Policy string `protobuf:"bytes,2,opt,name=policy,proto3" json:"policy,omitempty" v:"required|json"` // v:required|json
 }
 
-func (x *CreatePolicyPrepareReq) Reset() {
-	*x = CreatePolicyPrepareReq{}
+func (x *CreateReq) Reset() {
+	*x = CreateReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -42,13 +43,13 @@ func (x *CreatePolicyPrepareReq) Reset() {
 	}
 }
 
-func (x *CreatePolicyPrepareReq) String() string {
+func (x *CreateReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreatePolicyPrepareReq) ProtoMessage() {}
+func (*CreateReq) ProtoMessage() {}
 
-func (x *CreatePolicyPrepareReq) ProtoReflect() protoreflect.Message {
+func (x *CreateReq) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -60,26 +61,26 @@ func (x *CreatePolicyPrepareReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreatePolicyPrepareReq.ProtoReflect.Descriptor instead.
-func (*CreatePolicyPrepareReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateReq.ProtoReflect.Descriptor instead.
+func (*CreateReq) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *CreatePolicyPrepareReq) GetName() string {
+func (x *CreateReq) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *CreatePolicyPrepareReq) GetPolicy() string {
+func (x *CreateReq) GetPolicy() string {
 	if x != nil {
 		return x.Policy
 	}
 	return ""
 }
 
-type CreatePolicyPrepareRes struct {
+type CreateRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -87,8 +88,8 @@ type CreatePolicyPrepareRes struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *CreatePolicyPrepareRes) Reset() {
-	*x = CreatePolicyPrepareRes{}
+func (x *CreateRes) Reset() {
+	*x = CreateRes{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -96,13 +97,13 @@ func (x *CreatePolicyPrepareRes) Reset() {
 	}
 }
 
-func (x *CreatePolicyPrepareRes) String() string {
+func (x *CreateRes) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreatePolicyPrepareRes) ProtoMessage() {}
+func (*CreateRes) ProtoMessage() {}
 
-func (x *CreatePolicyPrepareRes) ProtoReflect() protoreflect.Message {
+func (x *CreateRes) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -114,19 +115,19 @@ func (x *CreatePolicyPrepareRes) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreatePolicyPrepareRes.ProtoReflect.Descriptor instead.
-func (*CreatePolicyPrepareRes) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateRes.ProtoReflect.Descriptor instead.
+func (*CreateRes) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *CreatePolicyPrepareRes) GetId() string {
+func (x *CreateRes) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-type GetOnePolicyPrepareReq struct {
+type GetOneReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -134,8 +135,8 @@ type GetOnePolicyPrepareReq struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" v:"required"` // v:required
 }
 
-func (x *GetOnePolicyPrepareReq) Reset() {
-	*x = GetOnePolicyPrepareReq{}
+func (x *GetOneReq) Reset() {
+	*x = GetOneReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -143,13 +144,13 @@ func (x *GetOnePolicyPrepareReq) Reset() {
 	}
 }
 
-func (x *GetOnePolicyPrepareReq) String() string {
+func (x *GetOneReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetOnePolicyPrepareReq) ProtoMessage() {}
+func (*GetOneReq) ProtoMessage() {}
 
-func (x *GetOnePolicyPrepareReq) ProtoReflect() protoreflect.Message {
+func (x *GetOneReq) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -161,19 +162,19 @@ func (x *GetOnePolicyPrepareReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetOnePolicyPrepareReq.ProtoReflect.Descriptor instead.
-func (*GetOnePolicyPrepareReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetOneReq.ProtoReflect.Descriptor instead.
+func (*GetOneReq) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *GetOnePolicyPrepareReq) GetId() string {
+func (x *GetOneReq) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-type GetOnePolicyPrepareRes struct {
+type GetOneRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -181,8 +182,8 @@ type GetOnePolicyPrepareRes struct {
 	PolicyPrepare *pbentity.PolicyPrepare `protobuf:"bytes,1,opt,name=policy_prepare,json=policyPrepare,proto3" json:"policy_prepare,omitempty"`
 }
 
-func (x *GetOnePolicyPrepareRes) Reset() {
-	*x = GetOnePolicyPrepareRes{}
+func (x *GetOneRes) Reset() {
+	*x = GetOneRes{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -190,13 +191,13 @@ func (x *GetOnePolicyPrepareRes) Reset() {
 	}
 }
 
-func (x *GetOnePolicyPrepareRes) String() string {
+func (x *GetOneRes) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetOnePolicyPrepareRes) ProtoMessage() {}
+func (*GetOneRes) ProtoMessage() {}
 
-func (x *GetOnePolicyPrepareRes) ProtoReflect() protoreflect.Message {
+func (x *GetOneRes) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -208,19 +209,19 @@ func (x *GetOnePolicyPrepareRes) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetOnePolicyPrepareRes.ProtoReflect.Descriptor instead.
-func (*GetOnePolicyPrepareRes) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetOneRes.ProtoReflect.Descriptor instead.
+func (*GetOneRes) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetOnePolicyPrepareRes) GetPolicyPrepare() *pbentity.PolicyPrepare {
+func (x *GetOneRes) GetPolicyPrepare() *pbentity.PolicyPrepare {
 	if x != nil {
 		return x.PolicyPrepare
 	}
 	return nil
 }
 
-type GetListPolicyPrepareReq struct {
+type GetListReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -230,8 +231,8 @@ type GetListPolicyPrepareReq struct {
 	Name     string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty" v:"length:1,20"`               // v:length:1,20
 }
 
-func (x *GetListPolicyPrepareReq) Reset() {
-	*x = GetListPolicyPrepareReq{}
+func (x *GetListReq) Reset() {
+	*x = GetListReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -239,13 +240,13 @@ func (x *GetListPolicyPrepareReq) Reset() {
 	}
 }
 
-func (x *GetListPolicyPrepareReq) String() string {
+func (x *GetListReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetListPolicyPrepareReq) ProtoMessage() {}
+func (*GetListReq) ProtoMessage() {}
 
-func (x *GetListPolicyPrepareReq) ProtoReflect() protoreflect.Message {
+func (x *GetListReq) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -257,42 +258,43 @@ func (x *GetListPolicyPrepareReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetListPolicyPrepareReq.ProtoReflect.Descriptor instead.
-func (*GetListPolicyPrepareReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetListReq.ProtoReflect.Descriptor instead.
+func (*GetListReq) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *GetListPolicyPrepareReq) GetPage() int32 {
+func (x *GetListReq) GetPage() int32 {
 	if x != nil {
 		return x.Page
 	}
 	return 0
 }
 
-func (x *GetListPolicyPrepareReq) GetPageSize() int32 {
+func (x *GetListReq) GetPageSize() int32 {
 	if x != nil {
 		return x.PageSize
 	}
 	return 0
 }
 
-func (x *GetListPolicyPrepareReq) GetName() string {
+func (x *GetListReq) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-type GetListPolicyPrepareRes struct {
+type GetListRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
 	PolicyPrepares []*pbentity.PolicyPrepare `protobuf:"bytes,1,rep,name=policy_prepares,json=policyPrepares,proto3" json:"policy_prepares,omitempty"`
+	Total          int32                     `protobuf:"varint,2,opt,name=total,proto3" json:"total,omitempty"`
 }
 
-func (x *GetListPolicyPrepareRes) Reset() {
-	*x = GetListPolicyPrepareRes{}
+func (x *GetListRes) Reset() {
+	*x = GetListRes{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -300,13 +302,13 @@ func (x *GetListPolicyPrepareRes) Reset() {
 	}
 }
 
-func (x *GetListPolicyPrepareRes) String() string {
+func (x *GetListRes) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetListPolicyPrepareRes) ProtoMessage() {}
+func (*GetListRes) ProtoMessage() {}
 
-func (x *GetListPolicyPrepareRes) ProtoReflect() protoreflect.Message {
+func (x *GetListRes) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -318,19 +320,26 @@ func (x *GetListPolicyPrepareRes) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetListPolicyPrepareRes.ProtoReflect.Descriptor instead.
-func (*GetListPolicyPrepareRes) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetListRes.ProtoReflect.Descriptor instead.
+func (*GetListRes) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *GetListPolicyPrepareRes) GetPolicyPrepares() []*pbentity.PolicyPrepare {
+func (x *GetListRes) GetPolicyPrepares() []*pbentity.PolicyPrepare {
 	if x != nil {
 		return x.PolicyPrepares
 	}
 	return nil
 }
 
-type UpdatePolicyPrepareReq struct {
+func (x *GetListRes) GetTotal() int32 {
+	if x != nil {
+		return x.Total
+	}
+	return 0
+}
+
+type UpdateReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -340,8 +349,8 @@ type UpdatePolicyPrepareReq struct {
 	Policy string `protobuf:"bytes,3,opt,name=policy,proto3" json:"policy,omitempty" v:"required|json"` // v:required|json
 }
 
-func (x *UpdatePolicyPrepareReq) Reset() {
-	*x = UpdatePolicyPrepareReq{}
+func (x *UpdateReq) Reset() {
+	*x = UpdateReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -349,13 +358,13 @@ func (x *UpdatePolicyPrepareReq) Reset() {
 	}
 }
 
-func (x *UpdatePolicyPrepareReq) String() string {
+func (x *UpdateReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdatePolicyPrepareReq) ProtoMessage() {}
+func (*UpdateReq) ProtoMessage() {}
 
-func (x *UpdatePolicyPrepareReq) ProtoReflect() protoreflect.Message {
+func (x *UpdateReq) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -367,40 +376,42 @@ func (x *UpdatePolicyPrepareReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdatePolicyPrepareReq.ProtoReflect.Descriptor instead.
-func (*UpdatePolicyPrepareReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateReq.ProtoReflect.Descriptor instead.
+func (*UpdateReq) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *UpdatePolicyPrepareReq) GetId() string {
+func (x *UpdateReq) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-func (x *UpdatePolicyPrepareReq) GetName() string {
+func (x *UpdateReq) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *UpdatePolicyPrepareReq) GetPolicy() string {
+func (x *UpdateReq) GetPolicy() string {
 	if x != nil {
 		return x.Policy
 	}
 	return ""
 }
 
-type UpdatePolicyPrepareRes struct {
+type UpdateRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Empty *emptypb.Empty `protobuf:"bytes,1,opt,name=empty,proto3" json:"empty,omitempty"`
 }
 
-func (x *UpdatePolicyPrepareRes) Reset() {
-	*x = UpdatePolicyPrepareRes{}
+func (x *UpdateRes) Reset() {
+	*x = UpdateRes{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -408,13 +419,13 @@ func (x *UpdatePolicyPrepareRes) Reset() {
 	}
 }
 
-func (x *UpdatePolicyPrepareRes) String() string {
+func (x *UpdateRes) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdatePolicyPrepareRes) ProtoMessage() {}
+func (*UpdateRes) ProtoMessage() {}
 
-func (x *UpdatePolicyPrepareRes) ProtoReflect() protoreflect.Message {
+func (x *UpdateRes) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -426,12 +437,19 @@ func (x *UpdatePolicyPrepareRes) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdatePolicyPrepareRes.ProtoReflect.Descriptor instead.
-func (*UpdatePolicyPrepareRes) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateRes.ProtoReflect.Descriptor instead.
+func (*UpdateRes) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{7}
 }
 
-type DeletePolicyPrepareReq struct {
+func (x *UpdateRes) GetEmpty() *emptypb.Empty {
+	if x != nil {
+		return x.Empty
+	}
+	return nil
+}
+
+type DeleteReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -439,8 +457,8 @@ type DeletePolicyPrepareReq struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty" v:"required"` // v:required
 }
 
-func (x *DeletePolicyPrepareReq) Reset() {
-	*x = DeletePolicyPrepareReq{}
+func (x *DeleteReq) Reset() {
+	*x = DeleteReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -448,13 +466,13 @@ func (x *DeletePolicyPrepareReq) Reset() {
 	}
 }
 
-func (x *DeletePolicyPrepareReq) String() string {
+func (x *DeleteReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeletePolicyPrepareReq) ProtoMessage() {}
+func (*DeleteReq) ProtoMessage() {}
 
-func (x *DeletePolicyPrepareReq) ProtoReflect() protoreflect.Message {
+func (x *DeleteReq) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -466,26 +484,28 @@ func (x *DeletePolicyPrepareReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeletePolicyPrepareReq.ProtoReflect.Descriptor instead.
-func (*DeletePolicyPrepareReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use DeleteReq.ProtoReflect.Descriptor instead.
+func (*DeleteReq) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *DeletePolicyPrepareReq) GetId() string {
+func (x *DeleteReq) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
 }
 
-type DeletePolicyPrepareRes struct {
+type DeleteRes struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Empty *emptypb.Empty `protobuf:"bytes,1,opt,name=empty,proto3" json:"empty,omitempty"`
 }
 
-func (x *DeletePolicyPrepareRes) Reset() {
-	*x = DeletePolicyPrepareRes{}
+func (x *DeleteRes) Reset() {
+	*x = DeleteRes{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -493,13 +513,13 @@ func (x *DeletePolicyPrepareRes) Reset() {
 	}
 }
 
-func (x *DeletePolicyPrepareRes) String() string {
+func (x *DeleteRes) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeletePolicyPrepareRes) ProtoMessage() {}
+func (*DeleteRes) ProtoMessage() {}
 
-func (x *DeletePolicyPrepareRes) ProtoReflect() protoreflect.Message {
+func (x *DeleteRes) ProtoReflect() protoreflect.Message {
 	mi := &file_policy_prepare_v1_policy_prepare_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -511,9 +531,16 @@ func (x *DeletePolicyPrepareRes) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeletePolicyPrepareRes.ProtoReflect.Descriptor instead.
-func (*DeletePolicyPrepareRes) Descriptor() ([]byte, []int) {
+// Deprecated: Use DeleteRes.ProtoReflect.Descriptor instead.
+func (*DeleteRes) Descriptor() ([]byte, []int) {
 	return file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *DeleteRes) GetEmpty() *emptypb.Empty {
+	if x != nil {
+		return x.Empty
+	}
+	return nil
 }
 
 var File_policy_prepare_v1_policy_prepare_proto protoreflect.FileDescriptor
@@ -523,71 +550,64 @@ var file_policy_prepare_v1_policy_prepare_proto_rawDesc = []byte{
 	0x2f, 0x76, 0x31, 0x2f, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x5f, 0x70, 0x72, 0x65, 0x70, 0x61,
 	0x72, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x04, 0x73, 0x65, 0x61, 0x74, 0x1a, 0x1d,
 	0x70, 0x62, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2f, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x5f,
-	0x70, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x44, 0x0a,
-	0x16, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65,
-	0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
+	0x70, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1b, 0x67,
+	0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x65,
+	0x6d, 0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x37, 0x0a, 0x09, 0x43, 0x72,
+	0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x70,
 	0x6f, 0x6c, 0x69, 0x63, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x70, 0x6f, 0x6c,
-	0x69, 0x63, 0x79, 0x22, 0x28, 0x0a, 0x16, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x6c,
-	0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x73, 0x12, 0x0e, 0x0a,
-	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x28, 0x0a,
-	0x16, 0x47, 0x65, 0x74, 0x4f, 0x6e, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65,
-	0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x58, 0x0a, 0x16, 0x47, 0x65, 0x74, 0x4f, 0x6e,
-	0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65,
-	0x73, 0x12, 0x3e, 0x0a, 0x0e, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x5f, 0x70, 0x72, 0x65, 0x70,
-	0x61, 0x72, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x62, 0x65, 0x6e,
-	0x74, 0x69, 0x74, 0x79, 0x2e, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61,
-	0x72, 0x65, 0x52, 0x0d, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72,
-	0x65, 0x22, 0x5d, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x6f, 0x6c, 0x69,
-	0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04,
-	0x70, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65,
-	0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x05, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x12, 0x0a, 0x04,
-	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65,
-	0x22, 0x5b, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x6f, 0x6c, 0x69, 0x63,
-	0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x73, 0x12, 0x40, 0x0a, 0x0f, 0x70,
-	0x6f, 0x6c, 0x69, 0x63, 0x79, 0x5f, 0x70, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x73, 0x18, 0x01,
-	0x20, 0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x62, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e,
-	0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x0e, 0x70,
-	0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x73, 0x22, 0x54, 0x0a,
-	0x16, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65,
-	0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x70,
-	0x6f, 0x6c, 0x69, 0x63, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x70, 0x6f, 0x6c,
-	0x69, 0x63, 0x79, 0x22, 0x18, 0x0a, 0x16, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x6c,
-	0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x73, 0x22, 0x28, 0x0a,
-	0x16, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65,
-	0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x18, 0x0a, 0x16, 0x44, 0x65, 0x6c, 0x65, 0x74,
-	0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65,
-	0x73, 0x32, 0xfa, 0x02, 0x0a, 0x0d, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70,
-	0x61, 0x72, 0x65, 0x12, 0x46, 0x0a, 0x06, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x12, 0x1c, 0x2e,
-	0x73, 0x65, 0x61, 0x74, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63,
-	0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1c, 0x2e, 0x73, 0x65,
-	0x61, 0x74, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50,
-	0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x12, 0x46, 0x0a, 0x06, 0x47,
-	0x65, 0x74, 0x4f, 0x6e, 0x65, 0x12, 0x1c, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x47, 0x65, 0x74,
-	0x4f, 0x6e, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65,
-	0x52, 0x65, 0x71, 0x1a, 0x1c, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x6e,
-	0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65,
-	0x73, 0x22, 0x00, 0x12, 0x49, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1d,
-	0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x6f, 0x6c,
-	0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1d, 0x2e,
-	0x73, 0x65, 0x61, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x50, 0x6f, 0x6c, 0x69,
-	0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x12, 0x46,
-	0x0a, 0x06, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x1c, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e,
-	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70,
-	0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1c, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x55, 0x70,
-	0x64, 0x61, 0x74, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72,
-	0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x12, 0x46, 0x0a, 0x06, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
-	0x12, 0x1c, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f,
-	0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1c,
-	0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x50, 0x6f, 0x6c, 0x69,
-	0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x42, 0x11,
-	0x5a, 0x0f, 0x73, 0x65, 0x61, 0x74, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x6c, 0x69, 0x62, 0x2f, 0x76,
-	0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x69, 0x63, 0x79, 0x22, 0x1b, 0x0a, 0x09, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
+	0x22, 0x1b, 0x0a, 0x09, 0x47, 0x65, 0x74, 0x4f, 0x6e, 0x65, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x22, 0x4b, 0x0a,
+	0x09, 0x47, 0x65, 0x74, 0x4f, 0x6e, 0x65, 0x52, 0x65, 0x73, 0x12, 0x3e, 0x0a, 0x0e, 0x70, 0x6f,
+	0x6c, 0x69, 0x63, 0x79, 0x5f, 0x70, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x62, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x50, 0x6f,
+	0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x0d, 0x70, 0x6f, 0x6c,
+	0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x22, 0x50, 0x0a, 0x0a, 0x47, 0x65,
+	0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x67, 0x65,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x04, 0x70, 0x61, 0x67, 0x65, 0x12, 0x1a, 0x0a, 0x08,
+	0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x08,
+	0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x64, 0x0a, 0x0a,
+	0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x12, 0x40, 0x0a, 0x0f, 0x70, 0x6f,
+	0x6c, 0x69, 0x63, 0x79, 0x5f, 0x70, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x73, 0x18, 0x01, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x62, 0x65, 0x6e, 0x74, 0x69, 0x74, 0x79, 0x2e, 0x50,
+	0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x52, 0x0e, 0x70, 0x6f,
+	0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65, 0x73, 0x12, 0x14, 0x0a, 0x05,
+	0x74, 0x6f, 0x74, 0x61, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x74, 0x6f, 0x74,
+	0x61, 0x6c, 0x22, 0x47, 0x0a, 0x09, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x12, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x6e,
+	0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x06, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x22, 0x39, 0x0a, 0x09, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x12, 0x2c, 0x0a, 0x05, 0x65, 0x6d, 0x70, 0x74,
+	0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x52,
+	0x05, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x1b, 0x0a, 0x09, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x02, 0x69, 0x64, 0x22, 0x39, 0x0a, 0x09, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73,
+	0x12, 0x2c, 0x0a, 0x05, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75,
+	0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x52, 0x05, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x32, 0xf8,
+	0x01, 0x0a, 0x0d, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x50, 0x72, 0x65, 0x70, 0x61, 0x72, 0x65,
+	0x12, 0x2c, 0x0a, 0x06, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x73, 0x65, 0x61,
+	0x74, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x0f, 0x2e, 0x73, 0x65,
+	0x61, 0x74, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x12, 0x2c,
+	0x0a, 0x06, 0x47, 0x65, 0x74, 0x4f, 0x6e, 0x65, 0x12, 0x0f, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e,
+	0x47, 0x65, 0x74, 0x4f, 0x6e, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x0f, 0x2e, 0x73, 0x65, 0x61, 0x74,
+	0x2e, 0x47, 0x65, 0x74, 0x4f, 0x6e, 0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x12, 0x2f, 0x0a, 0x07,
+	0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x10, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x47,
+	0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x10, 0x2e, 0x73, 0x65, 0x61, 0x74,
+	0x2e, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x22, 0x00, 0x12, 0x2c, 0x0a,
+	0x06, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x55,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x0f, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x12, 0x2c, 0x0a, 0x06, 0x44,
+	0x65, 0x6c, 0x65, 0x74, 0x65, 0x12, 0x0f, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x44, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x0f, 0x2e, 0x73, 0x65, 0x61, 0x74, 0x2e, 0x44, 0x65,
+	0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x42, 0x11, 0x5a, 0x0f, 0x73, 0x65, 0x61,
+	0x74, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x6c, 0x69, 0x62, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -604,36 +624,39 @@ func file_policy_prepare_v1_policy_prepare_proto_rawDescGZIP() []byte {
 
 var file_policy_prepare_v1_policy_prepare_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_policy_prepare_v1_policy_prepare_proto_goTypes = []interface{}{
-	(*CreatePolicyPrepareReq)(nil),  // 0: seat.CreatePolicyPrepareReq
-	(*CreatePolicyPrepareRes)(nil),  // 1: seat.CreatePolicyPrepareRes
-	(*GetOnePolicyPrepareReq)(nil),  // 2: seat.GetOnePolicyPrepareReq
-	(*GetOnePolicyPrepareRes)(nil),  // 3: seat.GetOnePolicyPrepareRes
-	(*GetListPolicyPrepareReq)(nil), // 4: seat.GetListPolicyPrepareReq
-	(*GetListPolicyPrepareRes)(nil), // 5: seat.GetListPolicyPrepareRes
-	(*UpdatePolicyPrepareReq)(nil),  // 6: seat.UpdatePolicyPrepareReq
-	(*UpdatePolicyPrepareRes)(nil),  // 7: seat.UpdatePolicyPrepareRes
-	(*DeletePolicyPrepareReq)(nil),  // 8: seat.DeletePolicyPrepareReq
-	(*DeletePolicyPrepareRes)(nil),  // 9: seat.DeletePolicyPrepareRes
-	(*pbentity.PolicyPrepare)(nil),  // 10: pbentity.PolicyPrepare
+	(*CreateReq)(nil),              // 0: seat.CreateReq
+	(*CreateRes)(nil),              // 1: seat.CreateRes
+	(*GetOneReq)(nil),              // 2: seat.GetOneReq
+	(*GetOneRes)(nil),              // 3: seat.GetOneRes
+	(*GetListReq)(nil),             // 4: seat.GetListReq
+	(*GetListRes)(nil),             // 5: seat.GetListRes
+	(*UpdateReq)(nil),              // 6: seat.UpdateReq
+	(*UpdateRes)(nil),              // 7: seat.UpdateRes
+	(*DeleteReq)(nil),              // 8: seat.DeleteReq
+	(*DeleteRes)(nil),              // 9: seat.DeleteRes
+	(*pbentity.PolicyPrepare)(nil), // 10: pbentity.PolicyPrepare
+	(*emptypb.Empty)(nil),          // 11: google.protobuf.Empty
 }
 var file_policy_prepare_v1_policy_prepare_proto_depIdxs = []int32{
-	10, // 0: seat.GetOnePolicyPrepareRes.policy_prepare:type_name -> pbentity.PolicyPrepare
-	10, // 1: seat.GetListPolicyPrepareRes.policy_prepares:type_name -> pbentity.PolicyPrepare
-	0,  // 2: seat.PolicyPrepare.Create:input_type -> seat.CreatePolicyPrepareReq
-	2,  // 3: seat.PolicyPrepare.GetOne:input_type -> seat.GetOnePolicyPrepareReq
-	4,  // 4: seat.PolicyPrepare.GetList:input_type -> seat.GetListPolicyPrepareReq
-	6,  // 5: seat.PolicyPrepare.Update:input_type -> seat.UpdatePolicyPrepareReq
-	8,  // 6: seat.PolicyPrepare.Delete:input_type -> seat.DeletePolicyPrepareReq
-	1,  // 7: seat.PolicyPrepare.Create:output_type -> seat.CreatePolicyPrepareRes
-	3,  // 8: seat.PolicyPrepare.GetOne:output_type -> seat.GetOnePolicyPrepareRes
-	5,  // 9: seat.PolicyPrepare.GetList:output_type -> seat.GetListPolicyPrepareRes
-	7,  // 10: seat.PolicyPrepare.Update:output_type -> seat.UpdatePolicyPrepareRes
-	9,  // 11: seat.PolicyPrepare.Delete:output_type -> seat.DeletePolicyPrepareRes
-	7,  // [7:12] is the sub-list for method output_type
-	2,  // [2:7] is the sub-list for method input_type
-	2,  // [2:2] is the sub-list for extension type_name
-	2,  // [2:2] is the sub-list for extension extendee
-	0,  // [0:2] is the sub-list for field type_name
+	10, // 0: seat.GetOneRes.policy_prepare:type_name -> pbentity.PolicyPrepare
+	10, // 1: seat.GetListRes.policy_prepares:type_name -> pbentity.PolicyPrepare
+	11, // 2: seat.UpdateRes.empty:type_name -> google.protobuf.Empty
+	11, // 3: seat.DeleteRes.empty:type_name -> google.protobuf.Empty
+	0,  // 4: seat.PolicyPrepare.Create:input_type -> seat.CreateReq
+	2,  // 5: seat.PolicyPrepare.GetOne:input_type -> seat.GetOneReq
+	4,  // 6: seat.PolicyPrepare.GetList:input_type -> seat.GetListReq
+	6,  // 7: seat.PolicyPrepare.Update:input_type -> seat.UpdateReq
+	8,  // 8: seat.PolicyPrepare.Delete:input_type -> seat.DeleteReq
+	1,  // 9: seat.PolicyPrepare.Create:output_type -> seat.CreateRes
+	3,  // 10: seat.PolicyPrepare.GetOne:output_type -> seat.GetOneRes
+	5,  // 11: seat.PolicyPrepare.GetList:output_type -> seat.GetListRes
+	7,  // 12: seat.PolicyPrepare.Update:output_type -> seat.UpdateRes
+	9,  // 13: seat.PolicyPrepare.Delete:output_type -> seat.DeleteRes
+	9,  // [9:14] is the sub-list for method output_type
+	4,  // [4:9] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_policy_prepare_v1_policy_prepare_proto_init() }
@@ -643,7 +666,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreatePolicyPrepareReq); i {
+			switch v := v.(*CreateReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -655,7 +678,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 			}
 		}
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreatePolicyPrepareRes); i {
+			switch v := v.(*CreateRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -667,7 +690,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 			}
 		}
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOnePolicyPrepareReq); i {
+			switch v := v.(*GetOneReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -679,7 +702,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 			}
 		}
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOnePolicyPrepareRes); i {
+			switch v := v.(*GetOneRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -691,7 +714,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 			}
 		}
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetListPolicyPrepareReq); i {
+			switch v := v.(*GetListReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -703,7 +726,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 			}
 		}
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetListPolicyPrepareRes); i {
+			switch v := v.(*GetListRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -715,7 +738,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 			}
 		}
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdatePolicyPrepareReq); i {
+			switch v := v.(*UpdateReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -727,7 +750,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 			}
 		}
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdatePolicyPrepareRes); i {
+			switch v := v.(*UpdateRes); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -739,7 +762,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 			}
 		}
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeletePolicyPrepareReq); i {
+			switch v := v.(*DeleteReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -751,7 +774,7 @@ func file_policy_prepare_v1_policy_prepare_proto_init() {
 			}
 		}
 		file_policy_prepare_v1_policy_prepare_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeletePolicyPrepareRes); i {
+			switch v := v.(*DeleteRes); i {
 			case 0:
 				return &v.state
 			case 1:

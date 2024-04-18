@@ -7,52 +7,58 @@ package seat;
 option go_package = "seat/api/lib/v1";
 
 import "pbentity/policy_prepare.proto";
+import "google/protobuf/empty.proto";
 
 service PolicyPrepare {
-  rpc Create(CreatePolicyPrepareReq) returns (CreatePolicyPrepareRes) {}
-  rpc GetOne(GetOnePolicyPrepareReq) returns (GetOnePolicyPrepareRes) {}
-  rpc GetList(GetListPolicyPrepareReq) returns (GetListPolicyPrepareRes) {}
-  rpc Update(UpdatePolicyPrepareReq) returns (UpdatePolicyPrepareRes) {}
-  rpc Delete(DeletePolicyPrepareReq) returns (DeletePolicyPrepareRes) {}
+  rpc Create(CreateReq) returns (CreateRes) {}
+  rpc GetOne(GetOneReq) returns (GetOneRes) {}
+  rpc GetList(GetListReq) returns (GetListRes) {}
+  rpc Update(UpdateReq) returns (UpdateRes) {}
+  rpc Delete(DeleteReq) returns (DeleteRes) {}
 }
 
-message CreatePolicyPrepareReq {
+message CreateReq {
   string name = 1; // v:required
   string policy = 2; // v:required|json
 }
 
-message CreatePolicyPrepareRes {
+message CreateRes {
   string id = 1;
 }
 
-message GetOnePolicyPrepareReq {
+message GetOneReq {
   string id = 1; // v:required
 }
 
-message GetOnePolicyPrepareRes {
+message GetOneRes {
   pbentity.PolicyPrepare policy_prepare = 1;
 }
 
-message GetListPolicyPrepareReq {
+message GetListReq {
   int32 page = 1; // v:required
   int32 pageSize = 2; // v:required|max:100
   string name = 3; // v:length:1,20
 }
 
-message GetListPolicyPrepareRes {
+message GetListRes {
   repeated pbentity.PolicyPrepare policy_prepares = 1;
+  int32 total = 2;
 }
 
-message UpdatePolicyPrepareReq {
+message UpdateReq {
   string id = 1; // v:required
   string name = 2; // v:required
   string policy = 3; // v:required|json
 }
 
-message UpdatePolicyPrepareRes {}
+message UpdateRes {
+  google.protobuf.Empty empty = 1;
+}
 
-message DeletePolicyPrepareReq {
+message DeleteReq {
   string id = 1; // v:required
 }
 
-message DeletePolicyPrepareRes {}
+message DeleteRes {
+  google.protobuf.Empty empty = 1;
+}

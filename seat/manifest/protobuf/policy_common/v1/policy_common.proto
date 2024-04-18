@@ -7,54 +7,58 @@ package seat;
 option go_package = "seat/api/lib/v1";
 
 import "pbentity/policy_common.proto";
+import "google/protobuf/empty.proto";
 
 service PolicyCommon {
-  rpc Create(CreatePolicyCommonReq) returns (CreatePolicyCommonRes) {}
-  rpc GetOne(GetOnePolicyCommonReq) returns (GetOnePolicyCommonRes) {}
-  rpc GetList(GetListPolicyCommonReq) returns (GetListPolicyCommonRes) {}
-  rpc Update(UpdatePolicyCommonReq) returns (UpdatePolicyCommonRes) {}
-  rpc Delete(DeletePolicyCommonReq) returns (DeletePolicyCommonRes) {}
+  rpc Create(CreateReq) returns (CreateRes) {}
+  rpc GetOne(GetOneReq) returns (GetOneRes) {}
+  rpc GetList(GetListReq) returns (GetListRes) {}
+  rpc Update(UpdateReq) returns (UpdateRes) {}
+  rpc Delete(DeleteReq) returns (DeleteRes) {}
 }
 
-message CreatePolicyCommonReq {
+message CreateReq {
   string name = 1; // v:required
   string info = 2; // v:required|json
 }
 
-message CreatePolicyCommonRes {
+message CreateRes {
   string id = 1;
 }
 
-message GetOnePolicyCommonReq {
+message GetOneReq {
   string id = 1; // v:required
 }
 
-message GetOnePolicyCommonRes {
+message GetOneRes {
   pbentity.PolicyCommon policy_common = 1;
 }
 
-message GetListPolicyCommonReq {
+message GetListReq {
   int32 page = 1; // v:required
   int32 pageSize = 2; // v:required
   string name = 3; // v:length:1,20
 }
 
-message GetListPolicyCommonRes {
+message GetListRes {
   repeated pbentity.PolicyCommon policy_commons = 1;
+  int32 total = 2;
 }
 
-message UpdatePolicyCommonReq {
+message UpdateReq {
   string id = 1; // v:required
   string name = 2; // v:required
   string info = 3; // v:required|json
 }
 
-message UpdatePolicyCommonRes {
+message UpdateRes {
+  google.protobuf.Empty empty = 1;
 }
 
-message DeletePolicyCommonReq {
+message DeleteReq {
   string id = 1; // v:required
 }
 
-message DeletePolicyCommonRes {
+message DeleteRes {
+  google.protobuf.Empty empty = 1;
 }

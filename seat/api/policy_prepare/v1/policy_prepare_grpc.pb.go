@@ -33,11 +33,11 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PolicyPrepareClient interface {
-	Create(ctx context.Context, in *CreatePolicyPrepareReq, opts ...grpc.CallOption) (*CreatePolicyPrepareRes, error)
-	GetOne(ctx context.Context, in *GetOnePolicyPrepareReq, opts ...grpc.CallOption) (*GetOnePolicyPrepareRes, error)
-	GetList(ctx context.Context, in *GetListPolicyPrepareReq, opts ...grpc.CallOption) (*GetListPolicyPrepareRes, error)
-	Update(ctx context.Context, in *UpdatePolicyPrepareReq, opts ...grpc.CallOption) (*UpdatePolicyPrepareRes, error)
-	Delete(ctx context.Context, in *DeletePolicyPrepareReq, opts ...grpc.CallOption) (*DeletePolicyPrepareRes, error)
+	Create(ctx context.Context, in *CreateReq, opts ...grpc.CallOption) (*CreateRes, error)
+	GetOne(ctx context.Context, in *GetOneReq, opts ...grpc.CallOption) (*GetOneRes, error)
+	GetList(ctx context.Context, in *GetListReq, opts ...grpc.CallOption) (*GetListRes, error)
+	Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateRes, error)
+	Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteRes, error)
 }
 
 type policyPrepareClient struct {
@@ -48,8 +48,8 @@ func NewPolicyPrepareClient(cc grpc.ClientConnInterface) PolicyPrepareClient {
 	return &policyPrepareClient{cc}
 }
 
-func (c *policyPrepareClient) Create(ctx context.Context, in *CreatePolicyPrepareReq, opts ...grpc.CallOption) (*CreatePolicyPrepareRes, error) {
-	out := new(CreatePolicyPrepareRes)
+func (c *policyPrepareClient) Create(ctx context.Context, in *CreateReq, opts ...grpc.CallOption) (*CreateRes, error) {
+	out := new(CreateRes)
 	err := c.cc.Invoke(ctx, PolicyPrepare_Create_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -57,8 +57,8 @@ func (c *policyPrepareClient) Create(ctx context.Context, in *CreatePolicyPrepar
 	return out, nil
 }
 
-func (c *policyPrepareClient) GetOne(ctx context.Context, in *GetOnePolicyPrepareReq, opts ...grpc.CallOption) (*GetOnePolicyPrepareRes, error) {
-	out := new(GetOnePolicyPrepareRes)
+func (c *policyPrepareClient) GetOne(ctx context.Context, in *GetOneReq, opts ...grpc.CallOption) (*GetOneRes, error) {
+	out := new(GetOneRes)
 	err := c.cc.Invoke(ctx, PolicyPrepare_GetOne_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -66,8 +66,8 @@ func (c *policyPrepareClient) GetOne(ctx context.Context, in *GetOnePolicyPrepar
 	return out, nil
 }
 
-func (c *policyPrepareClient) GetList(ctx context.Context, in *GetListPolicyPrepareReq, opts ...grpc.CallOption) (*GetListPolicyPrepareRes, error) {
-	out := new(GetListPolicyPrepareRes)
+func (c *policyPrepareClient) GetList(ctx context.Context, in *GetListReq, opts ...grpc.CallOption) (*GetListRes, error) {
+	out := new(GetListRes)
 	err := c.cc.Invoke(ctx, PolicyPrepare_GetList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -75,8 +75,8 @@ func (c *policyPrepareClient) GetList(ctx context.Context, in *GetListPolicyPrep
 	return out, nil
 }
 
-func (c *policyPrepareClient) Update(ctx context.Context, in *UpdatePolicyPrepareReq, opts ...grpc.CallOption) (*UpdatePolicyPrepareRes, error) {
-	out := new(UpdatePolicyPrepareRes)
+func (c *policyPrepareClient) Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateRes, error) {
+	out := new(UpdateRes)
 	err := c.cc.Invoke(ctx, PolicyPrepare_Update_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -84,8 +84,8 @@ func (c *policyPrepareClient) Update(ctx context.Context, in *UpdatePolicyPrepar
 	return out, nil
 }
 
-func (c *policyPrepareClient) Delete(ctx context.Context, in *DeletePolicyPrepareReq, opts ...grpc.CallOption) (*DeletePolicyPrepareRes, error) {
-	out := new(DeletePolicyPrepareRes)
+func (c *policyPrepareClient) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteRes, error) {
+	out := new(DeleteRes)
 	err := c.cc.Invoke(ctx, PolicyPrepare_Delete_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -97,11 +97,11 @@ func (c *policyPrepareClient) Delete(ctx context.Context, in *DeletePolicyPrepar
 // All implementations must embed UnimplementedPolicyPrepareServer
 // for forward compatibility
 type PolicyPrepareServer interface {
-	Create(context.Context, *CreatePolicyPrepareReq) (*CreatePolicyPrepareRes, error)
-	GetOne(context.Context, *GetOnePolicyPrepareReq) (*GetOnePolicyPrepareRes, error)
-	GetList(context.Context, *GetListPolicyPrepareReq) (*GetListPolicyPrepareRes, error)
-	Update(context.Context, *UpdatePolicyPrepareReq) (*UpdatePolicyPrepareRes, error)
-	Delete(context.Context, *DeletePolicyPrepareReq) (*DeletePolicyPrepareRes, error)
+	Create(context.Context, *CreateReq) (*CreateRes, error)
+	GetOne(context.Context, *GetOneReq) (*GetOneRes, error)
+	GetList(context.Context, *GetListReq) (*GetListRes, error)
+	Update(context.Context, *UpdateReq) (*UpdateRes, error)
+	Delete(context.Context, *DeleteReq) (*DeleteRes, error)
 	mustEmbedUnimplementedPolicyPrepareServer()
 }
 
@@ -109,19 +109,19 @@ type PolicyPrepareServer interface {
 type UnimplementedPolicyPrepareServer struct {
 }
 
-func (UnimplementedPolicyPrepareServer) Create(context.Context, *CreatePolicyPrepareReq) (*CreatePolicyPrepareRes, error) {
+func (UnimplementedPolicyPrepareServer) Create(context.Context, *CreateReq) (*CreateRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedPolicyPrepareServer) GetOne(context.Context, *GetOnePolicyPrepareReq) (*GetOnePolicyPrepareRes, error) {
+func (UnimplementedPolicyPrepareServer) GetOne(context.Context, *GetOneReq) (*GetOneRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOne not implemented")
 }
-func (UnimplementedPolicyPrepareServer) GetList(context.Context, *GetListPolicyPrepareReq) (*GetListPolicyPrepareRes, error) {
+func (UnimplementedPolicyPrepareServer) GetList(context.Context, *GetListReq) (*GetListRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
 }
-func (UnimplementedPolicyPrepareServer) Update(context.Context, *UpdatePolicyPrepareReq) (*UpdatePolicyPrepareRes, error) {
+func (UnimplementedPolicyPrepareServer) Update(context.Context, *UpdateReq) (*UpdateRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedPolicyPrepareServer) Delete(context.Context, *DeletePolicyPrepareReq) (*DeletePolicyPrepareRes, error) {
+func (UnimplementedPolicyPrepareServer) Delete(context.Context, *DeleteReq) (*DeleteRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedPolicyPrepareServer) mustEmbedUnimplementedPolicyPrepareServer() {}
@@ -138,7 +138,7 @@ func RegisterPolicyPrepareServer(s grpc.ServiceRegistrar, srv PolicyPrepareServe
 }
 
 func _PolicyPrepare_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreatePolicyPrepareReq)
+	in := new(CreateReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -150,13 +150,13 @@ func _PolicyPrepare_Create_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: PolicyPrepare_Create_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PolicyPrepareServer).Create(ctx, req.(*CreatePolicyPrepareReq))
+		return srv.(PolicyPrepareServer).Create(ctx, req.(*CreateReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _PolicyPrepare_GetOne_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOnePolicyPrepareReq)
+	in := new(GetOneReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -168,13 +168,13 @@ func _PolicyPrepare_GetOne_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: PolicyPrepare_GetOne_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PolicyPrepareServer).GetOne(ctx, req.(*GetOnePolicyPrepareReq))
+		return srv.(PolicyPrepareServer).GetOne(ctx, req.(*GetOneReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _PolicyPrepare_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetListPolicyPrepareReq)
+	in := new(GetListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -186,13 +186,13 @@ func _PolicyPrepare_GetList_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: PolicyPrepare_GetList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PolicyPrepareServer).GetList(ctx, req.(*GetListPolicyPrepareReq))
+		return srv.(PolicyPrepareServer).GetList(ctx, req.(*GetListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _PolicyPrepare_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdatePolicyPrepareReq)
+	in := new(UpdateReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -204,13 +204,13 @@ func _PolicyPrepare_Update_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: PolicyPrepare_Update_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PolicyPrepareServer).Update(ctx, req.(*UpdatePolicyPrepareReq))
+		return srv.(PolicyPrepareServer).Update(ctx, req.(*UpdateReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _PolicyPrepare_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeletePolicyPrepareReq)
+	in := new(DeleteReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -222,7 +222,7 @@ func _PolicyPrepare_Delete_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: PolicyPrepare_Delete_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PolicyPrepareServer).Delete(ctx, req.(*DeletePolicyPrepareReq))
+		return srv.(PolicyPrepareServer).Delete(ctx, req.(*DeleteReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
