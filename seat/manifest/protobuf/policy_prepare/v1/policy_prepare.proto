@@ -1,0 +1,58 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package seat;
+
+option go_package = "seat/api/lib/v1";
+
+import "pbentity/policy_prepare.proto";
+
+service PolicyPrepare {
+  rpc Create(CreatePolicyPrepareReq) returns (CreatePolicyPrepareRes) {}
+  rpc GetOne(GetOnePolicyPrepareReq) returns (GetOnePolicyPrepareRes) {}
+  rpc GetList(GetListPolicyPrepareReq) returns (GetListPolicyPrepareRes) {}
+  rpc Update(UpdatePolicyPrepareReq) returns (UpdatePolicyPrepareRes) {}
+  rpc Delete(DeletePolicyPrepareReq) returns (DeletePolicyPrepareRes) {}
+}
+
+message CreatePolicyPrepareReq {
+  string name = 1; // v:required
+  string policy = 2; // v:required|json
+}
+
+message CreatePolicyPrepareRes {
+  string id = 1;
+}
+
+message GetOnePolicyPrepareReq {
+  string id = 1; // v:required
+}
+
+message GetOnePolicyPrepareRes {
+  pbentity.PolicyPrepare policy_prepare = 1;
+}
+
+message GetListPolicyPrepareReq {
+  int32 page = 1; // v:required
+  int32 pageSize = 2; // v:required|max:100
+  string name = 3; // v:length:1,20
+}
+
+message GetListPolicyPrepareRes {
+  repeated pbentity.PolicyPrepare policy_prepares = 1;
+}
+
+message UpdatePolicyPrepareReq {
+  string id = 1; // v:required
+  string name = 2; // v:required
+  string policy = 3; // v:required|json
+}
+
+message UpdatePolicyPrepareRes {}
+
+message DeletePolicyPrepareReq {
+  string id = 1; // v:required
+}
+
+message DeletePolicyPrepareRes {}

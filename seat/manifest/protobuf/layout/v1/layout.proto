@@ -1,0 +1,28 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package seat;
+
+option go_package = "seat/api/lib/v1";
+
+import "pbentity/layout.proto";
+import "google/protobuf/empty.proto";
+
+service Layout {
+  rpc Create(CreateLayoutReq) returns (CreateLayoutRes) {}
+}
+
+message CreateLayoutReq {
+  int32 LocationId = 1; // v:required
+  int32 PolicyCId = 2; // v:required
+  string PolicyInfo = 3; // v:json
+  string LayoutName = 4; // v:required
+  string Map = 5; // v:json
+  int32 Status = 6; // v:required
+  int32 Sort = 7; // v:required
+}
+
+message CreateLayoutRes {
+  int32 LayoutId = 1; // v:required
+}

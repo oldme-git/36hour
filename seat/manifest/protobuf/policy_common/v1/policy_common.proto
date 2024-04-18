@@ -1,0 +1,60 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package seat;
+
+option go_package = "seat/api/lib/v1";
+
+import "pbentity/policy_common.proto";
+
+service PolicyCommon {
+  rpc Create(CreatePolicyCommonReq) returns (CreatePolicyCommonRes) {}
+  rpc GetOne(GetOnePolicyCommonReq) returns (GetOnePolicyCommonRes) {}
+  rpc GetList(GetListPolicyCommonReq) returns (GetListPolicyCommonRes) {}
+  rpc Update(UpdatePolicyCommonReq) returns (UpdatePolicyCommonRes) {}
+  rpc Delete(DeletePolicyCommonReq) returns (DeletePolicyCommonRes) {}
+}
+
+message CreatePolicyCommonReq {
+  string name = 1; // v:required
+  string info = 2; // v:required|json
+}
+
+message CreatePolicyCommonRes {
+  string id = 1;
+}
+
+message GetOnePolicyCommonReq {
+  string id = 1; // v:required
+}
+
+message GetOnePolicyCommonRes {
+  pbentity.PolicyCommon policy_common = 1;
+}
+
+message GetListPolicyCommonReq {
+  int32 page = 1; // v:required
+  int32 pageSize = 2; // v:required
+  string name = 3; // v:length:1,20
+}
+
+message GetListPolicyCommonRes {
+  repeated pbentity.PolicyCommon policy_commons = 1;
+}
+
+message UpdatePolicyCommonReq {
+  string id = 1; // v:required
+  string name = 2; // v:required
+  string info = 3; // v:required|json
+}
+
+message UpdatePolicyCommonRes {
+}
+
+message DeletePolicyCommonReq {
+  string id = 1; // v:required
+}
+
+message DeletePolicyCommonRes {
+}
