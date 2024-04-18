@@ -31,13 +31,3 @@ const (
 	LayoutStatusEnable
 	LayoutStatusDisable
 )
-
-type PolicyLayoutSearchCondition struct {
-	Page       int
-	PageSize   int
-	LayoutName string
-	Status     int
-	// 座位数量区间
-	SeatsMin int
-	SeatsMax int
-}

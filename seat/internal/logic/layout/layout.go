@@ -3,7 +3,9 @@ package layout
 import (
 	"context"
 
+	"github.com/gogf/gf/v2/database/gdb"
 	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/gogf/gf/v2/frame/g"
 	"seat/internal/dao"
 	"seat/internal/model/do"
 	"seat/internal/model/entity"
@@ -35,6 +37,7 @@ func (s *sLayout) Create(ctx context.Context, layout *entity.Layout) (id int, er
 		Map:        layout.Map,
 		Status:     layout.Status,
 		Sort:       layout.Sort,
+		Seats:      layout.Seats,
 	}).Insert()
 	if err != nil {
 		return 0, err
@@ -53,7 +56,7 @@ func (s *sLayout) GetOne(ctx context.Context, id int) (layout *entity.Layout, er
 	return layout, nil
 }
 
-func (s *sLayout) GetList(ctx context.Context, condition *dao.PolicyLayoutSearchCondition) (layouts []*entity.Layout, err error) {
+func (s *sLayout) GetList(ctx context.Context, condition *dao.LayoutSearchCondition) (layouts []*entity.Layout, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}
@@ -91,13 +94,36 @@ func (s *sLayout) Update(ctx context.Context, layout *entity.Layout) (err error)
 		Map:        layout.Map,
 		Status:     layout.Status,
 		Sort:       layout.Sort,
+		Seats:      layout.Seats,
 	}).Where("id", layout.Id).Update()
 	return err
 }
 
 func (s *sLayout) Delete(ctx context.Context, id int) (err error) {
-	_, err = dao.Layout.Ctx(ctx).Where("id", id).Delete()
-	return
+	// 查询私有策略id
+	policyLId, err := dao.Layout.Ctx(ctx).Where("id", id).Value("policy_l_id")
+	if err != nil {
+		return err
+	}
+	return g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
+		var err error
+
+		_, err = dao.Layout.Ctx(ctx).Where("id", id).Delete()
+		if err != nil {
+			return err
+		}
+
+		if policyLId.Int() == 0 {
+			return nil
+		}
+		// 删除私有策略
+		_, err = dao.PolicyLayout.Ctx(ctx).Where("id", policyLId).Delete()
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
 }
 
 // hookValid 入库前的数据验证钩子
@@ -105,6 +131,11 @@ func (s *sLayout) hookValid(ctx context.Context, layout *entity.Layout) error {
 	// 判断 map 是否为合法的 json
 	if !gjson.Valid(layout.Map) {
 		return packed.Err.New(3001)
+	}
+
+	// 公共策略id和私有策略id不能同时为空
+	if layout.PolicyCId == 0 && layout.PolicyLId == 0 {
+		return packed.Err.New(3002)
 	}
 	return nil
 }

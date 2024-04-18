@@ -25,3 +25,13 @@ var (
 )
 
 // Fill with you ideas below.
+
+type LayoutSearchCondition struct {
+	Page       int
+	PageSize   int
+	LayoutName string
+	Status     int
+	// 座位数量区间
+	SeatsMin int
+	SeatsMax int
+}

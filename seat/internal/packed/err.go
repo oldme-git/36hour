@@ -12,6 +12,7 @@ type err struct {
 var Err = &err{
 	maps: map[int]string{
 		3001: "座位布局不是合法的json格式",
+		3002: "请为场馆设置一个策略",
 	},
 }
 
