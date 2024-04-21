@@ -6,6 +6,7 @@ import (
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 	"github.com/gogf/gf/v2/os/gcmd"
 	"google.golang.org/grpc"
+	"seat/internal/controller/policy_prepare"
 )
 
 var (
@@ -21,6 +22,9 @@ var (
 				)}...,
 			)
 			s := grpcx.Server.New(c)
+			policy_prepare.Register(s)
+			// policy_common.Register(s)
+			// layout.Register(s)
 			s.Run()
 			return nil
 		},

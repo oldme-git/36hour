@@ -60,6 +60,16 @@ func (s *sPolicyPrepare) GetList(ctx context.Context, condition *dao.PolicyPrepa
 	return policyPrepares, err
 }
 
+// GetTotal 获取PolicyPrepare总数
+func (s *sPolicyPrepare) GetTotal(ctx context.Context, condition *dao.PolicyPrepareSearchCondition) (total int, err error) {
+	db := dao.PolicyPrepare.Ctx(ctx)
+	if condition.Name != "" {
+		db = db.WhereLike("name", "%"+condition.Name+"%")
+	}
+	total, err = db.Count()
+	return
+}
+
 func (s *sPolicyPrepare) Update(ctx context.Context, policyPrepare *entity.PolicyPrepare) (err error) {
 	_, err = dao.PolicyPrepare.Ctx(ctx).Data(do.PolicyPrepare{
 		Name: policyPrepare.Name,

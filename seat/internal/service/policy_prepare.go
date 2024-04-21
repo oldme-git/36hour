@@ -16,6 +16,8 @@ type (
 		Create(ctx context.Context, policyPrepare *entity.PolicyPrepare) (id int, err error)
 		GetOne(ctx context.Context, id int) (policyPrepare *entity.PolicyPrepare, err error)
 		GetList(ctx context.Context, condition *dao.PolicyPrepareSearchCondition) (policyPrepares []*entity.PolicyPrepare, err error)
+		// GetTotal 获取PolicyPrepare总数
+		GetTotal(ctx context.Context, condition *dao.PolicyPrepareSearchCondition) (total int, err error)
 		Update(ctx context.Context, policyPrepare *entity.PolicyPrepare) (err error)
 		Delete(ctx context.Context, id int) (err error)
 	}
