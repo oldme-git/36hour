@@ -1,83 +1,168 @@
-create database "36hour_seat"
+-- ----------------------------
+-- Sequence structure for layout_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."layout_id_seq";
+CREATE SEQUENCE "public"."layout_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
 
-create table layout
-(
-    id          serial
-        primary key,
-    location_id integer      not null,
-    policy_c_id integer,
-    policy_l_id integer,
-    layout_name varchar(100) not null,
-    map         text,
-    status      smallint,
-    sort        integer,
-    seats       integer,
-    created_at timestamp(6) with time zone not null,
-    updated_at timestamp(6) with time zone not null
+-- ----------------------------
+-- Sequence structure for policy_common_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."policy_common_id_seq";
+CREATE SEQUENCE "public"."policy_common_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for policy_layout_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."policy_layout_id_seq";
+CREATE SEQUENCE "public"."policy_layout_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for policy_prepare_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."policy_prepare_id_seq";
+CREATE SEQUENCE "public"."policy_prepare_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Table structure for layout
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."layout";
+CREATE TABLE "public"."layout" (
+  "id" int4 NOT NULL DEFAULT nextval('layout_id_seq'::regclass),
+  "location_id" int4 NOT NULL,
+  "policy_c_id" int4,
+  "policy_l_id" int4,
+  "layout_name" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "map" text COLLATE "pg_catalog"."default",
+  "status" int2,
+  "sort" int4,
+  "seats" int4,
+  "created_at" timestamptz(6) NOT NULL,
+  "updated_at" timestamptz(6) NOT NULL
+)
+;
+COMMENT ON COLUMN "public"."layout"."policy_c_id" IS '公共策略id，优先使用';
+COMMENT ON COLUMN "public"."layout"."policy_l_id" IS '属于自己的策略id，最后使用';
+COMMENT ON COLUMN "public"."layout"."map" IS '布局信息';
+COMMENT ON COLUMN "public"."layout"."status" IS '是否正常启用，1启用 2不启用';
+COMMENT ON COLUMN "public"."layout"."sort" IS '排序，越小越靠前';
+COMMENT ON COLUMN "public"."layout"."seats" IS '座位总数';
+
+-- ----------------------------
+-- Table structure for policy_common
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."policy_common";
+CREATE TABLE "public"."policy_common" (
+  "id" int4 NOT NULL DEFAULT nextval('policy_common_id_seq'::regclass),
+  "name" varchar(30) COLLATE "pg_catalog"."default" NOT NULL,
+  "info" text COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+COMMENT ON COLUMN "public"."policy_common"."info" IS '策略信息';
+COMMENT ON TABLE "public"."policy_common" IS '公共策略';
+
+-- ----------------------------
+-- Table structure for policy_layout
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."policy_layout";
+CREATE TABLE "public"."policy_layout" (
+  "id" int4 NOT NULL DEFAULT nextval('policy_layout_id_seq'::regclass),
+  "info" text COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+COMMENT ON COLUMN "public"."policy_layout"."info" IS '策略信息';
+COMMENT ON TABLE "public"."policy_layout" IS '策略预设';
+
+-- ----------------------------
+-- Table structure for policy_prepare
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."policy_prepare";
+CREATE TABLE "public"."policy_prepare" (
+  "id" int4 NOT NULL DEFAULT nextval('policy_prepare_id_seq'::regclass),
+  "name" varchar(30) COLLATE "pg_catalog"."default" NOT NULL,
+  "info" text COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+COMMENT ON COLUMN "public"."policy_prepare"."info" IS '策略信息';
+COMMENT ON TABLE "public"."policy_prepare" IS '策略预设';
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."layout_id_seq"
+OWNED BY "public"."layout"."id";
+SELECT setval('"public"."layout_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."policy_common_id_seq"
+OWNED BY "public"."policy_common"."id";
+SELECT setval('"public"."policy_common_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."policy_layout_id_seq"
+OWNED BY "public"."policy_layout"."id";
+SELECT setval('"public"."policy_layout_id_seq"', 1, false);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+ALTER SEQUENCE "public"."policy_prepare_id_seq"
+OWNED BY "public"."policy_prepare"."id";
+SELECT setval('"public"."policy_prepare_id_seq"', 1, false);
+
+-- ----------------------------
+-- Primary Key structure for table layout
+-- ----------------------------
+ALTER TABLE "public"."layout" ADD CONSTRAINT "layout_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Indexes structure for table policy_common
+-- ----------------------------
+CREATE UNIQUE INDEX "policy_common_name_ununique" ON "public"."policy_common" USING btree (
+  "name" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
 );
 
-comment on column layout.map is '布局信息';
+-- ----------------------------
+-- Primary Key structure for table policy_common
+-- ----------------------------
+ALTER TABLE "public"."policy_common" ADD CONSTRAINT "policy_common_pkey" PRIMARY KEY ("id");
 
-comment on column layout.policy_c_id is '公共策略id，优先使用';
+-- ----------------------------
+-- Primary Key structure for table policy_layout
+-- ----------------------------
+ALTER TABLE "public"."policy_layout" ADD CONSTRAINT "policy_layout_pkey" PRIMARY KEY ("id");
 
-comment on column layout.policy_l_id is '属于自己的策略id，最后使用';
-
-comment on column layout.status is '是否正常启用，1启用 2不启用';
-
-comment on column layout.sort is '排序，越小越靠前';
-
-comment on column layout.seats is '座位总数';
-
-alter table layout
-    owner to postgres;
-
-create table policy_prepare
-(
-    id   serial
-        primary key,
-    name varchar(30) not null,
-    info text        not null
+-- ----------------------------
+-- Indexes structure for table policy_prepare
+-- ----------------------------
+CREATE UNIQUE INDEX "policy_prepare_name_unique" ON "public"."policy_prepare" USING btree (
+  "name" COLLATE "pg_catalog"."default" "pg_catalog"."text_ops" ASC NULLS LAST
 );
 
-comment on table policy_prepare is '策略预设';
-
-comment on column policy_prepare.info is '策略信息';
-
-alter table policy_prepare
-    owner to postgres;
-
-create unique index policy_prepare_name_unique
-    on policy_prepare (name);
-
-create table policy_common
-(
-    id   serial
-        primary key,
-    name varchar(30) not null,
-    info text        not null
-);
-
-comment on table policy_common is '公共策略';
-
-comment on column policy_common.info is '策略信息';
-
-alter table policy_common
-    owner to postgres;
-
-create unique index policy_common_name_ununique
-    on policy_common (name);
-
-create table policy_layout
-(
-    id   serial
-        primary key,
-    info text not null
-);
-
-comment on table policy_layout is '策略预设';
-
-comment on column policy_layout.info is '策略信息';
-
-alter table policy_layout
-    owner to postgres;
-
+-- ----------------------------
+-- Primary Key structure for table policy_prepare
+-- ----------------------------
+ALTER TABLE "public"."policy_prepare" ADD CONSTRAINT "policy_prepare_pkey" PRIMARY KEY ("id");
