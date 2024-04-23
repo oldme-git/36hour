@@ -16,6 +16,8 @@ type (
 		Create(ctx context.Context, policyCommon *entity.PolicyCommon) (id int, err error)
 		GetOne(ctx context.Context, id int) (policyCommon *entity.PolicyCommon, err error)
 		GetList(ctx context.Context, condition *model.PolicyCommonSearchCondition) (policyCommons []*entity.PolicyCommon, err error)
+		// GetTotal 获取PolicyPrepare总数
+		GetTotal(ctx context.Context, condition *model.PolicyCommonSearchCondition) (total int, err error)
 		Update(ctx context.Context, policyCommon *entity.PolicyCommon) (err error)
 		Delete(ctx context.Context, id int) (err error)
 	}

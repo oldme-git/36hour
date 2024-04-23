@@ -19,7 +19,7 @@ service PolicyCommon {
 
 message CreateReq {
   string name = 1; // v:required
-  string info = 2; // v:required|json
+  string policy = 2; // v:required|json
 }
 
 message CreateRes {
@@ -48,7 +48,7 @@ message GetListRes {
 message UpdateReq {
   int32 id = 1; // v:required
   string name = 2; // v:required
-  string info = 3; // v:required|json
+  string policy = 3; // v:required|json
 }
 
 message UpdateRes {

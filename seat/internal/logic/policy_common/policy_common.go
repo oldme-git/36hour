@@ -61,6 +61,16 @@ func (s *sPolicyCommon) GetList(ctx context.Context, condition *model.PolicyComm
 	return policyCommons, err
 }
 
+// GetTotal 获取PolicyPrepare总数
+func (s *sPolicyCommon) GetTotal(ctx context.Context, condition *model.PolicyCommonSearchCondition) (total int, err error) {
+	db := dao.PolicyCommon.Ctx(ctx)
+	if condition.Name != "" {
+		db = db.WhereLike("name", "%"+condition.Name+"%")
+	}
+	total, err = db.Count()
+	return
+}
+
 func (s *sPolicyCommon) Update(ctx context.Context, policyCommon *entity.PolicyCommon) (err error) {
 	_, err = dao.PolicyCommon.Ctx(ctx).Data(do.PolicyCommon{
 		Name: policyCommon.Name,
