@@ -8,6 +8,7 @@ import (
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
 	"seat/internal/dao"
+	"seat/internal/model"
 	"seat/internal/model/entity"
 	"seat/internal/model/policy"
 	"seat/internal/service"
@@ -37,7 +38,7 @@ func TestCRUD(t *testing.T) {
 		t.AssertNil(err)
 
 		// GetList
-		condition := &dao.PolicyCommonSearchCondition{
+		condition := &model.PolicyCommonSearchCondition{
 			Page:     1,
 			PageSize: 1,
 			Name:     "Common",

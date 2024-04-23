@@ -25,9 +25,3 @@ var (
 )
 
 // Fill with you ideas below.
-
-const (
-	LayoutStatusAll = iota
-	LayoutStatusEnable
-	LayoutStatusDisable
-)

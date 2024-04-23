@@ -5,7 +5,7 @@ import (
 
 	"seat/api/pbentity"
 	v1 "seat/api/policy_prepare/v1"
-	"seat/internal/dao"
+	"seat/internal/model"
 	"seat/internal/model/entity"
 	"seat/internal/service"
 
@@ -46,7 +46,7 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	policies, err := service.PolicyPrepare().GetList(ctx, &dao.PolicyPrepareSearchCondition{
+	policies, err := service.PolicyPrepare().GetList(ctx, &model.PolicyPrepareSearchCondition{
 		Page:     int(req.Page),
 		PageSize: int(req.PageSize),
 		Name:     req.Name,
@@ -54,7 +54,7 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 	if err != nil {
 		return nil, err
 	}
-	total, err := service.PolicyPrepare().GetTotal(ctx, &dao.PolicyPrepareSearchCondition{
+	total, err := service.PolicyPrepare().GetTotal(ctx, &model.PolicyPrepareSearchCondition{
 		Name: req.Name,
 	})
 	if err != nil {

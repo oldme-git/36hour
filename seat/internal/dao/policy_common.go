@@ -25,9 +25,3 @@ var (
 )
 
 // Fill with you ideas below.
-
-type PolicyCommonSearchCondition struct {
-	Name     string
-	Page     int
-	PageSize int
-}

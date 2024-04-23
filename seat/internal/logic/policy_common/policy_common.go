@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"seat/internal/dao"
+	"seat/internal/model"
 	"seat/internal/model/do"
 	"seat/internal/model/entity"
 	"seat/internal/service"
@@ -41,7 +42,7 @@ func (s *sPolicyCommon) GetOne(ctx context.Context, id int) (policyCommon *entit
 	return policyCommon, nil
 }
 
-func (s *sPolicyCommon) GetList(ctx context.Context, condition *dao.PolicyCommonSearchCondition) (policyCommons []*entity.PolicyCommon, err error) {
+func (s *sPolicyCommon) GetList(ctx context.Context, condition *model.PolicyCommonSearchCondition) (policyCommons []*entity.PolicyCommon, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}

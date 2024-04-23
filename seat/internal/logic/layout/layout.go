@@ -7,6 +7,7 @@ import (
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"seat/internal/dao"
+	"seat/internal/model"
 	"seat/internal/model/do"
 	"seat/internal/model/entity"
 	"seat/internal/packed"
@@ -56,7 +57,7 @@ func (s *sLayout) GetOne(ctx context.Context, id int) (layout *entity.Layout, er
 	return layout, nil
 }
 
-func (s *sLayout) GetList(ctx context.Context, condition *dao.LayoutSearchCondition) (layouts []*entity.Layout, err error) {
+func (s *sLayout) GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layouts []*entity.Layout, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}

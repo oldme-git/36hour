@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"seat/internal/dao"
+	"seat/internal/model"
 	"seat/internal/model/do"
 	"seat/internal/model/entity"
 	"seat/internal/service"
@@ -41,7 +42,7 @@ func (s *sPolicyPrepare) GetOne(ctx context.Context, id int) (policyPrepare *ent
 	return policyPrepare, nil
 }
 
-func (s *sPolicyPrepare) GetList(ctx context.Context, condition *dao.PolicyPrepareSearchCondition) (policyPrepares []*entity.PolicyPrepare, err error) {
+func (s *sPolicyPrepare) GetList(ctx context.Context, condition *model.PolicyPrepareSearchCondition) (policyPrepares []*entity.PolicyPrepare, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}
@@ -61,7 +62,7 @@ func (s *sPolicyPrepare) GetList(ctx context.Context, condition *dao.PolicyPrepa
 }
 
 // GetTotal 获取PolicyPrepare总数
-func (s *sPolicyPrepare) GetTotal(ctx context.Context, condition *dao.PolicyPrepareSearchCondition) (total int, err error) {
+func (s *sPolicyPrepare) GetTotal(ctx context.Context, condition *model.PolicyPrepareSearchCondition) (total int, err error) {
 	db := dao.PolicyPrepare.Ctx(ctx)
 	if condition.Name != "" {
 		db = db.WhereLike("name", "%"+condition.Name+"%")

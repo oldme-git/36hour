@@ -7,7 +7,7 @@ package service
 
 import (
 	"context"
-	"seat/internal/dao"
+	"seat/internal/model"
 	"seat/internal/model/entity"
 )
 
@@ -15,7 +15,7 @@ type (
 	IPolicyCommon interface {
 		Create(ctx context.Context, policyCommon *entity.PolicyCommon) (id int, err error)
 		GetOne(ctx context.Context, id int) (policyCommon *entity.PolicyCommon, err error)
-		GetList(ctx context.Context, condition *dao.PolicyCommonSearchCondition) (policyCommons []*entity.PolicyCommon, err error)
+		GetList(ctx context.Context, condition *model.PolicyCommonSearchCondition) (policyCommons []*entity.PolicyCommon, err error)
 		Update(ctx context.Context, policyCommon *entity.PolicyCommon) (err error)
 		Delete(ctx context.Context, id int) (err error)
 	}
