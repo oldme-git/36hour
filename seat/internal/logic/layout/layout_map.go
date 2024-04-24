@@ -3,19 +3,14 @@ package layout
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/util/gconv"
+	"github.com/gogf/gf/v2/encoding/gjson"
 	"seat/internal/model/layout"
-	"seat/internal/packed"
 )
 
 func (s *sLayout) JsonToLayoutCells(ctx context.Context, jsonStr string) ([]layout.Cell, error) {
 	var cells []layout.Cell
-	err := gconv.Structs(jsonStr, &cells)
-	if err != nil {
+	if err := gjson.DecodeTo(jsonStr, &cells); err != nil {
 		return nil, err
-	}
-	if jsonStr != "" && len(cells) == 0 {
-		return nil, packed.Err.New(3003)
 	}
 	return cells, nil
 }
