@@ -96,7 +96,10 @@ func TestJsonToLayoutCells(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			ctx     = gctx.New()
-			jsonStr = `[{"x":1,"y":1,"vx":3,"vy":3,"n":1,"w":"1号座位","t":1},{"x":5,"y":5,"vx":0,"vy":0,"n":2,"w":"2号座位","t":1}]`
+			jsonStr = `[
+				{"x":1,"y":1,"vx":3,"vy":3,"n":1,"l":"1号座位","t":1},
+				{"x":5,"y":5,"vx":0,"vy":0,"n":2,"l":"2号座位","t":1}
+			]`
 		)
 		cells, err := service.Layout().JsonToLayoutCells(ctx, jsonStr)
 		t.AssertNil(err)
@@ -104,18 +107,34 @@ func TestJsonToLayoutCells(t *testing.T) {
 
 		t.Assert(cells[0].X, 1)
 		t.Assert(cells[0].Y, 1)
-		t.Assert(cells[0].Vx, 3)
-		t.Assert(cells[0].Vy, 3)
-		t.Assert(cells[0].N, 1)
-		t.Assert(cells[0].W, "1号座位")
-		t.Assert(cells[0].T, 1)
+		t.Assert(cells[0].VectorX, 3)
+		t.Assert(cells[0].VectorY, 3)
+		t.Assert(cells[0].No, 1)
+		t.Assert(cells[0].Label, "1号座位")
+		t.Assert(cells[0].Type, 1)
 
 		t.Assert(cells[1].X, 5)
 		t.Assert(cells[1].Y, 5)
-		t.Assert(cells[1].Vx, 0)
-		t.Assert(cells[1].Vy, 0)
-		t.Assert(cells[1].N, 2)
-		t.Assert(cells[1].W, "2号座位")
-		t.Assert(cells[1].T, 1)
+		t.Assert(cells[1].VectorX, 0)
+		t.Assert(cells[1].VectorY, 0)
+		t.Assert(cells[1].No, 2)
+		t.Assert(cells[1].Label, "2号座位")
+		t.Assert(cells[1].Type, 1)
+	})
+}
+
+func TestCalculateSeatsByJson(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		var (
+			ctx     = gctx.New()
+			jsonStr = `[
+				{"x":1,"y":1,"vx":3,"vy":3,"n":1,"l":"1号座位","t":1},
+				{"x":5,"y":5,"vx":0,"vy":0,"n":2,"l":"2号座位","t":1},
+				{"x":6,"y":6,"vx":0,"vy":0,"n":0,"l":"hello","t":2}
+			]`
+		)
+		seats, err := service.Layout().CalculateSeatsByJson(ctx, jsonStr)
+		t.AssertNil(err)
+		t.Assert(seats, 2)
 	})
 }

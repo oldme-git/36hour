@@ -7,6 +7,7 @@ import (
 	"seat/internal/model"
 	"seat/internal/model/do"
 	"seat/internal/model/entity"
+	"seat/internal/model/policy"
 	"seat/internal/service"
 )
 
@@ -82,4 +83,16 @@ func (s *sPolicyCommon) Update(ctx context.Context, policyCommon *entity.PolicyC
 func (s *sPolicyCommon) Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.PolicyCommon.Ctx(ctx).Where("id", id).Delete()
 	return err
+}
+
+// hookValid 入库前的数据验证钩子
+func (s *sPolicyCommon) hookValid(policyCommon *entity.PolicyCommon) (err error) {
+	// 格式化 json 数据
+	if policyCommon.Info != "" {
+		policyCommon.Info, err = policy.Format(policyCommon.Info)
+		if err != nil {
+			return
+		}
+	}
+	return
 }
