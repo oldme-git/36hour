@@ -14,11 +14,11 @@ type CellType int
 
 // Cell 一个格子的信息
 type Cell struct {
-	X  int      `json:"x"`
-	Y  int      `json:"y"`
-	Vx int      `json:"vx"`
-	Vy int      `json:"vy"`
-	N  int      `json:"n"`
-	W  string   `json:"w"`
-	T  CellType `json:"t"`
+	X       int      `json:"x"`
+	Y       int      `json:"y"`
+	VectorX int      `json:"vx"`
+	VectorY int      `json:"vy"`
+	No      int      `json:"n"`
+	Label   string   `json:"l"`
+	Type    CellType `json:"t"`
 }
