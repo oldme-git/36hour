@@ -91,3 +91,31 @@ func TestCRUD(t *testing.T) {
 		t.Assert(err, sql.ErrNoRows)
 	})
 }
+
+func TestJsonToLayoutCells(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		var (
+			ctx     = gctx.New()
+			jsonStr = `[{"x":1,"y":1,"vx":3,"vy":3,"n":1,"w":"1号座位","t":1},{"x":5,"y":5,"vx":0,"vy":0,"n":2,"w":"2号座位","t":1}]`
+		)
+		cells, err := service.Layout().JsonToLayoutCells(ctx, jsonStr)
+		t.AssertNil(err)
+		t.Assert(len(cells), 2)
+
+		t.Assert(cells[0].X, 1)
+		t.Assert(cells[0].Y, 1)
+		t.Assert(cells[0].Vx, 3)
+		t.Assert(cells[0].Vy, 3)
+		t.Assert(cells[0].N, 1)
+		t.Assert(cells[0].W, "1号座位")
+		t.Assert(cells[0].T, 1)
+
+		t.Assert(cells[1].X, 5)
+		t.Assert(cells[1].Y, 5)
+		t.Assert(cells[1].Vx, 0)
+		t.Assert(cells[1].Vy, 0)
+		t.Assert(cells[1].N, 2)
+		t.Assert(cells[1].W, "2号座位")
+		t.Assert(cells[1].T, 1)
+	})
+}

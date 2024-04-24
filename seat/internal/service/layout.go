@@ -9,6 +9,7 @@ import (
 	"context"
 	"seat/internal/model"
 	"seat/internal/model/entity"
+	"seat/internal/model/layout"
 )
 
 type (
@@ -18,6 +19,7 @@ type (
 		GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layouts []*entity.Layout, err error)
 		Update(ctx context.Context, layout *entity.Layout) (err error)
 		Delete(ctx context.Context, id int) (err error)
+		JsonToLayoutCells(ctx context.Context, json string) ([]layout.Cell, error)
 	}
 )
 
