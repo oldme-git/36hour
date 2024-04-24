@@ -82,6 +82,25 @@ func (s *sLayout) GetList(ctx context.Context, condition *model.LayoutSearchCond
 	return layouts, nil
 }
 
+// GetTotal 获取 Layout 总数
+func (s *sLayout) GetTotal(ctx context.Context, condition *model.LayoutSearchCondition) (total int, err error) {
+	db := dao.Layout.Ctx(ctx)
+	if condition.LayoutName != "" {
+		db = db.WhereLike("layout_name", "%"+condition.LayoutName+"%")
+	}
+	if condition.Status > 0 {
+		db = db.Where("status", condition.Status)
+	}
+	if condition.SeatsMin > 0 && condition.SeatsMax > 0 {
+		db = db.WhereBetween("seats", condition.SeatsMin, condition.SeatsMax)
+	}
+	total, err = db.Count()
+	if err != nil {
+		return 0, err
+	}
+	return total, nil
+}
+
 func (s *sLayout) Update(ctx context.Context, layout *entity.Layout) (err error) {
 	// 数据验证
 	if err := s.hookValid(ctx, layout); err != nil {
@@ -139,7 +158,7 @@ func (s *sLayout) hookValid(ctx context.Context, layout *entity.Layout) error {
 		return packed.Err.New(3002)
 	}
 
-	// 计算座位数
+	// 计算座位数并注入
 	seats, err := s.CalculateSeatsByJson(ctx, layout.Map)
 	if err != nil {
 		return err
