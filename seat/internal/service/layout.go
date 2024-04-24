@@ -19,7 +19,9 @@ type (
 		GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layouts []*entity.Layout, err error)
 		Update(ctx context.Context, layout *entity.Layout) (err error)
 		Delete(ctx context.Context, id int) (err error)
-		JsonToLayoutCells(ctx context.Context, json string) ([]layout.Cell, error)
+		JsonToLayoutCells(ctx context.Context, jsonStr string) ([]layout.Cell, error)
+		// CalculateSeatsByJson 根据 layout.Map 的 json 数据，计算出座位数
+		CalculateSeatsByJson(ctx context.Context, jsonStr string) (seats int, err error)
 	}
 )
 

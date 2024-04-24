@@ -22,6 +22,11 @@ func New() *sPolicyLayout {
 }
 
 func (s *sPolicyLayout) Create(ctx context.Context, policyLayout *entity.PolicyLayout) (id int, err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, policyLayout); err != nil {
+		return 0, err
+	}
+
 	res, err := dao.PolicyLayout.Ctx(ctx).Data(do.PolicyLayout{
 		Info: policyLayout.Info,
 	}).Insert()
@@ -42,6 +47,11 @@ func (s *sPolicyLayout) GetOne(ctx context.Context, id int) (policyLayout *entit
 }
 
 func (s *sPolicyLayout) Update(ctx context.Context, policyLayout *entity.PolicyLayout) (err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, policyLayout); err != nil {
+		return err
+	}
+
 	_, err = dao.PolicyLayout.Ctx(ctx).Data(do.PolicyLayout{
 		Info: policyLayout.Info,
 	}).Where("id", policyLayout.Id).Update()
@@ -54,7 +64,7 @@ func (s *sPolicyLayout) Delete(ctx context.Context, id int) (err error) {
 }
 
 // hookValid 入库前的数据验证钩子
-func (s *sPolicyLayout) hookValid(policyLayout *entity.PolicyLayout) (err error) {
+func (s *sPolicyLayout) hookValid(ctx context.Context, policyLayout *entity.PolicyLayout) (err error) {
 	// 格式化 json 数据
 	if policyLayout.Info != "" {
 		policyLayout.Info, err = policy.Format(policyLayout.Info)

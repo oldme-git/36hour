@@ -138,5 +138,13 @@ func (s *sLayout) hookValid(ctx context.Context, layout *entity.Layout) error {
 	if layout.PolicyCId == 0 && layout.PolicyLId == 0 {
 		return packed.Err.New(3002)
 	}
+
+	// 计算座位数
+	seats, err := s.CalculateSeatsByJson(ctx, layout.Map)
+	if err != nil {
+		return err
+	}
+	layout.Seats = seats
+
 	return nil
 }

@@ -23,6 +23,11 @@ func New() *sPolicyPrepare {
 }
 
 func (s *sPolicyPrepare) Create(ctx context.Context, policyPrepare *entity.PolicyPrepare) (id int, err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, policyPrepare); err != nil {
+		return 0, err
+	}
+
 	res, err := dao.PolicyPrepare.Ctx(ctx).Data(do.PolicyPrepare{
 		Name: policyPrepare.Name,
 		Info: policyPrepare.Info,
@@ -73,6 +78,11 @@ func (s *sPolicyPrepare) GetTotal(ctx context.Context, condition *model.PolicyPr
 }
 
 func (s *sPolicyPrepare) Update(ctx context.Context, policyPrepare *entity.PolicyPrepare) (err error) {
+	// 数据验证
+	if err := s.hookValid(ctx, policyPrepare); err != nil {
+		return err
+	}
+
 	_, err = dao.PolicyPrepare.Ctx(ctx).Data(do.PolicyPrepare{
 		Name: policyPrepare.Name,
 		Info: policyPrepare.Info,
@@ -86,7 +96,7 @@ func (s *sPolicyPrepare) Delete(ctx context.Context, id int) (err error) {
 }
 
 // hookValid 入库前的数据验证钩子
-func (s *sPolicyPrepare) hookValid(policyPrepare *entity.PolicyPrepare) (err error) {
+func (s *sPolicyPrepare) hookValid(ctx context.Context, policyPrepare *entity.PolicyPrepare) (err error) {
 	// 格式化 json 数据
 	if policyPrepare.Info != "" {
 		policyPrepare.Info, err = policy.Format(policyPrepare.Info)
