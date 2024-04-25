@@ -22,6 +22,7 @@ type (
 		Update(ctx context.Context, layout *entity.Layout) (err error)
 		Delete(ctx context.Context, id int) (err error)
 		JsonToLayoutCells(ctx context.Context, jsonStr string) ([]layout.Cell, error)
+		LayoutCellsToJson(ctx context.Context, cells []layout.Cell) (jsonStr string, err error)
 		// CalculateSeatsByJson 根据 layout.Map 的 json 数据，计算出座位数
 		CalculateSeatsByJson(ctx context.Context, jsonStr string) (seats int, err error)
 		// GetRuntimePolicy 获取运行中的策略

@@ -15,6 +15,10 @@ func (s *sLayout) JsonToLayoutCells(ctx context.Context, jsonStr string) ([]layo
 	return cells, nil
 }
 
+func (s *sLayout) LayoutCellsToJson(ctx context.Context, cells []layout.Cell) (jsonStr string, err error) {
+	return gjson.EncodeString(cells)
+}
+
 // CalculateSeatsByJson 根据 layout.Map 的 json 数据，计算出座位数
 func (s *sLayout) CalculateSeatsByJson(ctx context.Context, jsonStr string) (seats int, err error) {
 	cells, err := s.JsonToLayoutCells(ctx, jsonStr)

@@ -8,6 +8,7 @@ import (
 	"github.com/gogf/gf/v2/test/gtest"
 	"seat/internal/model"
 	"seat/internal/model/entity"
+	"seat/internal/model/layout"
 	"seat/internal/service"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
@@ -120,6 +121,21 @@ func TestJsonToLayoutCells(t *testing.T) {
 		t.Assert(cells[1].No, 2)
 		t.Assert(cells[1].Label, "2号座位")
 		t.Assert(cells[1].Type, 1)
+	})
+}
+
+func TestLayoutCellsToJson(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		var (
+			ctx   = gctx.New()
+			cells = []layout.Cell{
+				{X: 1, Y: 1, VectorX: 3, VectorY: 3, No: 1, Label: "1号座位", Type: layout.CellSeat},
+				{X: 5, Y: 5, VectorX: 0, VectorY: 0, No: 2, Label: "2号座位", Type: layout.CellSeat},
+			}
+		)
+		jsonStr, err := service.Layout().LayoutCellsToJson(ctx, cells)
+		t.AssertNil(err)
+		t.Assert(jsonStr, `[{"x":1,"y":1,"vx":3,"vy":3,"n":1,"l":"1号座位","t":1},{"x":5,"y":5,"vx":0,"vy":0,"n":2,"l":"2号座位","t":1}]`)
 	})
 }
 
