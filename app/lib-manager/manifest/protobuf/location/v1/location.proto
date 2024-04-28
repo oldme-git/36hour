@@ -1,0 +1,64 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package location.v1;
+
+option go_package = "github.com/oldme-git/36hour/app/lib-manager/api/location/v1";
+
+import "pbentity/location.proto";
+
+service Location {
+  rpc Create(CreateReq) returns (CreateRes) {}
+  rpc GetOne(GetOneReq) returns (GetOneRes) {}
+  rpc GetList(GetListReq) returns (GetListRes) {}
+  rpc Update(UpdateReq) returns (UpdateRes) {}
+  rpc Delete(DeleteReq) returns (DeleteRes) {}
+}
+
+message CreateReq {
+  int32 libId = 1; // v:required
+  int32 floorId = 2; // v:required
+  string locationName = 3; // v:required
+}
+
+message CreateRes {
+  int32 id = 1;
+}
+
+message GetOneReq {
+  int32 id = 1; // v:required
+}
+
+message GetOneRes {
+  pbentity.Location location = 1;
+}
+
+message GetListReq {
+  int32 page = 1; // v:required
+  int32 pageSize = 2; // v:required|max:100
+  int32 libId = 3;
+  int32 floorId = 4;
+}
+
+message GetListRes {
+  repeated pbentity.Location locations = 1;
+}
+
+message UpdateReq {
+  int32 id = 1; // v:required
+  int32 floorId = 2; // v:required
+  string locationName = 3; // v:required
+}
+
+message UpdateRes {
+  int32 id = 1;
+}
+
+message DeleteReq {
+  int32 id = 1; // v:required
+}
+
+message DeleteRes {
+  int32 id = 1;
+}

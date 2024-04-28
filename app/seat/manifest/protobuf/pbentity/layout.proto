@@ -1,0 +1,25 @@
+// ==========================================================================
+// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
+// ==========================================================================
+
+syntax = "proto3";
+
+package pbentity;
+
+option go_package = "github.com/oldme-git/36hour/app/seat/api/pbentity";
+
+import "google/protobuf/timestamp.proto";
+
+message Layout {
+    int32                     Id         = 1;  //                              
+    int32                     LocationId = 2;  //                              
+    int32                     PolicyCId  = 3;  // 公共策略id，优先使用         
+    int32                     PolicyLId  = 4;  // 属于自己的策略id，最后使用   
+    string                    LayoutName = 5;  //                              
+    string                    Map        = 6;  // 布局信息                     
+    int32                     Status     = 7;  // 是否正常启用，1启用 2不启用  
+    int32                     Sort       = 8;  // 排序，越小越靠前             
+    int32                     Seats      = 9;  // 座位总数                     
+    google.protobuf.Timestamp CreatedAt  = 10; //                              
+    google.protobuf.Timestamp UpdatedAt  = 11; //                              
+}

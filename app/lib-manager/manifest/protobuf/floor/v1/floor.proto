@@ -1,0 +1,61 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package floor.v1;
+
+option go_package = "github.com/oldme-git/36hour/app/lib-manager/api/floor/v1";
+
+import "pbentity/floor.proto";
+
+service Floor{
+  rpc Create(CreateReq) returns (CreateRes) {}
+  rpc GetOne(GetOneReq) returns (GetOneRes) {}
+  rpc GetList(GetListReq) returns (GetListRes) {}
+  rpc Update(UpdateReq) returns (UpdateRes) {}
+  rpc Delete(DeleteReq) returns (DeleteRes) {}
+}
+
+message CreateReq {
+  int32 libId = 1; // v:required
+  string floorName = 2; // v:required
+}
+
+message CreateRes {
+  int32 id = 1;
+}
+
+message GetOneReq {
+  int32 id = 1; // v:required
+}
+
+message GetOneRes {
+  pbentity.Floor floor = 1;
+}
+
+message GetListReq {
+  int32 page = 1; // v:required
+  int32 pageSize = 2; // v:required|max:100
+  int32 libId = 3;
+}
+
+message GetListRes {
+  repeated pbentity.Floor floors = 1;
+}
+
+message UpdateReq {
+  int32 id = 1; // v:required
+  string floorName = 2; // v:required
+}
+
+message UpdateRes {
+  int32 id = 1;
+}
+
+message DeleteReq {
+  int32 id = 1; // v:required
+}
+
+message DeleteRes {
+  int32 id = 1;
+}

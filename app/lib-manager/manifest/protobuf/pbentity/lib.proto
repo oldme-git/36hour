@@ -1,0 +1,20 @@
+// ==========================================================================
+// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
+// ==========================================================================
+
+syntax = "proto3";
+
+package pbentity;
+
+option go_package = "github.com/oldme-git/36hour/app/lib-manager/api/pbentity";
+
+import "google/protobuf/timestamp.proto";
+
+message Lib {
+    int32                     Id        = 1; //               
+    string                    LibName   = 2; //               
+    string                    Address   = 3; // 地址          
+    bool                      Active    = 4; // 是否正在使用  
+    google.protobuf.Timestamp CreatedAt = 5; //               
+    google.protobuf.Timestamp UpdatedAt = 6; //               
+}

@@ -1,0 +1,31 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "github.com/oldme-git/36hour/app/user/api/auth/v1";
+
+import "pbentity/user_main.proto";
+
+service Auth {
+  rpc Login(LoginReq) returns (LoginRes) {}
+  rpc GetUserInfo(GetUserInfoReq) returns (GetUserInfoRes) {}
+}
+
+message LoginReq {
+  string Username = 1; // v: required|length: 1, 20
+  string Password = 2; // v: required|length: 8, 30
+}
+
+message LoginRes {
+  string Token = 1;
+}
+
+message GetUserInfoReq {
+  string Token = 1; // v: required
+}
+
+message GetUserInfoRes {
+  pbentity.UserMain user = 1;
+}

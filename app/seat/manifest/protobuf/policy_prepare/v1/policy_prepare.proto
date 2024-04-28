@@ -1,0 +1,64 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package policy_prepare.v1;
+
+option go_package = "github.com/oldme-git/36hour/app/seat/api/lib/v1";
+
+import "pbentity/policy_prepare.proto";
+import "google/protobuf/empty.proto";
+
+service PolicyPrepare {
+  rpc Create(CreateReq) returns (CreateRes) {}
+  rpc GetOne(GetOneReq) returns (GetOneRes) {}
+  rpc GetList(GetListReq) returns (GetListRes) {}
+  rpc Update(UpdateReq) returns (UpdateRes) {}
+  rpc Delete(DeleteReq) returns (DeleteRes) {}
+}
+
+message CreateReq {
+  string name = 1; // v:required
+  string policy = 2; // v:required|json
+}
+
+message CreateRes {
+  int32 id = 1;
+}
+
+message GetOneReq {
+  int32 id = 1; // v:required
+}
+
+message GetOneRes {
+  pbentity.PolicyPrepare policy_prepare = 1;
+}
+
+message GetListReq {
+  int32 page = 1; // v:required
+  int32 pageSize = 2; // v:required|max:100
+  string name = 3; // v:length:1,20
+}
+
+message GetListRes {
+  repeated pbentity.PolicyPrepare policy_prepares = 1;
+  int32 total = 2;
+}
+
+message UpdateReq {
+  int32 id = 1; // v:required
+  string name = 2; // v:required
+  string policy = 3; // v:required|json
+}
+
+message UpdateRes {
+  google.protobuf.Empty empty = 1;
+}
+
+message DeleteReq {
+  int32 id = 1; // v:required
+}
+
+message DeleteRes {
+  google.protobuf.Empty empty = 1;
+}

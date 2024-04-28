@@ -1,0 +1,89 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package layout.v1;
+
+option go_package = "github.com/oldme-git/36hour/app/seat/api/lib/v1";
+
+import "pbentity/layout.proto";
+import "google/protobuf/empty.proto";
+
+service Layout {
+  rpc Create(CreateReq) returns (CreateRes) {}
+  rpc GetOne(GetOneReq) returns (GetOneRes) {}
+  rpc GetList(GetListReq) returns (GetListRes) {}
+  rpc Update(UpdateReq) returns (UpdateRes) {}
+  rpc Delete(DeleteReq) returns (DeleteRes) {}
+}
+
+message CreateReq {
+  int32 LocationId = 1; // v:required
+  int32 PolicyCId = 2; // v:required
+  // 如果已经使用了 PolicyCId，可以不传PolicyInfo
+  string PolicyInfo = 3; // v:json
+  string LayoutName = 4; // v:required
+  string Map = 5; // v:json
+  int32 Status = 6; // v:required
+  int32 Sort = 7; // v:required
+}
+
+message CreateRes {
+  int32 id = 1; // v:required
+}
+
+message GetOneReq {
+  int32 id = 1; // v:required
+}
+
+message GetOneRes {
+  pbentity.Layout layout = 1;
+  string PolicyInfo = 2;
+}
+
+message GetListReq {
+  int32 Page = 1; // v:required
+  int32 PageSize = 2; // v:required|max:100
+  string LayoutName = 3; // v:length:1,20
+  int32 Status = 4;
+  int32 SeatsMin = 5; // v:length:0,99999999
+  int32 SeatsMax = 6; // v:length:1,99999999
+}
+
+message LayoutList {
+  int32 id = 1;
+  int32 LocationId = 2;
+  string LocationName = 3;
+  string LayoutName = 4;
+  int32 Status = 5;
+  int32 Sort = 6;
+  int32 Seats = 7;
+}
+
+message GetListRes {
+  repeated LayoutList layouts = 1;
+  int32 total = 2;
+}
+
+message UpdateReq {
+  int32 id = 1; // v:required
+  int32 LocationId = 2; // v:required
+  int32 PolicyCId = 3; // v:required
+  string PolicyInfo = 4; // v:json
+  string LayoutName = 5; // v:required
+  string Map = 6; // v:json
+  int32 Status = 7; // v:required
+  int32 Sort = 8; // v:required
+}
+
+message UpdateRes {
+  google.protobuf.Empty empty = 1;
+}
+
+message DeleteReq {
+  int32 id = 1; // v:required
+}
+
+message DeleteRes {
+  google.protobuf.Empty empty = 1;
+}
