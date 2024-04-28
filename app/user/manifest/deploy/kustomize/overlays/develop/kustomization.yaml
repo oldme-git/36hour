@@ -1,6 +1,3 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-
 resources:
 - ../../base
 - configmap.yaml
@@ -8,7 +5,4 @@ resources:
 patchesStrategicMerge:
 - deployment.yaml
 
-namespace: default
-
-
-
+namespace: 36hour
