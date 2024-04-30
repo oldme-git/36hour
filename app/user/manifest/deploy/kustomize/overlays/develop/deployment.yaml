@@ -8,3 +8,7 @@ spec:
       containers:
         - name : main
           image: registry.cn-hangzhou.aliyuncs.com/36hour/user:latest
+          volumeMounts:
+            - name: conf-volume
+              mountPath: /app/config.yaml
+              subPath: user.yaml

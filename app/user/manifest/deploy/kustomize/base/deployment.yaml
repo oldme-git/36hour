@@ -17,5 +17,14 @@ spec:
       containers:
         - name : main
           imagePullPolicy: Always
+          volumeMounts:
+            - name: conf-volume
+              mountPath: /app/config.yaml
+              subPath: user.yaml
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: conf
+          name: conf-volume
       imagePullSecrets:
         - name: 36hour-aliyun
