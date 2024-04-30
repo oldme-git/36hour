@@ -1,6 +1,6 @@
 grpc:
   name:             "user"  # 服务名称
-  address:          ":40001" # 自定义服务监听地址
+  address:          ":32000" # 自定义服务监听地址
   logPath:          "./log" # 日志存储目录路径
   logStdout:        true    # 日志是否输出到终端
   errorLogEnabled:  true    # 是否开启错误日志记录
