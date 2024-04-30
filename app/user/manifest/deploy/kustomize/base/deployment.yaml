@@ -16,5 +16,6 @@ spec:
     spec:
       containers:
         - name : main
-          image: 36hour-user # docker
           imagePullPolicy: Always
+      imagePullSecrets:
+        - name: 36hour-aliyun
