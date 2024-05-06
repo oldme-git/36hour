@@ -1,21 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: template-single
+  name: seat
   labels:
-    app: template-single
+    app: seat
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: template-single
+      app: seat
   template:
     metadata:
       labels:
-        app: template-single
+        app: seat
     spec:
       containers:
         - name : main
-          image: template-single
           imagePullPolicy: Always
-
+          volumeMounts:
+            - name: conf-volume
+              mountPath: /app/config.yaml
+              subPath: seat.yaml
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: conf
+          name: conf-volume
+      imagePullSecrets:
+        - name: 36hour-aliyun

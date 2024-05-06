@@ -1,12 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: template-single
+  name: lib-manager
 spec:
   ports:
-  - port: 80
+  - port: 32001
     protocol: TCP
-    targetPort: 8000
+    targetPort: 32001
   selector:
-    app: template-single
-
+    app: lib-manager

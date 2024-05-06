@@ -1,0 +1,45 @@
+name: Docker Image SEAT CI
+
+on:
+  push:
+    branches:
+      - master
+
+    paths:
+      - "app/seat/api/**"
+      - "app/seat/internal/**"
+      - "app/seat/utility/**"
+      - "app/seat/main.go"
+      - "utility/**"
+
+env:
+  TZ: "Asia/Shanghai"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22.2"
+
+      - name: Check Go Version
+        run: go version
+
+      - name: Install Dependencies
+        run: go mod download
+
+      - name: Build the Docker image
+        run: |
+          cd app/seat
+          
+          GOOS=linux GOARCH=amd64 go build -o main main.go
+          
+          docker login --username=${{ secrets.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }} registry.cn-hangzhou.aliyuncs.com
+          docker build . --file manifest/docker/Dockerfile --tag registry.cn-hangzhou.aliyuncs.com/36hour/seat:latest
+          docker push registry.cn-hangzhou.aliyuncs.com/36hour/seat:latest
