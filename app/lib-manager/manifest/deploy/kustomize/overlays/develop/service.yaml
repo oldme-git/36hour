@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lib-manager-nodeport
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 32001
+    port: 32001
+    protocol: TCP
+    targetPort: 32001
+  selector:
+    app: lib-manager

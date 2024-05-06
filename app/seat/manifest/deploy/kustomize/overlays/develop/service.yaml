@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: seat-nodeport
+spec:
+  type: NodePort
+  ports:
+  - nodePort: 32002
+    port: 32002
+    protocol: TCP
+    targetPort: 32002
+  selector:
+    app: seat
