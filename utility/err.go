@@ -29,6 +29,7 @@ func (c *err) GetMsg(code int) string {
 	return c.maps[code]
 }
 
+// New 生成一个新的错误
 func (c *err) New(code int) error {
 	var msgStr = c.GetMsg(code)
 	return gerror.NewCode(gcode.New(code, "", nil), msgStr)
