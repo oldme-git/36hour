@@ -4,8 +4,8 @@ metadata:
   name: user
 spec:
   ports:
-  - port: 40001
+  - port: 32000
     protocol: TCP
-    targetPort: 40001
+    targetPort: 32000
   selector:
     app: user
