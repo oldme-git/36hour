@@ -4,6 +4,7 @@
 # 当前技术栈
 - GoFrame
 - GRPC
+- 服务发现：Etcd
 
 # 部署方式
 `CI/CD` 部署到 `k8s`。
