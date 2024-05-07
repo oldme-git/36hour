@@ -2,9 +2,8 @@ package main
 
 import (
 	"github.com/oldme-git/36hour/app/user/internal/cmd"
+	"github.com/oldme-git/36hour/utility/svc_disc"
 
-	"github.com/gogf/gf/contrib/registry/etcd/v2"
-	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 	"github.com/gogf/gf/v2/os/gctx"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
@@ -12,7 +11,7 @@ import (
 )
 
 func main() {
-	// TODO 注册到etcd，应该封装一下使用
-	grpcx.Resolver.Register(etcd.New("srv.com:2379"))
+	var ctx = gctx.GetInitCtx()
+	svc_disc.RegisterWithConf(ctx)
 	cmd.Main.Run(gctx.GetInitCtx())
 }
