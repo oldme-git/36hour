@@ -21,6 +21,10 @@ spec:
             - name: conf-volume
               mountPath: /app/config.yaml
               subPath: seat.yaml
+
+            - name: conf-volume
+              mountPath: /app/etcd.yaml
+              subPath: etcd.yaml
       volumes:
         - configMap:
             defaultMode: 420
