@@ -12,6 +12,6 @@ import (
 
 func main() {
 	var ctx = gctx.GetInitCtx()
-	svc_disc.RegisterWithConf(ctx)
-	cmd.Main.Run(gctx.GetInitCtx())
+	svc_disc.Init(ctx)
+	cmd.Main.Run(ctx)
 }

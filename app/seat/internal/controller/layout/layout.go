@@ -3,11 +3,15 @@ package layout
 import (
 	"context"
 
+	"github.com/gogf/gf/v2/os/gctx"
+	"github.com/gogf/gf/v2/util/gutil"
+	libApp "github.com/oldme-git/36hour/app/lib-manager/api/lib/v1"
 	v1 "github.com/oldme-git/36hour/app/seat/api/layout/v1"
 	"github.com/oldme-git/36hour/app/seat/api/pbentity"
 	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/app/seat/internal/service"
+	"github.com/oldme-git/36hour/utility/svc_disc"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
@@ -78,6 +82,14 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
+	c1 := svc_disc.LibManagerClient()
+	cli1 := libApp.NewLibClient(c1)
+	list1, err := cli1.GetList(gctx.New(), &libApp.GetListReq{Page: 1, PageSize: 10, Active: true})
+	if err != nil {
+		panic(err)
+	}
+	gutil.Dump(list1)
+
 	layouts, err := service.Layout().GetList(ctx, &model.LayoutSearchCondition{
 		Page:       int(req.Page),
 		PageSize:   int(req.PageSize),
