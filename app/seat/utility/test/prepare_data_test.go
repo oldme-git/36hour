@@ -7,17 +7,17 @@ import (
 
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/util/gutil"
-	"seat/internal/dao"
-	"seat/internal/model/entity"
-	"seat/internal/model/layout"
-	"seat/internal/model/policy"
-	"seat/internal/service"
+	"github.com/oldme-git/36hour/app/seat/internal/dao"
+	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
+	"github.com/oldme-git/36hour/app/seat/internal/model/layout"
+	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
+	"github.com/oldme-git/36hour/app/seat/internal/service"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
-	_ "seat/internal/logic/layout"
-	_ "seat/internal/logic/policy_common"
-	_ "seat/internal/logic/policy_layout"
-	_ "seat/internal/logic/policy_prepare"
+	_ "github.com/oldme-git/36hour/app/seat/internal/logic/layout"
+	_ "github.com/oldme-git/36hour/app/seat/internal/logic/policy_common"
+	_ "github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
+	_ "github.com/oldme-git/36hour/app/seat/internal/logic/policy_prepare"
 )
 
 // 准备一个PolicyCommon

@@ -1,4 +1,4 @@
-package floor
+package floor_test
 
 import (
 	"database/sql"

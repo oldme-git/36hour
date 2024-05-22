@@ -1,4 +1,4 @@
-package policy_common
+package policy_common_test
 
 import (
 	"database/sql"

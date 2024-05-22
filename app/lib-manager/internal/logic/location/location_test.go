@@ -1,4 +1,4 @@
-package location
+package location_test
 
 import (
 	"database/sql"

@@ -1,4 +1,4 @@
-package policy_layout
+package policy_layout_test
 
 import (
 	"database/sql"

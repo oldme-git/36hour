@@ -1,4 +1,4 @@
-package policy_prepare
+package policy_prepare_test
 
 import (
 	"database/sql"

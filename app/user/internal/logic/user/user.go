@@ -69,7 +69,7 @@ func (s *sUser) GetOne(ctx context.Context, id model.Id) (user *model.User, err 
 
 func (s *sUser) GetOneByUsername(ctx context.Context, username string) (user *model.User, err error) {
 	user = new(model.User)
-	err = dao.UserMain.Ctx(ctx).Where("github.com/oldme-git/36hour/app/username", username).Scan(user)
+	err = dao.UserMain.Ctx(ctx).Where("username", username).Scan(user)
 	if err != nil {
 		return nil, err
 	}

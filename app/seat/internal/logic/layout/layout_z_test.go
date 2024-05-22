@@ -1,4 +1,4 @@
-package layout
+package layout_test
 
 import (
 	"database/sql"
@@ -18,14 +18,14 @@ import (
 func TestCRUD(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			ctx      = gctx.New()
-			layout   = new(entity.Layout)
-			layoutIn = &entity.Layout{
+			ctx        = gctx.New()
+			layoutData = new(entity.Layout)
+			layoutIn   = &entity.Layout{
 				LocationId: 1,
 				PolicyCId:  1,
 				PolicyLId:  1,
 				LayoutName: "layoutTest",
-				Map:        `{"x":1,"y":1}`,
+				Map:        `[{"x":1,"y":1}]`,
 				Status:     1,
 				Sort:       1,
 				Seats:      1,
@@ -46,17 +46,17 @@ func TestCRUD(t *testing.T) {
 		t.Assert(len(layouts), 1)
 
 		// GetOne
-		layout, err = service.Layout().GetOne(ctx, id)
+		layoutData, err = service.Layout().GetOne(ctx, id)
 		t.AssertNil(err)
-		t.Assert(layout.Id, id)
-		t.Assert(layout.LocationId, layoutIn.LocationId)
-		t.Assert(layout.PolicyCId, layoutIn.PolicyCId)
-		t.Assert(layout.PolicyLId, layoutIn.PolicyLId)
-		t.Assert(layout.LayoutName, layoutIn.LayoutName)
-		t.Assert(layout.Map, layoutIn.Map)
-		t.Assert(layout.Status, layoutIn.Status)
-		t.Assert(layout.Sort, layoutIn.Sort)
-		t.Assert(layout.Seats, layoutIn.Seats)
+		t.Assert(layoutData.Id, id)
+		t.Assert(layoutData.LocationId, layoutIn.LocationId)
+		t.Assert(layoutData.PolicyCId, layoutIn.PolicyCId)
+		t.Assert(layoutData.PolicyLId, layoutIn.PolicyLId)
+		t.Assert(layoutData.LayoutName, layoutIn.LayoutName)
+		t.Assert(layoutData.Map, layoutIn.Map)
+		t.Assert(layoutData.Status, layoutIn.Status)
+		t.Assert(layoutData.Sort, layoutIn.Sort)
+		t.Assert(layoutData.Seats, layoutIn.Seats)
 
 		// Update
 		var layoutUptIn = &entity.Layout{
@@ -65,23 +65,23 @@ func TestCRUD(t *testing.T) {
 			PolicyCId:  2,
 			PolicyLId:  2,
 			LayoutName: "layoutTestUpt",
-			Map:        `{"x":2,"y":2}`,
+			Map:        `[{"x":2,"y":2}]`,
 			Status:     2,
 			Sort:       2,
 			Seats:      2,
 		}
 		err = service.Layout().Update(ctx, layoutUptIn)
 		t.AssertNil(err)
-		layout, err = service.Layout().GetOne(ctx, id)
+		layoutData, err = service.Layout().GetOne(ctx, id)
 		t.AssertNil(err)
-		t.Assert(layout.LocationId, layoutUptIn.LocationId)
-		t.Assert(layout.PolicyCId, layoutUptIn.PolicyCId)
-		t.Assert(layout.PolicyLId, layoutUptIn.PolicyLId)
-		t.Assert(layout.LayoutName, layoutUptIn.LayoutName)
-		t.Assert(layout.Map, layoutUptIn.Map)
-		t.Assert(layout.Status, layoutUptIn.Status)
-		t.Assert(layout.Sort, layoutUptIn.Sort)
-		t.Assert(layout.Seats, layoutUptIn.Seats)
+		t.Assert(layoutData.LocationId, layoutUptIn.LocationId)
+		t.Assert(layoutData.PolicyCId, layoutUptIn.PolicyCId)
+		t.Assert(layoutData.PolicyLId, layoutUptIn.PolicyLId)
+		t.Assert(layoutData.LayoutName, layoutUptIn.LayoutName)
+		t.Assert(layoutData.Map, layoutUptIn.Map)
+		t.Assert(layoutData.Status, layoutUptIn.Status)
+		t.Assert(layoutData.Sort, layoutUptIn.Sort)
+		t.Assert(layoutData.Seats, layoutUptIn.Seats)
 
 		// Delete
 		err = service.Layout().Delete(ctx, id)
