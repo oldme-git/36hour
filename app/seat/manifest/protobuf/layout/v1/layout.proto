@@ -39,6 +39,7 @@ message GetOneReq {
 message GetOneRes {
   pbentity.Layout layout = 1;
   string PolicyInfo = 2;
+  string LocationName = 3;
 }
 
 message GetListReq {
@@ -53,11 +54,10 @@ message GetListReq {
 message LayoutList {
   int32 id = 1;
   int32 LocationId = 2;
-  string LocationName = 3;
-  string LayoutName = 4;
-  int32 Status = 5;
-  int32 Sort = 6;
-  int32 Seats = 7;
+  string LayoutName = 3;
+  int32 Status = 4;
+  int32 Sort = 5;
+  int32 Seats = 6;
 }
 
 message GetListRes {

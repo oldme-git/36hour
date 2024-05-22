@@ -5,5 +5,5 @@ etcd:
   # 开发环境访问 grpc 服务端的地址
   dev:
     user: "srv.com:32000"
-    lib-manager: "srv.com:32001"
+    libManager: "srv.com:32001"
     seat: "srv.com:32002"

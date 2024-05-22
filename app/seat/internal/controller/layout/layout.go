@@ -3,8 +3,6 @@ package layout
 import (
 	"context"
 
-	"github.com/gogf/gf/v2/os/gctx"
-	"github.com/gogf/gf/v2/util/gutil"
 	libApp "github.com/oldme-git/36hour/app/lib-manager/api/lib/v1"
 	v1 "github.com/oldme-git/36hour/app/seat/api/layout/v1"
 	"github.com/oldme-git/36hour/app/seat/api/pbentity"
@@ -63,6 +61,15 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 		return nil, err
 	}
 
+	// 获取场馆名称
+	var (
+		conn   = svc_disc.LibManagerClient(ctx)
+		client = libApp.NewLibClient(conn)
+	)
+	lib, err := client.GetOne(ctx, &libApp.GetOneReq{Id: int32(layout.LocationId)})
+	if err != nil {
+		return nil, err
+	}
 	return &v1.GetOneRes{
 		Layout: &pbentity.Layout{
 			Id:         int32(layout.Id),
@@ -77,19 +84,12 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 			CreatedAt:  timestamppb.New(layout.CreatedAt.Time),
 			UpdatedAt:  timestamppb.New(layout.UpdatedAt.Time),
 		},
-		PolicyInfo: policyInfo,
+		PolicyInfo:   policyInfo,
+		LocationName: lib.GetLib().GetLibName(),
 	}, nil
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	c1 := svc_disc.LibManagerClient()
-	cli1 := libApp.NewLibClient(c1)
-	list1, err := cli1.GetList(gctx.New(), &libApp.GetListReq{Page: 1, PageSize: 10, Active: true})
-	if err != nil {
-		panic(err)
-	}
-	gutil.Dump(list1)
-
 	layouts, err := service.Layout().GetList(ctx, &model.LayoutSearchCondition{
 		Page:       int(req.Page),
 		PageSize:   int(req.PageSize),
@@ -116,12 +116,10 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 		list[k] = &v1.LayoutList{
 			Id:         int32(v.Id),
 			LocationId: int32(v.LocationId),
-			// TODO, 需要去libManager中获取LocationName
-			LocationName: "",
-			LayoutName:   v.LayoutName,
-			Status:       int32(v.Status),
-			Sort:         int32(v.Sort),
-			Seats:        int32(v.Seats),
+			LayoutName: v.LayoutName,
+			Status:     int32(v.Status),
+			Sort:       int32(v.Sort),
+			Seats:      int32(v.Seats),
 		}
 	}
 	return &v1.GetListRes{Layouts: list, Total: int32(total)}, nil
