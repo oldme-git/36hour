@@ -3,7 +3,7 @@ package layout
 import (
 	"context"
 
-	libApp "github.com/oldme-git/36hour/app/lib-manager/api/lib/v1"
+	libLocation "github.com/oldme-git/36hour/app/lib-manager/api/location/v1"
 	v1 "github.com/oldme-git/36hour/app/seat/api/layout/v1"
 	"github.com/oldme-git/36hour/app/seat/api/pbentity"
 	"github.com/oldme-git/36hour/app/seat/internal/model"
@@ -64,9 +64,9 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 	// 获取场馆名称
 	var (
 		conn   = svc_disc.LibManagerClient(ctx)
-		client = libApp.NewLibClient(conn)
+		client = libLocation.NewLocationClient(conn)
 	)
-	lib, err := client.GetOne(ctx, &libApp.GetOneReq{Id: int32(layout.LocationId)})
+	lib, err := client.GetOne(ctx, &libLocation.GetOneReq{Id: int32(layout.LocationId)})
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 			UpdatedAt:  timestamppb.New(layout.UpdatedAt.Time),
 		},
 		PolicyInfo:   policyInfo,
-		LocationName: lib.GetLib().GetLibName(),
+		LocationName: lib.GetLocation().GetLocationName(),
 	}, nil
 }
 

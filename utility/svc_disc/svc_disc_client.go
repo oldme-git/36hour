@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
-	"github.com/gogf/gf/v2/util/gutil"
 	"google.golang.org/grpc"
 )
 
@@ -26,7 +25,6 @@ func getAddress(ctx context.Context, service string) string {
 	}
 	if dev.Bool() {
 		devConfRaw, err := cache.Get(ctx, "devConf")
-		gutil.Dump(devConfRaw)
 		if err != nil {
 			return service
 		}
