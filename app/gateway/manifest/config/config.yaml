@@ -1,0 +1,9 @@
+server:
+  address:     ":8000"
+  openapiPath: "/api.json"
+  swaggerPath: "/swagger"
+  logger:
+    path: "./log"
+    file: "{Y-m-d}.log"
+    level: "all"
+    stdout: true
