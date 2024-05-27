@@ -1,0 +1,5 @@
+# rancher fleet 部署到 k8s 集群
+namespace: 36hour
+
+kustomize:
+  dir: overlays/develop

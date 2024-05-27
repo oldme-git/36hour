@@ -1,10 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: template-single
+  name: gateway
 spec:
   template:
     spec:
       containers:
         - name : main
-          image: template-single:develop
+          image: registry.cn-hangzhou.aliyuncs.com/36hour/gateway:latest
+          volumeMounts:
+            - name: conf-volume
+              mountPath: /app/config.yaml
+              subPath: gateway.yaml

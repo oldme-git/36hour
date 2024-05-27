@@ -1,21 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: template-single
+  name: gateway
   labels:
-    app: template-single
+    app: gateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: template-single
+      app: gateway
   template:
     metadata:
       labels:
-        app: template-single
+        app: gateway
     spec:
       containers:
         - name : main
-          image: template-single
           imagePullPolicy: Always
+          volumeMounts:
+            - name: conf-volume
+              mountPath: /app/config.yaml
+              subPath: gateway.yaml
 
+            - name: conf-volume
+              mountPath: /app/etcd.yaml
+              subPath: etcd.yaml
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: conf
+          name: conf-volume
+      imagePullSecrets:
+        - name: 36hour-aliyun
