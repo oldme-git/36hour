@@ -8,16 +8,13 @@ import (
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/util/gutil"
 	"github.com/oldme-git/36hour/app/seat/internal/dao"
+	layoutSrv "github.com/oldme-git/36hour/app/seat/internal/logic/layout"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_common"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/app/seat/internal/model/layout"
 	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
-	_ "github.com/oldme-git/36hour/app/seat/internal/logic/layout"
-	_ "github.com/oldme-git/36hour/app/seat/internal/logic/policy_common"
-	_ "github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
-	_ "github.com/oldme-git/36hour/app/seat/internal/logic/policy_prepare"
 )
 
 // 准备一个PolicyCommon
@@ -83,7 +80,7 @@ func TestPolicyCommon(t *testing.T) {
 			Info: pStr,
 		}
 	)
-	_, err := service.PolicyCommon().Create(ctx, policyCommon)
+	_, err := policy_common.Create(ctx, policyCommon)
 	if err != nil {
 		panic(err)
 	}
@@ -111,9 +108,9 @@ func TestLayout(t *testing.T) {
 
 	// 获取map
 	m := getLayoutMap(100)
-	lay.Map, _ = service.Layout().LayoutCellsToJson(ctx, m)
+	lay.Map, _ = layoutSrv.LayoutCellsToJson(ctx, m)
 
-	_, err = service.Layout().Create(ctx, lay)
+	_, err = layoutSrv.Create(ctx, lay)
 	if err != nil {
 		panic(err)
 	}

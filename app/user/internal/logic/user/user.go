@@ -59,9 +59,13 @@ func GetOne(ctx context.Context, id model.Id) (user *model.User, err error) {
 
 func GetOneByUsername(ctx context.Context, username string) (user *model.User, err error) {
 	user = new(model.User)
-	err = dao.UserMain.Ctx(ctx).Where("username", username).Scan(user)
+	data, err := dao.UserMain.Ctx(ctx).Where("username", username).One()
 	if err != nil {
 		return nil, utility.Err.NewSys(err)
+	}
+	err = data.Struct(user)
+	if err != nil {
+		return nil, utility.Err.New(1001)
 	}
 	return user, nil
 }

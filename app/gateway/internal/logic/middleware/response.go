@@ -5,10 +5,10 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/gogf/gf/v2/errors/gcode"
 	"github.com/gogf/gf/v2/errors/gerror"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/oldme-git/36hour/utility"
+	"google.golang.org/grpc/codes"
 )
 
 type data struct {
@@ -32,27 +32,30 @@ func Response(r *ghttp.Request) {
 	}
 
 	var (
-		res     = r.GetHandlerResponse()
-		err     = r.GetError()
-		code    = gerror.Code(err)
-		codeInt = code.Code()
-		msg     string
+		res  = r.GetHandlerResponse()
+		err  = r.GetError()
+		code = gerror.Code(err).Code()
+		msg  string
 	)
 
 	if err != nil {
+		// 如果是 grpc Unknown 的错误码，则转换为系统错误
+		if code == int(codes.Unknown) {
+			code = utility.CodeErrSys
+		}
 		// 如果是系统错误，不要把错误信息抛出到客户端，防止泄露系统信息
-		if codeInt == utility.CodeErrSys {
+		if code == utility.CodeErrSys {
 			msg = utility.Err.GetSysMsg()
 		} else {
 			msg = err.Error()
 		}
 	} else {
-		code = gcode.CodeOK
+		code = utility.CodeOk
 		msg = utility.Err.GetOkMsg()
 	}
 
 	r.Response.WriteJson(data{
-		Code:    code.Code(),
+		Code:    code,
 		Message: msg,
 		Data:    res,
 	})

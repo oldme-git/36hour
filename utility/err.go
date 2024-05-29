@@ -21,7 +21,7 @@ var Err = &err{
 		CodeErrSys: "未知错误",
 
 		// user
-		1001: "密码错误",
+		1001: "用户名或密码错误",
 		1002: "不正确的或者过期的token",
 
 		// lib-manager
@@ -48,7 +48,7 @@ func (c *err) New(code int) error {
 	})
 }
 
-// NewSys 生成一个新的系统级别的错误，使用特殊的code码：-1
+// NewSys 生成一个新的系统级别的错误，使用特殊的code码：CodeErrSys
 // !!! 使用该方法时，它会打印错误堆栈信息到日志，但是一定不要把任何错误信息抛出到客户端，防止泄露系统信息
 // !!! 推荐做法是在后置中间件中捕获 code -1 的错误，然后返回给客户端一个统一的错误提示
 func (c *err) NewSys(err error) error {
