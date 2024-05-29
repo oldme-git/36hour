@@ -29,7 +29,7 @@ func Create(ctx context.Context, layout *entity.Layout) (id int, err error) {
 		Seats:      layout.Seats,
 	}).Insert()
 	if err != nil {
-		return 0, err
+		return 0, utility.Err.NewSys(err)
 	}
 	id64, _ := res.LastInsertId()
 	return int(id64), nil
@@ -39,7 +39,7 @@ func GetOne(ctx context.Context, id int) (layout *entity.Layout, err error) {
 	layout = new(entity.Layout)
 	err = dao.Layout.Ctx(ctx).Where("id", id).Scan(layout)
 	if err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 
 	return layout, nil
@@ -65,7 +65,7 @@ func GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layou
 	}
 	err = db.Page(condition.Page, condition.PageSize).Scan(&layouts)
 	if err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return layouts, nil
 }
@@ -84,7 +84,7 @@ func GetTotal(ctx context.Context, condition *model.LayoutSearchCondition) (tota
 	}
 	total, err = db.Count()
 	if err != nil {
-		return 0, err
+		return 0, utility.Err.NewSys(err)
 	}
 	return total, nil
 }
@@ -104,6 +104,9 @@ func Update(ctx context.Context, layout *entity.Layout) (err error) {
 		Sort:       layout.Sort,
 		Seats:      layout.Seats,
 	}).Where("id", layout.Id).Update()
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
 	return err
 }
 
@@ -111,14 +114,14 @@ func Delete(ctx context.Context, id int) (err error) {
 	// 查询私有策略id
 	policyLId, err := dao.Layout.Ctx(ctx).Where("id", id).Value("policy_l_id")
 	if err != nil {
-		return err
+		return utility.Err.NewSys(err)
 	}
 	return g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
 		var err error
 
 		_, err = dao.Layout.Ctx(ctx).Where("id", id).Delete()
 		if err != nil {
-			return err
+			return utility.Err.NewSys(err)
 		}
 
 		if policyLId.Int() == 0 {
@@ -127,7 +130,7 @@ func Delete(ctx context.Context, id int) (err error) {
 		// 删除私有策略
 		_, err = dao.PolicyLayout.Ctx(ctx).Where("id", policyLId).Delete()
 		if err != nil {
-			return err
+			return utility.Err.NewSys(err)
 		}
 
 		return nil

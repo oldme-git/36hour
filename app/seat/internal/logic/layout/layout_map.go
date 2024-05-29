@@ -5,12 +5,13 @@ import (
 
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/oldme-git/36hour/app/seat/internal/model/layout"
+	"github.com/oldme-git/36hour/utility"
 )
 
 func JsonToLayoutCells(ctx context.Context, jsonStr string) ([]layout.Cell, error) {
 	var cells []layout.Cell
 	if err := gjson.DecodeTo(jsonStr, &cells); err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return cells, nil
 }

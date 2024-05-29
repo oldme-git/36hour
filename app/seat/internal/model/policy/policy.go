@@ -1,12 +1,15 @@
 package policy
 
-import "github.com/gogf/gf/v2/encoding/gjson"
+import (
+	"github.com/gogf/gf/v2/encoding/gjson"
+	"github.com/oldme-git/36hour/utility"
+)
 
 // New 从 json 字符串创建一个 Policy 对象
 func New(s string) (*Policy, error) {
 	p := new(Policy)
 	if err := gjson.DecodeTo(s, p); err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return p, nil
 }

@@ -7,6 +7,7 @@ import (
 	"github.com/oldme-git/36hour/app/seat/internal/model/do"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
+	"github.com/oldme-git/36hour/utility"
 )
 
 func Create(ctx context.Context, policyLayout *entity.PolicyLayout) (id int, err error) {
@@ -19,7 +20,7 @@ func Create(ctx context.Context, policyLayout *entity.PolicyLayout) (id int, err
 		Info: policyLayout.Info,
 	}).Insert()
 	if err != nil {
-		return 0, err
+		return 0, utility.Err.NewSys(err)
 	}
 	id64, _ := res.LastInsertId()
 	return int(id64), nil
@@ -29,7 +30,7 @@ func GetOne(ctx context.Context, id int) (policyLayout *entity.PolicyLayout, err
 	policyLayout = new(entity.PolicyLayout)
 	err = dao.PolicyLayout.Ctx(ctx).Where("id", id).Scan(policyLayout)
 	if err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return policyLayout, nil
 }
@@ -43,11 +44,17 @@ func Update(ctx context.Context, policyLayout *entity.PolicyLayout) (err error) 
 	_, err = dao.PolicyLayout.Ctx(ctx).Data(do.PolicyLayout{
 		Info: policyLayout.Info,
 	}).Where("id", policyLayout.Id).Update()
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
 	return
 }
 
 func Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.PolicyLayout.Ctx(ctx).Where("id", id).Delete()
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
 	return
 }
 

@@ -8,6 +8,7 @@ import (
 	"github.com/oldme-git/36hour/app/lib-manager/internal/logic/lib"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/model/do"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/model/entity"
+	"github.com/oldme-git/36hour/utility"
 )
 
 func Create(ctx context.Context, location *entity.Location) (id int, err error) {
@@ -21,7 +22,7 @@ func Create(ctx context.Context, location *entity.Location) (id int, err error) 
 		LocationName: location.LocationName,
 	}).Insert()
 	if err != nil {
-		return 0, err
+		return 0, utility.Err.NewSys(err)
 	}
 	id64, _ := res.LastInsertId()
 	return int(id64), nil
@@ -31,7 +32,7 @@ func GetOne(ctx context.Context, id int) (location *entity.Location, err error) 
 	location = new(entity.Location)
 	err = dao.Location.Ctx(ctx).Where("id", id).Scan(location)
 	if err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return location, nil
 }
@@ -54,7 +55,7 @@ func GetList(ctx context.Context, condition *dao.LocationSearchCondition) (locat
 
 	err = db.Page(condition.Page, condition.PageSize).Scan(&locations)
 	if err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return locations, nil
 }
@@ -68,11 +69,17 @@ func Update(ctx context.Context, location *entity.Location) (err error) {
 		FloorId:      location.FloorId,
 		LocationName: location.LocationName,
 	}).Where("id", location.Id).Update()
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
 	return err
 }
 
 func Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.Location.Ctx(ctx).Where("id", id).Delete()
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
 	return err
 }
 

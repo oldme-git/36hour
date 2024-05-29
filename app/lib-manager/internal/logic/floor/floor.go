@@ -22,7 +22,7 @@ func Create(ctx context.Context, floor *entity.Floor) (id int, err error) {
 		FloorName: floor.FloorName,
 	}).Insert()
 	if err != nil {
-		return 0, err
+		return 0, utility.Err.NewSys(err)
 	}
 	id64, _ := res.LastInsertId()
 	return int(id64), nil
@@ -32,7 +32,7 @@ func GetOne(ctx context.Context, id int) (floor *entity.Floor, err error) {
 	floor = new(entity.Floor)
 	err = dao.Floor.Ctx(ctx).Where("id", id).Scan(floor)
 	if err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return floor, nil
 }
@@ -52,7 +52,7 @@ func GetList(ctx context.Context, condition *dao.FloorSearchCondition) (floors [
 
 	err = db.Page(condition.Page, condition.PageSize).Scan(&floors)
 	if err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return floors, nil
 }
@@ -65,6 +65,10 @@ func Update(ctx context.Context, floor *entity.Floor) (err error) {
 	_, err = dao.Floor.Ctx(ctx).Data(do.Floor{
 		FloorName: floor.FloorName,
 	}).Where("id", floor.Id).Update()
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
+
 	return err
 }
 
@@ -74,12 +78,12 @@ func Delete(ctx context.Context, id int) (err error) {
 
 		_, err = tx.Ctx(ctx).Model(dao.Floor.Table()).Where("id", id).Delete()
 		if err != nil {
-			return err
+			return utility.Err.NewSys(err)
 		}
 
 		_, err = tx.Ctx(ctx).Model(dao.Location.Table()).Where("floor_id", id).Delete()
 		if err != nil {
-			return err
+			return utility.Err.NewSys(err)
 		}
 
 		return nil
@@ -89,7 +93,7 @@ func Delete(ctx context.Context, id int) (err error) {
 func Exist(ctx context.Context, id int) error {
 	count, err := dao.Floor.Ctx(ctx).Where("id", id).Count()
 	if err != nil {
-		return err
+		return utility.Err.NewSys(err)
 	}
 	if count == 0 {
 		return utility.Err.New(2001)

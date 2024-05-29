@@ -8,6 +8,7 @@ import (
 	"github.com/oldme-git/36hour/app/seat/internal/model/do"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
+	"github.com/oldme-git/36hour/utility"
 )
 
 func Create(ctx context.Context, policyCommon *entity.PolicyCommon) (id int, err error) {
@@ -21,7 +22,7 @@ func Create(ctx context.Context, policyCommon *entity.PolicyCommon) (id int, err
 		Info: policyCommon.Info,
 	}).Insert()
 	if err != nil {
-		return 0, err
+		return 0, utility.Err.NewSys(err)
 	}
 	id64, _ := res.LastInsertId()
 	return int(id64), nil
@@ -31,7 +32,7 @@ func GetOne(ctx context.Context, id int) (policyCommon *entity.PolicyCommon, err
 	policyCommon = new(entity.PolicyCommon)
 	err = dao.PolicyCommon.Ctx(ctx).Where("id", id).Scan(policyCommon)
 	if err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return policyCommon, nil
 }
@@ -50,7 +51,7 @@ func GetList(ctx context.Context, condition *model.PolicyCommonSearchCondition) 
 	}
 	err = db.Page(condition.Page, condition.PageSize).Scan(&policyCommons)
 	if err != nil {
-		return nil, err
+		return nil, utility.Err.NewSys(err)
 	}
 	return policyCommons, err
 }
@@ -62,6 +63,9 @@ func GetTotal(ctx context.Context, condition *model.PolicyCommonSearchCondition)
 		db = db.WhereLike("name", "%"+condition.Name+"%")
 	}
 	total, err = db.Count()
+	if err != nil {
+		return 0, utility.Err.NewSys(err)
+	}
 	return
 }
 
@@ -75,11 +79,17 @@ func Update(ctx context.Context, policyCommon *entity.PolicyCommon) (err error) 
 		Name: policyCommon.Name,
 		Info: policyCommon.Info,
 	}).Where("id", policyCommon.Id).Update()
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
 	return
 }
 
 func Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.PolicyCommon.Ctx(ctx).Where("id", id).Delete()
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
 	return err
 }
 
