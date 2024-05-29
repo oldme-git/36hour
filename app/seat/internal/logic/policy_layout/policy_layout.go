@@ -7,23 +7,11 @@ import (
 	"github.com/oldme-git/36hour/app/seat/internal/model/do"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
 )
 
-func init() {
-	service.RegisterPolicyLayout(New())
-}
-
-type sPolicyLayout struct {
-}
-
-func New() *sPolicyLayout {
-	return &sPolicyLayout{}
-}
-
-func (s *sPolicyLayout) Create(ctx context.Context, policyLayout *entity.PolicyLayout) (id int, err error) {
+func Create(ctx context.Context, policyLayout *entity.PolicyLayout) (id int, err error) {
 	// 数据验证
-	if err := s.hookValid(ctx, policyLayout); err != nil {
+	if err := hookValid(ctx, policyLayout); err != nil {
 		return 0, err
 	}
 
@@ -37,7 +25,7 @@ func (s *sPolicyLayout) Create(ctx context.Context, policyLayout *entity.PolicyL
 	return int(id64), nil
 }
 
-func (s *sPolicyLayout) GetOne(ctx context.Context, id int) (policyLayout *entity.PolicyLayout, err error) {
+func GetOne(ctx context.Context, id int) (policyLayout *entity.PolicyLayout, err error) {
 	policyLayout = new(entity.PolicyLayout)
 	err = dao.PolicyLayout.Ctx(ctx).Where("id", id).Scan(policyLayout)
 	if err != nil {
@@ -46,9 +34,9 @@ func (s *sPolicyLayout) GetOne(ctx context.Context, id int) (policyLayout *entit
 	return policyLayout, nil
 }
 
-func (s *sPolicyLayout) Update(ctx context.Context, policyLayout *entity.PolicyLayout) (err error) {
+func Update(ctx context.Context, policyLayout *entity.PolicyLayout) (err error) {
 	// 数据验证
-	if err := s.hookValid(ctx, policyLayout); err != nil {
+	if err := hookValid(ctx, policyLayout); err != nil {
 		return err
 	}
 
@@ -58,13 +46,13 @@ func (s *sPolicyLayout) Update(ctx context.Context, policyLayout *entity.PolicyL
 	return
 }
 
-func (s *sPolicyLayout) Delete(ctx context.Context, id int) (err error) {
+func Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.PolicyLayout.Ctx(ctx).Where("id", id).Delete()
 	return
 }
 
 // hookValid 入库前的数据验证钩子
-func (s *sPolicyLayout) hookValid(ctx context.Context, policyLayout *entity.PolicyLayout) (err error) {
+func hookValid(ctx context.Context, policyLayout *entity.PolicyLayout) (err error) {
 	// 格式化 json 数据
 	if policyLayout.Info != "" {
 		policyLayout.Info, err = policy.Format(policyLayout.Info)

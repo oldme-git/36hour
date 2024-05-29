@@ -8,10 +8,10 @@ import (
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/oldme-git/36hour/app/seat/internal/dao"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_prepare"
 	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
 )
 
 func TestCRUD(t *testing.T) {
@@ -34,7 +34,7 @@ func TestCRUD(t *testing.T) {
 		dao.PolicyPrepare.Ctx(ctx).Where("name", "policyPrepareTest").Delete("id > 0")
 
 		// Create
-		id, err := service.PolicyPrepare().Create(ctx, policyPrepareIn)
+		id, err := policy_prepare.Create(ctx, policyPrepareIn)
 		t.AssertNil(err)
 
 		// GetList
@@ -43,12 +43,12 @@ func TestCRUD(t *testing.T) {
 			PageSize: 1,
 			Name:     "Prepare",
 		}
-		policyPrepares, err := service.PolicyPrepare().GetList(ctx, condition)
+		policyPrepares, err := policy_prepare.GetList(ctx, condition)
 		t.AssertNil(err)
 		t.Assert(len(policyPrepares), 1)
 
 		// GetOne
-		policyPrepare, err = service.PolicyPrepare().GetOne(ctx, id)
+		policyPrepare, err = policy_prepare.GetOne(ctx, id)
 		t.AssertNil(err)
 		t.Assert(policyPrepare.Id, id)
 		t.Assert(policyPrepare.Name, policyPrepareIn.Name)
@@ -72,17 +72,17 @@ func TestCRUD(t *testing.T) {
 			}
 		)
 
-		err = service.PolicyPrepare().Update(ctx, policyPrepareUptIn)
+		err = policy_prepare.Update(ctx, policyPrepareUptIn)
 		t.AssertNil(err)
-		policyPrepare, err = service.PolicyPrepare().GetOne(ctx, id)
+		policyPrepare, err = policy_prepare.GetOne(ctx, id)
 		t.AssertNil(err)
 		t.Assert(policyPrepare.Name, policyPrepareUptIn.Name)
 		t.Assert(policyPrepare.Info, policyPrepareUptIn.Info)
 
 		// Delete
-		err = service.PolicyPrepare().Delete(ctx, id)
+		err = policy_prepare.Delete(ctx, id)
 		t.AssertNil(err)
-		_, err = service.PolicyPrepare().GetOne(ctx, id)
+		_, err = policy_prepare.GetOne(ctx, id)
 		t.Assert(err, sql.ErrNoRows)
 	})
 }

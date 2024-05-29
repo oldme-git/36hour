@@ -6,8 +6,8 @@ import (
 	v1 "github.com/oldme-git/36hour/app/lib-manager/api/floor/v1"
 	"github.com/oldme-git/36hour/app/lib-manager/api/pbentity"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/dao"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/logic/floor"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/model/entity"
-	"github.com/oldme-git/36hour/app/lib-manager/internal/service"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
@@ -22,7 +22,7 @@ func Register(s *grpcx.GrpcServer) {
 }
 
 func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.CreateRes, err error) {
-	id, err := service.Floor().Create(ctx, &entity.Floor{
+	id, err := floor.Create(ctx, &entity.Floor{
 		LibId:     int(req.LibId),
 		FloorName: req.FloorName,
 	})
@@ -33,23 +33,23 @@ func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.Creat
 }
 
 func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOneRes, err error) {
-	floor, err := service.Floor().GetOne(ctx, int(req.Id))
+	floorOne, err := floor.GetOne(ctx, int(req.Id))
 	if err != nil {
 		return nil, err
 	}
 	return &v1.GetOneRes{
 		Floor: &pbentity.Floor{
-			Id:        int32(floor.Id),
-			LibId:     int32(floor.LibId),
-			FloorName: floor.FloorName,
-			CreatedAt: timestamppb.New(floor.CreatedAt.Time),
-			UpdatedAt: timestamppb.New(floor.UpdatedAt.Time),
+			Id:        int32(floorOne.Id),
+			LibId:     int32(floorOne.LibId),
+			FloorName: floorOne.FloorName,
+			CreatedAt: timestamppb.New(floorOne.CreatedAt.Time),
+			UpdatedAt: timestamppb.New(floorOne.UpdatedAt.Time),
 		},
 	}, nil
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	floors, err := service.Floor().GetList(ctx, &dao.FloorSearchCondition{
+	floors, err := floor.GetList(ctx, &dao.FloorSearchCondition{
 		Page:     int(req.Page),
 		PageSize: int(req.PageSize),
 		LibId:    int(req.LibId),
@@ -71,7 +71,7 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 }
 
 func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.UpdateRes, err error) {
-	err = service.Floor().Update(ctx, &entity.Floor{
+	err = floor.Update(ctx, &entity.Floor{
 		Id:        int(req.Id),
 		FloorName: req.FloorName,
 	})
@@ -82,7 +82,7 @@ func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.Updat
 }
 
 func (*Controller) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.DeleteRes, err error) {
-	err = service.Floor().Delete(ctx, int(req.Id))
+	err = floor.Delete(ctx, int(req.Id))
 	if err != nil {
 		return nil, err
 	}

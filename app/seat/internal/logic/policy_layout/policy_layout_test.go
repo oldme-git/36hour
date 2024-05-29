@@ -7,9 +7,9 @@ import (
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
 )
 
 func TestCRUD(t *testing.T) {
@@ -29,11 +29,11 @@ func TestCRUD(t *testing.T) {
 		)
 
 		// Create
-		id, err := service.PolicyLayout().Create(ctx, policyLayoutIn)
+		id, err := policy_layout.Create(ctx, policyLayoutIn)
 		t.AssertNil(err)
 
 		// GetOne
-		policyLayout, err = service.PolicyLayout().GetOne(ctx, id)
+		policyLayout, err = policy_layout.GetOne(ctx, id)
 		t.AssertNil(err)
 		t.Assert(policyLayout.Id, id)
 		t.Assert(policyLayout.Info, policyLayoutIn.Info)
@@ -55,16 +55,16 @@ func TestCRUD(t *testing.T) {
 			}
 		)
 
-		err = service.PolicyLayout().Update(ctx, policyLayoutUptIn)
+		err = policy_layout.Update(ctx, policyLayoutUptIn)
 		t.AssertNil(err)
-		policyLayout, err = service.PolicyLayout().GetOne(ctx, id)
+		policyLayout, err = policy_layout.GetOne(ctx, id)
 		t.AssertNil(err)
 		t.Assert(policyLayout.Info, policyLayoutUptIn.Info)
 
 		// Delete
-		err = service.PolicyLayout().Delete(ctx, id)
+		err = policy_layout.Delete(ctx, id)
 		t.AssertNil(err)
-		_, err = service.PolicyLayout().GetOne(ctx, id)
+		_, err = policy_layout.GetOne(ctx, id)
 		t.Assert(err, sql.ErrNoRows)
 	})
 }

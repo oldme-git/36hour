@@ -6,7 +6,6 @@ import (
 	"github.com/oldme-git/36hour/utility/svc_disc"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
-	_ "github.com/oldme-git/36hour/app/seat/internal/logic"
 )
 
 func main() {

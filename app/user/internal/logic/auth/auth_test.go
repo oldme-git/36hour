@@ -3,14 +3,14 @@ package auth_test
 import (
 	"testing"
 
+	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/oldme-git/36hour/app/user/internal/model"
-	"github.com/oldme-git/36hour/app/user/internal/service"
-
-	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
+	"github.com/oldme-git/36hour/app/user/internal/logic/auth"
 	_ "github.com/oldme-git/36hour/app/user/internal/logic/snowflake"
+	"github.com/oldme-git/36hour/app/user/internal/logic/user"
 	_ "github.com/oldme-git/36hour/app/user/internal/logic/user"
+	"github.com/oldme-git/36hour/app/user/internal/model"
 )
 
 var ctx = gctx.New()
@@ -19,23 +19,23 @@ func TestLogin(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			plainPwd = "12345678"
-			user     = &model.User{
+			userOne  = &model.User{
 				Username: "test",
 				Password: plainPwd,
 			}
 		)
 
-		id, err := service.User().Create(ctx, user)
+		id, err := user.Create(ctx, userOne)
 		t.AssertNil(err)
 
-		token, err := service.Auth().Login(ctx, user.Username, plainPwd)
+		token, err := auth.Login(ctx, userOne.Username, plainPwd)
 		t.AssertNil(err)
 
-		user2, err := service.Auth().GetUserInfo(ctx, token)
+		user2, err := auth.GetUserInfo(ctx, token)
 		t.AssertNil(err)
-		t.Assert(user.Id, user2.Id)
-		t.Assert(user.Username, user2.Username)
+		t.Assert(userOne.Id, user2.Id)
+		t.Assert(userOne.Username, user2.Username)
 
-		err = service.User().Delete(ctx, id)
+		err = user.Delete(ctx, id)
 	})
 }

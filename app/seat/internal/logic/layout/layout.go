@@ -10,24 +10,12 @@ import (
 	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/do"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
 	"github.com/oldme-git/36hour/utility"
 )
 
-func init() {
-	service.RegisterLayout(New())
-}
-
-type sLayout struct {
-}
-
-func New() *sLayout {
-	return &sLayout{}
-}
-
-func (s *sLayout) Create(ctx context.Context, layout *entity.Layout) (id int, err error) {
+func Create(ctx context.Context, layout *entity.Layout) (id int, err error) {
 	// 数据验证
-	if err := s.hookValid(ctx, layout); err != nil {
+	if err := hookValid(ctx, layout); err != nil {
 		return 0, err
 	}
 	res, err := dao.Layout.Ctx(ctx).Data(do.Layout{
@@ -47,7 +35,7 @@ func (s *sLayout) Create(ctx context.Context, layout *entity.Layout) (id int, er
 	return int(id64), nil
 }
 
-func (s *sLayout) GetOne(ctx context.Context, id int) (layout *entity.Layout, err error) {
+func GetOne(ctx context.Context, id int) (layout *entity.Layout, err error) {
 	layout = new(entity.Layout)
 	err = dao.Layout.Ctx(ctx).Where("id", id).Scan(layout)
 	if err != nil {
@@ -57,7 +45,7 @@ func (s *sLayout) GetOne(ctx context.Context, id int) (layout *entity.Layout, er
 	return layout, nil
 }
 
-func (s *sLayout) GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layouts []*entity.Layout, err error) {
+func GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layouts []*entity.Layout, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}
@@ -83,7 +71,7 @@ func (s *sLayout) GetList(ctx context.Context, condition *model.LayoutSearchCond
 }
 
 // GetTotal 获取 Layout 总数
-func (s *sLayout) GetTotal(ctx context.Context, condition *model.LayoutSearchCondition) (total int, err error) {
+func GetTotal(ctx context.Context, condition *model.LayoutSearchCondition) (total int, err error) {
 	db := dao.Layout.Ctx(ctx)
 	if condition.LayoutName != "" {
 		db = db.WhereLike("layout_name", "%"+condition.LayoutName+"%")
@@ -101,9 +89,9 @@ func (s *sLayout) GetTotal(ctx context.Context, condition *model.LayoutSearchCon
 	return total, nil
 }
 
-func (s *sLayout) Update(ctx context.Context, layout *entity.Layout) (err error) {
+func Update(ctx context.Context, layout *entity.Layout) (err error) {
 	// 数据验证
-	if err := s.hookValid(ctx, layout); err != nil {
+	if err := hookValid(ctx, layout); err != nil {
 		return err
 	}
 	_, err = dao.Layout.Ctx(ctx).Data(do.Layout{
@@ -119,7 +107,7 @@ func (s *sLayout) Update(ctx context.Context, layout *entity.Layout) (err error)
 	return err
 }
 
-func (s *sLayout) Delete(ctx context.Context, id int) (err error) {
+func Delete(ctx context.Context, id int) (err error) {
 	// 查询私有策略id
 	policyLId, err := dao.Layout.Ctx(ctx).Where("id", id).Value("policy_l_id")
 	if err != nil {
@@ -147,7 +135,7 @@ func (s *sLayout) Delete(ctx context.Context, id int) (err error) {
 }
 
 // hookValid 入库前的数据验证钩子
-func (s *sLayout) hookValid(ctx context.Context, layout *entity.Layout) error {
+func hookValid(ctx context.Context, layout *entity.Layout) error {
 	// 判断 map 是否为合法的 json
 	if !gjson.Valid(layout.Map) {
 		return utility.Err.New(3001)
@@ -159,7 +147,7 @@ func (s *sLayout) hookValid(ctx context.Context, layout *entity.Layout) error {
 	}
 
 	// 计算座位数并注入
-	seats, err := s.CalculateSeatsByJson(ctx, layout.Map)
+	seats, err := CalculateSeatsByJson(ctx, layout.Map)
 	if err != nil {
 		return err
 	}

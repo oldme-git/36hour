@@ -4,15 +4,16 @@ import (
 	"database/sql"
 	"testing"
 
+	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
+
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/layout"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
+	_ "github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
 	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	"github.com/oldme-git/36hour/app/seat/internal/model/layout"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
-
-	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
-	_ "github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
+	layoutModel "github.com/oldme-git/36hour/app/seat/internal/model/layout"
 )
 
 func TestCRUD(t *testing.T) {
@@ -33,7 +34,7 @@ func TestCRUD(t *testing.T) {
 		)
 
 		// Create
-		id, err := service.Layout().Create(ctx, layoutIn)
+		id, err := layout.Create(ctx, layoutIn)
 		t.AssertNil(err)
 
 		// GetList
@@ -41,12 +42,12 @@ func TestCRUD(t *testing.T) {
 			Page:     1,
 			PageSize: 1,
 		}
-		layouts, err := service.Layout().GetList(ctx, condition)
+		layouts, err := layout.GetList(ctx, condition)
 		t.AssertNil(err)
 		t.Assert(len(layouts), 1)
 
 		// GetOne
-		layoutData, err = service.Layout().GetOne(ctx, id)
+		layoutData, err = layout.GetOne(ctx, id)
 		t.AssertNil(err)
 		t.Assert(layoutData.Id, id)
 		t.Assert(layoutData.LocationId, layoutIn.LocationId)
@@ -70,9 +71,9 @@ func TestCRUD(t *testing.T) {
 			Sort:       2,
 			Seats:      2,
 		}
-		err = service.Layout().Update(ctx, layoutUptIn)
+		err = layout.Update(ctx, layoutUptIn)
 		t.AssertNil(err)
-		layoutData, err = service.Layout().GetOne(ctx, id)
+		layoutData, err = layout.GetOne(ctx, id)
 		t.AssertNil(err)
 		t.Assert(layoutData.LocationId, layoutUptIn.LocationId)
 		t.Assert(layoutData.PolicyCId, layoutUptIn.PolicyCId)
@@ -84,11 +85,11 @@ func TestCRUD(t *testing.T) {
 		t.Assert(layoutData.Seats, layoutUptIn.Seats)
 
 		// Delete
-		err = service.Layout().Delete(ctx, id)
+		err = layout.Delete(ctx, id)
 		t.AssertNil(err)
-		_, err = service.Layout().GetOne(ctx, id)
+		_, err = layout.GetOne(ctx, id)
 		t.Assert(err, sql.ErrNoRows)
-		_, err = service.PolicyLayout().GetOne(ctx, layoutUptIn.PolicyLId)
+		_, err = policy_layout.GetOne(ctx, layoutUptIn.PolicyLId)
 		t.Assert(err, sql.ErrNoRows)
 	})
 }
@@ -102,7 +103,7 @@ func TestJsonToLayoutCells(t *testing.T) {
 				{"x":5,"y":5,"vx":0,"vy":0,"n":2,"l":"2号座位","t":1}
 			]`
 		)
-		cells, err := service.Layout().JsonToLayoutCells(ctx, jsonStr)
+		cells, err := layout.JsonToLayoutCells(ctx, jsonStr)
 		t.AssertNil(err)
 		t.Assert(len(cells), 2)
 
@@ -128,12 +129,12 @@ func TestLayoutCellsToJson(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			ctx   = gctx.New()
-			cells = []layout.Cell{
-				{X: 1, Y: 1, VectorX: 3, VectorY: 3, No: 1, Label: "1号座位", Type: layout.CellSeat},
-				{X: 5, Y: 5, VectorX: 0, VectorY: 0, No: 2, Label: "2号座位", Type: layout.CellSeat},
+			cells = []layoutModel.Cell{
+				{X: 1, Y: 1, VectorX: 3, VectorY: 3, No: 1, Label: "1号座位", Type: layoutModel.CellSeat},
+				{X: 5, Y: 5, VectorX: 0, VectorY: 0, No: 2, Label: "2号座位", Type: layoutModel.CellSeat},
 			}
 		)
-		jsonStr, err := service.Layout().LayoutCellsToJson(ctx, cells)
+		jsonStr, err := layout.LayoutCellsToJson(ctx, cells)
 		t.AssertNil(err)
 		t.Assert(jsonStr, `[{"x":1,"y":1,"vx":3,"vy":3,"n":1,"l":"1号座位","t":1},{"x":5,"y":5,"vx":0,"vy":0,"n":2,"l":"2号座位","t":1}]`)
 	})
@@ -149,7 +150,7 @@ func TestCalculateSeatsByJson(t *testing.T) {
 				{"x":6,"y":6,"vx":0,"vy":0,"n":0,"l":"hello","t":2}
 			]`
 		)
-		seats, err := service.Layout().CalculateSeatsByJson(ctx, jsonStr)
+		seats, err := layout.CalculateSeatsByJson(ctx, jsonStr)
 		t.AssertNil(err)
 		t.Assert(seats, 2)
 	})

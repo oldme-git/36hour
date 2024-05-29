@@ -8,22 +8,10 @@ import (
 	"github.com/oldme-git/36hour/app/lib-manager/internal/dao"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/model/do"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/model/entity"
-	"github.com/oldme-git/36hour/app/lib-manager/internal/service"
 	"github.com/oldme-git/36hour/utility"
 )
 
-func init() {
-	service.RegisterLib(New())
-}
-
-type sLib struct {
-}
-
-func New() *sLib {
-	return &sLib{}
-}
-
-func (s *sLib) Create(ctx context.Context, lib *entity.Lib) (id int, err error) {
+func Create(ctx context.Context, lib *entity.Lib) (id int, err error) {
 	res, err := dao.Lib.Ctx(ctx).Data(do.Lib{
 		LibName: lib.LibName,
 		Address: lib.Address,
@@ -36,7 +24,7 @@ func (s *sLib) Create(ctx context.Context, lib *entity.Lib) (id int, err error) 
 	return int(id64), nil
 }
 
-func (s *sLib) GetOne(ctx context.Context, id int) (lib *entity.Lib, err error) {
+func GetOne(ctx context.Context, id int) (lib *entity.Lib, err error) {
 	lib = new(entity.Lib)
 	err = dao.Lib.Ctx(ctx).Where("id", id).Scan(lib)
 	if err != nil {
@@ -45,7 +33,7 @@ func (s *sLib) GetOne(ctx context.Context, id int) (lib *entity.Lib, err error) 
 	return lib, nil
 }
 
-func (s *sLib) GetList(ctx context.Context, condition *dao.LibSearchCondition) (libs []*entity.Lib, err error) {
+func GetList(ctx context.Context, condition *dao.LibSearchCondition) (libs []*entity.Lib, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}
@@ -73,7 +61,7 @@ func (s *sLib) GetList(ctx context.Context, condition *dao.LibSearchCondition) (
 	return libs, nil
 }
 
-func (s *sLib) Update(ctx context.Context, lib *entity.Lib) (err error) {
+func Update(ctx context.Context, lib *entity.Lib) (err error) {
 	_, err = dao.Lib.Ctx(ctx).Data(do.Lib{
 		LibName: lib.LibName,
 		Address: lib.Address,
@@ -82,7 +70,7 @@ func (s *sLib) Update(ctx context.Context, lib *entity.Lib) (err error) {
 	return err
 }
 
-func (s *sLib) Delete(ctx context.Context, id int) (err error) {
+func Delete(ctx context.Context, id int) (err error) {
 	return g.DB().Transaction(ctx, func(ctx context.Context, tx gdb.TX) error {
 		var err error
 
@@ -105,7 +93,7 @@ func (s *sLib) Delete(ctx context.Context, id int) (err error) {
 	})
 }
 
-func (s *sLib) Exist(ctx context.Context, id int) error {
+func Exist(ctx context.Context, id int) error {
 	count, err := dao.Lib.Ctx(ctx).Where("id", id).Count()
 	if err != nil {
 		return err

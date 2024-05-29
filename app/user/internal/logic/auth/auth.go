@@ -6,21 +6,10 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/oldme-git/36hour/app/user/internal/consts"
+	"github.com/oldme-git/36hour/app/user/internal/logic/user"
 	"github.com/oldme-git/36hour/app/user/internal/model"
-	"github.com/oldme-git/36hour/app/user/internal/service"
 	"github.com/oldme-git/36hour/utility"
 )
-
-type sAuth struct {
-}
-
-func init() {
-	service.RegisterAuth(New())
-}
-
-func New() *sAuth {
-	return &sAuth{}
-}
 
 var jwtKey = consts.JwtKey
 
@@ -30,15 +19,15 @@ type UserClaims struct {
 	jwt.RegisteredClaims
 }
 
-func (s *sAuth) Login(ctx context.Context, Username, Password string) (token string, err error) {
+func Login(ctx context.Context, Username, Password string) (token string, err error) {
 	// 1. 根据用户名查询用户信息
-	user, err := service.User().GetOneByUsername(ctx, Username)
+	userOne, err := user.GetOneByUsername(ctx, Username)
 	if err != nil {
 		return "", err
 	}
 
 	// 2. 验证密码
-	ok, err := service.User().CheckPassword(ctx, Password, user.Password)
+	ok, err := user.CheckPassword(ctx, Password, userOne.Password)
 	if err != nil {
 		return "", err
 	}
@@ -46,8 +35,8 @@ func (s *sAuth) Login(ctx context.Context, Username, Password string) (token str
 		return "", utility.Err.New(1001)
 	}
 	userClaims := &UserClaims{
-		Id:       user.Id,
-		Username: user.Username,
+		Id:       userOne.Id,
+		Username: userOne.Username,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(12 * time.Hour)),
 		},
@@ -60,23 +49,23 @@ func (s *sAuth) Login(ctx context.Context, Username, Password string) (token str
 	return token, err
 }
 
-func (s *sAuth) Logout(ctx context.Context, id model.Id) (err error) {
+func Logout(ctx context.Context, id model.Id) (err error) {
 	return err
 }
 
-func (s *sAuth) Register(ctx context.Context) (err error) {
+func Register(ctx context.Context) (err error) {
 	return err
 }
 
-func (s *sAuth) ChangePassword(ctx context.Context) (err error) {
+func ChangePassword(ctx context.Context) (err error) {
 	return err
 }
 
-func (s *sAuth) ResetPassword(ctx context.Context) (err error) {
+func ResetPassword(ctx context.Context) (err error) {
 	return err
 }
 
-func (s *sAuth) GetUserInfo(ctx context.Context, token string) (user *model.User, err error) {
+func GetUserInfo(ctx context.Context, token string) (userOne *model.User, err error) {
 	tokenClaims, _ := jwt.ParseWithClaims(token, &UserClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
@@ -86,8 +75,8 @@ func (s *sAuth) GetUserInfo(ctx context.Context, token string) (user *model.User
 		err = utility.Err.New(1002)
 		return
 	}
-	user = new(model.User)
-	user, err = service.User().GetOne(ctx, claims.Id)
+	userOne = new(model.User)
+	userOne, err = user.GetOne(ctx, claims.Id)
 	if err != nil {
 		return nil, err
 	}

@@ -8,23 +8,11 @@ import (
 	"github.com/oldme-git/36hour/app/seat/internal/model/do"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
 )
 
-func init() {
-	service.RegisterPolicyPrepare(New())
-}
-
-type sPolicyPrepare struct {
-}
-
-func New() *sPolicyPrepare {
-	return &sPolicyPrepare{}
-}
-
-func (s *sPolicyPrepare) Create(ctx context.Context, policyPrepare *entity.PolicyPrepare) (id int, err error) {
+func Create(ctx context.Context, policyPrepare *entity.PolicyPrepare) (id int, err error) {
 	// 数据验证
-	if err := s.hookValid(ctx, policyPrepare); err != nil {
+	if err := hookValid(ctx, policyPrepare); err != nil {
 		return 0, err
 	}
 
@@ -39,7 +27,7 @@ func (s *sPolicyPrepare) Create(ctx context.Context, policyPrepare *entity.Polic
 	return int(id64), nil
 }
 
-func (s *sPolicyPrepare) GetOne(ctx context.Context, id int) (policyPrepare *entity.PolicyPrepare, err error) {
+func GetOne(ctx context.Context, id int) (policyPrepare *entity.PolicyPrepare, err error) {
 	policyPrepare = new(entity.PolicyPrepare)
 	err = dao.PolicyPrepare.Ctx(ctx).Where("id", id).Scan(policyPrepare)
 	if err != nil {
@@ -48,7 +36,7 @@ func (s *sPolicyPrepare) GetOne(ctx context.Context, id int) (policyPrepare *ent
 	return policyPrepare, nil
 }
 
-func (s *sPolicyPrepare) GetList(ctx context.Context, condition *model.PolicyPrepareSearchCondition) (policyPrepares []*entity.PolicyPrepare, err error) {
+func GetList(ctx context.Context, condition *model.PolicyPrepareSearchCondition) (policyPrepares []*entity.PolicyPrepare, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}
@@ -68,7 +56,7 @@ func (s *sPolicyPrepare) GetList(ctx context.Context, condition *model.PolicyPre
 }
 
 // GetTotal 获取PolicyPrepare总数
-func (s *sPolicyPrepare) GetTotal(ctx context.Context, condition *model.PolicyPrepareSearchCondition) (total int, err error) {
+func GetTotal(ctx context.Context, condition *model.PolicyPrepareSearchCondition) (total int, err error) {
 	db := dao.PolicyPrepare.Ctx(ctx)
 	if condition.Name != "" {
 		db = db.WhereLike("name", "%"+condition.Name+"%")
@@ -77,9 +65,9 @@ func (s *sPolicyPrepare) GetTotal(ctx context.Context, condition *model.PolicyPr
 	return
 }
 
-func (s *sPolicyPrepare) Update(ctx context.Context, policyPrepare *entity.PolicyPrepare) (err error) {
+func Update(ctx context.Context, policyPrepare *entity.PolicyPrepare) (err error) {
 	// 数据验证
-	if err := s.hookValid(ctx, policyPrepare); err != nil {
+	if err := hookValid(ctx, policyPrepare); err != nil {
 		return err
 	}
 
@@ -90,13 +78,13 @@ func (s *sPolicyPrepare) Update(ctx context.Context, policyPrepare *entity.Polic
 	return
 }
 
-func (s *sPolicyPrepare) Delete(ctx context.Context, id int) (err error) {
+func Delete(ctx context.Context, id int) (err error) {
 	_, err = dao.PolicyPrepare.Ctx(ctx).Where("id", id).Delete()
 	return err
 }
 
 // hookValid 入库前的数据验证钩子
-func (s *sPolicyPrepare) hookValid(ctx context.Context, policyPrepare *entity.PolicyPrepare) (err error) {
+func hookValid(ctx context.Context, policyPrepare *entity.PolicyPrepare) (err error) {
 	// 格式化 json 数据
 	if policyPrepare.Info != "" {
 		policyPrepare.Info, err = policy.Format(policyPrepare.Info)

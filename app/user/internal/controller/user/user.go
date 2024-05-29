@@ -5,8 +5,8 @@ import (
 
 	"github.com/oldme-git/36hour/app/user/api/pbentity"
 	v1 "github.com/oldme-git/36hour/app/user/api/user/v1"
+	"github.com/oldme-git/36hour/app/user/internal/logic/user"
 	"github.com/oldme-git/36hour/app/user/internal/model"
-	"github.com/oldme-git/36hour/app/user/internal/service"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
@@ -21,7 +21,7 @@ func Register(s *grpcx.GrpcServer) {
 }
 
 func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.CreateRes, err error) {
-	id, err := service.User().Create(ctx, &model.User{
+	id, err := user.Create(ctx, &model.User{
 		Username: req.Username,
 		Password: req.Password,
 		Phone:    req.Phone,
@@ -36,23 +36,23 @@ func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.Creat
 }
 
 func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOneRes, err error) {
-	user, err := service.User().GetOne(ctx, model.Id(req.Id))
+	userOne, err := user.GetOne(ctx, model.Id(req.Id))
 	if err != nil {
 		return nil, err
 	}
 	return &v1.GetOneRes{
 		User: &pbentity.UserMain{
-			Id:        int64(user.Id),
-			Username:  user.Username,
-			Phone:     user.Phone,
-			CreatedAt: timestamppb.New(user.CreatedAt.Time),
-			UpdatedAt: timestamppb.New(user.UpdatedAt.Time),
+			Id:        int64(userOne.Id),
+			Username:  userOne.Username,
+			Phone:     userOne.Phone,
+			CreatedAt: timestamppb.New(userOne.CreatedAt.Time),
+			UpdatedAt: timestamppb.New(userOne.UpdatedAt.Time),
 		},
 	}, nil
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	users, err := service.User().GetList(ctx, int(req.Page), int(req.PageSize))
+	users, err := user.GetList(ctx, int(req.Page), int(req.PageSize))
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 }
 
 func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.UpdateRes, err error) {
-	err = service.User().Update(ctx, &model.User{
+	err = user.Update(ctx, &model.User{
 		Id:       model.Id(req.Id),
 		Username: req.Username,
 		Phone:    req.Phone,
@@ -86,7 +86,7 @@ func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.Updat
 }
 
 func (*Controller) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.DeleteRes, err error) {
-	err = service.User().Delete(ctx, model.Id(req.Id))
+	err = user.Delete(ctx, model.Id(req.Id))
 	if err != nil {
 		return nil, err
 	}

@@ -4,7 +4,6 @@ import (
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/cmd"
-	_ "github.com/oldme-git/36hour/app/lib-manager/internal/logic"
 	"github.com/oldme-git/36hour/utility/svc_disc"
 )
 

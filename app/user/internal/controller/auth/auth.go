@@ -5,7 +5,7 @@ import (
 
 	v1 "github.com/oldme-git/36hour/app/user/api/auth/v1"
 	"github.com/oldme-git/36hour/app/user/api/pbentity"
-	"github.com/oldme-git/36hour/app/user/internal/service"
+	"github.com/oldme-git/36hour/app/user/internal/logic/auth"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
@@ -20,7 +20,7 @@ func Register(s *grpcx.GrpcServer) {
 }
 
 func (*Controller) Login(ctx context.Context, req *v1.LoginReq) (res *v1.LoginRes, err error) {
-	token, err := service.Auth().Login(ctx, req.Username, req.Password)
+	token, err := auth.Login(ctx, req.Username, req.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func (*Controller) Login(ctx context.Context, req *v1.LoginReq) (res *v1.LoginRe
 }
 
 func (*Controller) GetUserInfo(ctx context.Context, req *v1.GetUserInfoReq) (res *v1.GetUserInfoRes, err error) {
-	user, err := service.Auth().GetUserInfo(ctx, req.Token)
+	user, err := auth.GetUserInfo(ctx, req.Token)
 	if err != nil {
 		return nil, err
 	}

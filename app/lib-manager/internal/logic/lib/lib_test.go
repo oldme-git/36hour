@@ -4,23 +4,24 @@ import (
 	"database/sql"
 	"testing"
 
+	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/dao"
-	"github.com/oldme-git/36hour/app/lib-manager/internal/model/entity"
-	"github.com/oldme-git/36hour/app/lib-manager/internal/service"
-
-	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/logic/floor"
 	_ "github.com/oldme-git/36hour/app/lib-manager/internal/logic/floor"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/logic/lib"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/logic/location"
 	_ "github.com/oldme-git/36hour/app/lib-manager/internal/logic/location"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/model/entity"
 )
 
 func TestCRUD(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			ctx   = gctx.New()
-			lib   = new(entity.Lib)
-			libIn = &entity.Lib{
+			ctx     = gctx.New()
+			libData = new(entity.Lib)
+			libIn   = &entity.Lib{
 				LibName: "libTest",
 				Address: "libTestAddress",
 				Active:  true,
@@ -28,7 +29,7 @@ func TestCRUD(t *testing.T) {
 		)
 
 		// Create
-		id, err := service.Lib().Create(ctx, libIn)
+		id, err := lib.Create(ctx, libIn)
 		t.AssertNil(err)
 
 		// GetList
@@ -39,17 +40,17 @@ func TestCRUD(t *testing.T) {
 			Address:  "Add",
 			Active:   true,
 		}
-		libs, err := service.Lib().GetList(ctx, condition)
+		libs, err := lib.GetList(ctx, condition)
 		t.AssertNil(err)
 		t.Assert(len(libs), 1)
 
 		// GetOne
-		lib, err = service.Lib().GetOne(ctx, id)
+		libData, err = lib.GetOne(ctx, id)
 		t.AssertNil(err)
-		t.Assert(lib.Id, id)
-		t.Assert(lib.LibName, libIn.LibName)
-		t.Assert(lib.Address, libIn.Address)
-		t.Assert(lib.Active, libIn.Active)
+		t.Assert(libData.Id, id)
+		t.Assert(libData.LibName, libIn.LibName)
+		t.Assert(libData.Address, libIn.Address)
+		t.Assert(libData.Active, libIn.Active)
 
 		// Update
 		var libUptIn = &entity.Lib{
@@ -58,45 +59,45 @@ func TestCRUD(t *testing.T) {
 			Address: "libTestAddressUpt",
 			Active:  false,
 		}
-		err = service.Lib().Update(ctx, libUptIn)
+		err = lib.Update(ctx, libUptIn)
 		t.AssertNil(err)
-		lib, err = service.Lib().GetOne(ctx, id)
+		libData, err = lib.GetOne(ctx, id)
 		t.AssertNil(err)
-		t.Assert(lib.LibName, libUptIn.LibName)
-		t.Assert(lib.Address, libUptIn.Address)
-		t.Assert(lib.Active, libUptIn.Active)
+		t.Assert(libData.LibName, libUptIn.LibName)
+		t.Assert(libData.Address, libUptIn.Address)
+		t.Assert(libData.Active, libUptIn.Active)
 
 		// Delete
 		// 创建一些 floor 以便测试删除 lib 时的级联删除
-		floorId, err := service.Floor().Create(ctx, &entity.Floor{
+		floorId, err := floor.Create(ctx, &entity.Floor{
 			LibId:     id,
 			FloorName: "floorTest",
 		})
 		t.AssertNil(err)
 		// 创建一些 location 以便测试删除 lib 时的级联删除
-		_, err = service.Location().Create(ctx, &entity.Location{
+		_, err = location.Create(ctx, &entity.Location{
 			LibId:        id,
 			FloorId:      floorId,
 			LocationName: "locationTest",
 		})
 		t.AssertNil(err)
-		_, err = service.Location().Create(ctx, &entity.Location{
+		_, err = location.Create(ctx, &entity.Location{
 			LibId:        id,
 			FloorId:      floorId,
 			LocationName: "locationTest2",
 		})
 
-		err = service.Lib().Delete(ctx, id)
+		err = lib.Delete(ctx, id)
 		t.AssertNil(err)
-		_, err = service.Lib().GetOne(ctx, id)
+		_, err = lib.GetOne(ctx, id)
 		t.Assert(err, sql.ErrNoRows)
 		// 获取 floor 列表，验证 lib 删除时的级联删除
-		_, err = service.Floor().GetList(ctx, &dao.FloorSearchCondition{
+		_, err = floor.GetList(ctx, &dao.FloorSearchCondition{
 			LibId: id,
 		})
 		t.Assert(err, sql.ErrNoRows)
 		// 获取 location 列表，验证 lib 删除时的级联删除
-		_, err = service.Location().GetList(ctx, &dao.LocationSearchCondition{
+		_, err = location.GetList(ctx, &dao.LocationSearchCondition{
 			LibId: id,
 		})
 		t.Assert(err, sql.ErrNoRows)
@@ -108,7 +109,7 @@ func TestExist(t *testing.T) {
 		var ctx = gctx.New()
 
 		// 创建一个 lib
-		id, err := service.Lib().Create(ctx, &entity.Lib{
+		id, err := lib.Create(ctx, &entity.Lib{
 			LibName: "libTest",
 			Address: "libTestAddress",
 			Active:  true,
@@ -116,15 +117,15 @@ func TestExist(t *testing.T) {
 		t.AssertNil(err)
 
 		// 验证存在
-		err = service.Lib().Exist(ctx, id)
+		err = lib.Exist(ctx, id)
 		t.AssertNil(err)
 
 		// 验证不存在
-		err = service.Lib().Exist(ctx, id+10000)
+		err = lib.Exist(ctx, id+10000)
 		t.AssertNE(err, nil)
 
 		// 删除
-		err = service.Lib().Delete(ctx, id)
+		err = lib.Delete(ctx, id)
 		t.AssertNil(err)
 	})
 }

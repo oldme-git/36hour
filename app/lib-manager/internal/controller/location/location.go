@@ -7,8 +7,8 @@ import (
 	v1 "github.com/oldme-git/36hour/app/lib-manager/api/location/v1"
 	"github.com/oldme-git/36hour/app/lib-manager/api/pbentity"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/dao"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/logic/location"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/model/entity"
-	"github.com/oldme-git/36hour/app/lib-manager/internal/service"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -21,7 +21,7 @@ func Register(s *grpcx.GrpcServer) {
 }
 
 func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.CreateRes, err error) {
-	id, err := service.Location().Create(ctx, &entity.Location{
+	id, err := location.Create(ctx, &entity.Location{
 		LibId:        int(req.LibId),
 		FloorId:      int(req.FloorId),
 		LocationName: req.LocationName,
@@ -33,24 +33,24 @@ func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.Creat
 }
 
 func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOneRes, err error) {
-	location, err := service.Location().GetOne(ctx, int(req.Id))
+	locationOne, err := location.GetOne(ctx, int(req.Id))
 	if err != nil {
 		return nil, err
 	}
 	return &v1.GetOneRes{
 		Location: &pbentity.Location{
-			Id:           int32(location.Id),
-			LibId:        int32(location.LibId),
-			FloorId:      int32(location.FloorId),
-			LocationName: location.LocationName,
-			CreatedAt:    timestamppb.New(location.CreatedAt.Time),
-			UpdatedAt:    timestamppb.New(location.UpdatedAt.Time),
+			Id:           int32(locationOne.Id),
+			LibId:        int32(locationOne.LibId),
+			FloorId:      int32(locationOne.FloorId),
+			LocationName: locationOne.LocationName,
+			CreatedAt:    timestamppb.New(locationOne.CreatedAt.Time),
+			UpdatedAt:    timestamppb.New(locationOne.UpdatedAt.Time),
 		},
 	}, nil
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	locations, err := service.Location().GetList(ctx, &dao.LocationSearchCondition{
+	locations, err := location.GetList(ctx, &dao.LocationSearchCondition{
 		Page:     int(req.Page),
 		PageSize: int(req.PageSize),
 		LibId:    int(req.LibId),
@@ -74,7 +74,7 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 }
 
 func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.UpdateRes, err error) {
-	err = service.Location().Update(ctx, &entity.Location{
+	err = location.Update(ctx, &entity.Location{
 		Id:           int(req.Id),
 		FloorId:      int(req.FloorId),
 		LocationName: req.LocationName,
@@ -86,7 +86,7 @@ func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.Updat
 }
 
 func (*Controller) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.DeleteRes, err error) {
-	err = service.Location().Delete(ctx, int(req.Id))
+	err = location.Delete(ctx, int(req.Id))
 	if err != nil {
 		return nil, err
 	}

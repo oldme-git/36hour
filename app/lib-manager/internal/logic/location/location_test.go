@@ -4,23 +4,24 @@ import (
 	"database/sql"
 	"testing"
 
+	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/oldme-git/36hour/app/lib-manager/internal/dao"
-	"github.com/oldme-git/36hour/app/lib-manager/internal/model/entity"
-	"github.com/oldme-git/36hour/app/lib-manager/internal/service"
-
-	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/logic/floor"
 	_ "github.com/oldme-git/36hour/app/lib-manager/internal/logic/floor"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/logic/lib"
 	_ "github.com/oldme-git/36hour/app/lib-manager/internal/logic/lib"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/logic/location"
+	"github.com/oldme-git/36hour/app/lib-manager/internal/model/entity"
 )
 
 func TestCRUD(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			ctx        = gctx.New()
-			location   = new(entity.Location)
-			locationIn = &entity.Location{
+			ctx          = gctx.New()
+			locationData = new(entity.Location)
+			locationIn   = &entity.Location{
 				LibId:        1,
 				FloorId:      1,
 				LocationName: "locationTest",
@@ -28,17 +29,17 @@ func TestCRUD(t *testing.T) {
 		)
 
 		// 创建一个 lib
-		libId, err := service.Lib().Create(ctx, &entity.Lib{
+		libId, err := lib.Create(ctx, &entity.Lib{
 			LibName: "libTest",
 			Address: "libTestAddress",
 			Active:  true,
 		})
 		t.AssertNil(err)
 		locationIn.LibId = libId
-		defer service.Lib().Delete(ctx, libId)
+		defer lib.Delete(ctx, libId)
 
 		// 创建一个 floor
-		floorId, err := service.Floor().Create(ctx, &entity.Floor{
+		floorId, err := floor.Create(ctx, &entity.Floor{
 			LibId:     libId,
 			FloorName: "floorTest",
 		})
@@ -46,7 +47,7 @@ func TestCRUD(t *testing.T) {
 		locationIn.FloorId = floorId
 
 		// Create
-		id, err := service.Location().Create(ctx, locationIn)
+		id, err := location.Create(ctx, locationIn)
 		t.AssertNil(err)
 
 		// GetList
@@ -56,17 +57,17 @@ func TestCRUD(t *testing.T) {
 			LibId:    libId,
 			FloorId:  floorId,
 		}
-		locations, err := service.Location().GetList(ctx, condition)
+		locations, err := location.GetList(ctx, condition)
 		t.AssertNil(err)
 		t.Assert(len(locations), 1)
 
 		// GetOne
-		location, err = service.Location().GetOne(ctx, id)
+		locationData, err = location.GetOne(ctx, id)
 		t.AssertNil(err)
-		t.Assert(location.Id, id)
-		t.Assert(location.LibId, locationIn.LibId)
-		t.Assert(location.FloorId, locationIn.FloorId)
-		t.Assert(location.LocationName, locationIn.LocationName)
+		t.Assert(locationData.Id, id)
+		t.Assert(locationData.LibId, locationIn.LibId)
+		t.Assert(locationData.FloorId, locationIn.FloorId)
+		t.Assert(locationData.LocationName, locationIn.LocationName)
 
 		// Update
 		var locationUptIn = &entity.Location{
@@ -75,18 +76,18 @@ func TestCRUD(t *testing.T) {
 			FloorId:      floorId,
 			LocationName: "locationTestUpt",
 		}
-		err = service.Location().Update(ctx, locationUptIn)
+		err = location.Update(ctx, locationUptIn)
 		t.AssertNil(err)
-		location, err = service.Location().GetOne(ctx, id)
+		locationData, err = location.GetOne(ctx, id)
 		t.AssertNil(err)
-		t.Assert(location.LibId, locationUptIn.LibId)
-		t.Assert(location.FloorId, locationUptIn.FloorId)
-		t.Assert(location.LocationName, locationUptIn.LocationName)
+		t.Assert(locationData.LibId, locationUptIn.LibId)
+		t.Assert(locationData.FloorId, locationUptIn.FloorId)
+		t.Assert(locationData.LocationName, locationUptIn.LocationName)
 
 		// Delete
-		err = service.Location().Delete(ctx, id)
+		err = location.Delete(ctx, id)
 		t.AssertNil(err)
-		_, err = service.Location().GetOne(ctx, id)
+		_, err = location.GetOne(ctx, id)
 		t.Assert(err, sql.ErrNoRows)
 	})
 }

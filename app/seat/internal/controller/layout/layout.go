@@ -6,9 +6,11 @@ import (
 	libLocation "github.com/oldme-git/36hour/app/lib-manager/api/location/v1"
 	v1 "github.com/oldme-git/36hour/app/seat/api/layout/v1"
 	"github.com/oldme-git/36hour/app/seat/api/pbentity"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/layout"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
 	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
+
 	"github.com/oldme-git/36hour/utility/svc_disc"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
@@ -28,14 +30,14 @@ func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.Creat
 
 	if req.PolicyInfo != "" {
 		// 保存自己的策略信息
-		policyLid, err = service.PolicyLayout().Create(ctx, &entity.PolicyLayout{
+		policyLid, err = policy_layout.Create(ctx, &entity.PolicyLayout{
 			Info: req.PolicyInfo,
 		})
 		if err != nil {
 			return nil, err
 		}
 	}
-	id, err := service.Layout().Create(ctx, &entity.Layout{
+	id, err := layout.Create(ctx, &entity.Layout{
 		LocationId: int(req.LocationId),
 		PolicyCId:  int(req.PolicyCId),
 		PolicyLId:  policyLid,
@@ -51,12 +53,12 @@ func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.Creat
 }
 
 func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOneRes, err error) {
-	layout, err := service.Layout().GetOne(ctx, int(req.Id))
+	layoutOne, err := layout.GetOne(ctx, int(req.Id))
 	if err != nil {
 		return nil, err
 	}
 	// 获取运行中的策略
-	policyInfo, err := service.Layout().GetRuntimePolicy(ctx, layout)
+	policyInfo, err := layout.GetRuntimePolicy(ctx, layoutOne)
 	if err != nil {
 		return nil, err
 	}
@@ -66,23 +68,23 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 		conn   = svc_disc.LibManagerClient(ctx)
 		client = libLocation.NewLocationClient(conn)
 	)
-	lib, err := client.GetOne(ctx, &libLocation.GetOneReq{Id: int32(layout.LocationId)})
+	lib, err := client.GetOne(ctx, &libLocation.GetOneReq{Id: int32(layoutOne.LocationId)})
 	if err != nil {
 		return nil, err
 	}
 	return &v1.GetOneRes{
 		Layout: &pbentity.Layout{
-			Id:         int32(layout.Id),
-			LocationId: int32(layout.LocationId),
-			PolicyCId:  int32(layout.PolicyCId),
-			PolicyLId:  int32(layout.PolicyLId),
-			LayoutName: layout.LayoutName,
-			Map:        layout.Map,
-			Status:     int32(layout.Status),
-			Sort:       int32(layout.Sort),
-			Seats:      int32(layout.Seats),
-			CreatedAt:  timestamppb.New(layout.CreatedAt.Time),
-			UpdatedAt:  timestamppb.New(layout.UpdatedAt.Time),
+			Id:         int32(layoutOne.Id),
+			LocationId: int32(layoutOne.LocationId),
+			PolicyCId:  int32(layoutOne.PolicyCId),
+			PolicyLId:  int32(layoutOne.PolicyLId),
+			LayoutName: layoutOne.LayoutName,
+			Map:        layoutOne.Map,
+			Status:     int32(layoutOne.Status),
+			Sort:       int32(layoutOne.Sort),
+			Seats:      int32(layoutOne.Seats),
+			CreatedAt:  timestamppb.New(layoutOne.CreatedAt.Time),
+			UpdatedAt:  timestamppb.New(layoutOne.UpdatedAt.Time),
 		},
 		PolicyInfo:   policyInfo,
 		LocationName: lib.GetLocation().GetLocationName(),
@@ -90,7 +92,7 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	layouts, err := service.Layout().GetList(ctx, &model.LayoutSearchCondition{
+	layouts, err := layout.GetList(ctx, &model.LayoutSearchCondition{
 		Page:       int(req.Page),
 		PageSize:   int(req.PageSize),
 		LayoutName: req.LayoutName,
@@ -101,7 +103,7 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 	if err != nil {
 		return nil, err
 	}
-	total, err := service.Layout().GetTotal(ctx, &model.LayoutSearchCondition{
+	total, err := layout.GetTotal(ctx, &model.LayoutSearchCondition{
 		LayoutName: req.LayoutName,
 		Status:     int(req.Status),
 		SeatsMin:   int(req.SeatsMin),
@@ -131,14 +133,14 @@ func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.Updat
 	if req.PolicyInfo != "" {
 		// TODO 自己的策略信息不能使用更新创建，需要调整
 		// 保存自己的策略信息
-		policyLid, err = service.PolicyLayout().Create(ctx, &entity.PolicyLayout{
+		policyLid, err = policy_layout.Create(ctx, &entity.PolicyLayout{
 			Info: req.PolicyInfo,
 		})
 		if err != nil {
 			return nil, err
 		}
 	}
-	err = service.Layout().Update(ctx, &entity.Layout{
+	err = layout.Update(ctx, &entity.Layout{
 		Id:         int(req.Id),
 		LocationId: int(req.LocationId),
 		PolicyCId:  int(req.PolicyCId),
@@ -155,7 +157,7 @@ func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.Updat
 }
 
 func (*Controller) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.DeleteRes, err error) {
-	err = service.Layout().Delete(ctx, int(req.Id))
+	err = layout.Delete(ctx, int(req.Id))
 	if err != nil {
 		return nil, err
 	}

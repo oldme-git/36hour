@@ -5,9 +5,9 @@ import (
 
 	"github.com/oldme-git/36hour/app/seat/api/pbentity"
 	v1 "github.com/oldme-git/36hour/app/seat/api/policy_prepare/v1"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_prepare"
 	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
 )
@@ -21,7 +21,7 @@ func Register(s *grpcx.GrpcServer) {
 }
 
 func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.CreateRes, err error) {
-	id, err := service.PolicyPrepare().Create(ctx, &entity.PolicyPrepare{
+	id, err := policy_prepare.Create(ctx, &entity.PolicyPrepare{
 		Name: req.Name,
 		Info: req.Policy,
 	})
@@ -32,7 +32,7 @@ func (*Controller) Create(ctx context.Context, req *v1.CreateReq) (res *v1.Creat
 }
 
 func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOneRes, err error) {
-	policy, err := service.PolicyPrepare().GetOne(ctx, int(req.Id))
+	policy, err := policy_prepare.GetOne(ctx, int(req.Id))
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	policies, err := service.PolicyPrepare().GetList(ctx, &model.PolicyPrepareSearchCondition{
+	policies, err := policy_prepare.GetList(ctx, &model.PolicyPrepareSearchCondition{
 		Page:     int(req.Page),
 		PageSize: int(req.PageSize),
 		Name:     req.Name,
@@ -54,7 +54,7 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 	if err != nil {
 		return nil, err
 	}
-	total, err := service.PolicyPrepare().GetTotal(ctx, &model.PolicyPrepareSearchCondition{
+	total, err := policy_prepare.GetTotal(ctx, &model.PolicyPrepareSearchCondition{
 		Name: req.Name,
 	})
 	if err != nil {
@@ -73,7 +73,7 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 }
 
 func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.UpdateRes, err error) {
-	err = service.PolicyPrepare().Update(ctx, &entity.PolicyPrepare{
+	err = policy_prepare.Update(ctx, &entity.PolicyPrepare{
 		Id:   int(req.Id),
 		Name: req.Name,
 		Info: req.Policy,
@@ -85,7 +85,7 @@ func (*Controller) Update(ctx context.Context, req *v1.UpdateReq) (res *v1.Updat
 }
 
 func (*Controller) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.DeleteRes, err error) {
-	err = service.PolicyPrepare().Delete(ctx, int(req.Id))
+	err = policy_prepare.Delete(ctx, int(req.Id))
 	if err != nil {
 		return nil, err
 	}

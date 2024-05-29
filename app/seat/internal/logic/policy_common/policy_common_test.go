@@ -8,10 +8,10 @@ import (
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/oldme-git/36hour/app/seat/internal/dao"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_common"
 	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
-	"github.com/oldme-git/36hour/app/seat/internal/service"
 )
 
 func TestCRUD(t *testing.T) {
@@ -34,7 +34,7 @@ func TestCRUD(t *testing.T) {
 		dao.PolicyCommon.Ctx(ctx).Where("name", "policyCommonTest").Delete("id > 0")
 
 		// Create
-		id, err := service.PolicyCommon().Create(ctx, policyCommonIn)
+		id, err := policy_common.Create(ctx, policyCommonIn)
 		t.AssertNil(err)
 
 		// GetList
@@ -43,12 +43,12 @@ func TestCRUD(t *testing.T) {
 			PageSize: 1,
 			Name:     "Common",
 		}
-		policyCommons, err := service.PolicyCommon().GetList(ctx, condition)
+		policyCommons, err := policy_common.GetList(ctx, condition)
 		t.AssertNil(err)
 		t.Assert(len(policyCommons), 1)
 
 		// GetOne
-		policyCommon, err = service.PolicyCommon().GetOne(ctx, id)
+		policyCommon, err = policy_common.GetOne(ctx, id)
 		t.AssertNil(err)
 		t.Assert(policyCommon.Id, id)
 		t.Assert(policyCommon.Name, policyCommonIn.Name)
@@ -72,17 +72,17 @@ func TestCRUD(t *testing.T) {
 			}
 		)
 
-		err = service.PolicyCommon().Update(ctx, policyCommonUptIn)
+		err = policy_common.Update(ctx, policyCommonUptIn)
 		t.AssertNil(err)
-		policyCommon, err = service.PolicyCommon().GetOne(ctx, id)
+		policyCommon, err = policy_common.GetOne(ctx, id)
 		t.AssertNil(err)
 		t.Assert(policyCommon.Name, policyCommonUptIn.Name)
 		t.Assert(policyCommon.Info, policyCommonUptIn.Info)
 
 		// Delete
-		err = service.PolicyCommon().Delete(ctx, id)
+		err = policy_common.Delete(ctx, id)
 		t.AssertNil(err)
-		_, err = service.PolicyCommon().GetOne(ctx, id)
+		_, err = policy_common.GetOne(ctx, id)
 		t.Assert(err, sql.ErrNoRows)
 	})
 }
