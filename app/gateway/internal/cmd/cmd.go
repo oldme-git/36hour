@@ -6,6 +6,7 @@ import (
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/net/ghttp"
 	"github.com/gogf/gf/v2/os/gcmd"
+	"github.com/oldme-git/36hour/app/gateway/internal/controller/account"
 	"github.com/oldme-git/36hour/app/gateway/internal/controller/login"
 	"github.com/oldme-git/36hour/app/gateway/internal/logic/middleware"
 )
@@ -21,8 +22,18 @@ var (
 				// 允许跨域
 				// group.Middleware(ghttp.MiddlewareCORS)
 				group.Middleware(middleware.Response)
-				group.Group("/v1", func(group *ghttp.RouterGroup) {
-					group.Bind(login.NewV1())
+
+				group.Group("/admin", func(group *ghttp.RouterGroup) {
+					// 管理端 路由
+					group.Group("/", func(group *ghttp.RouterGroup) {
+						group.Bind(login.NewAdmin())
+					})
+
+					// Auth Middleware
+					group.Group("/", func(group *ghttp.RouterGroup) {
+						group.Middleware(middleware.Auth)
+						group.Bind(account.NewAdmin())
+					})
 				})
 			})
 			s.Run()

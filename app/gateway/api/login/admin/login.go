@@ -1,10 +1,10 @@
-package v1
+package admin
 
 import "github.com/gogf/gf/v2/frame/g"
 
 type (
 	LoginReq struct {
-		g.Meta   `path:"login" method:"post" sm:"登录" tags:"账户"`
+		g.Meta   `path:"login" method:"post" sm:"登录" tags:"admin账户"`
 		Username string `v:"required|length: 3,20"`
 		Password string `v:"required|length: 8,30"`
 	}
