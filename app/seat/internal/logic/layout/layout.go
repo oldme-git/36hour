@@ -41,18 +41,22 @@ func GetOne(ctx context.Context, id int) (layout *entity.Layout, err error) {
 	if err != nil {
 		return nil, utility.Err.NewSys(err)
 	}
+	// map 为空时，初始化为空数组
+	if layout.Map == "" {
+		layout.Map = "[]"
+	}
 
 	return layout, nil
 }
 
-func GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layouts []*entity.Layout, err error) {
+func GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layouts []entity.Layout, total int, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}
 	if condition.PageSize <= 0 {
 		condition.PageSize = 20
 	}
-	layouts = make([]*entity.Layout, condition.PageSize)
+	layouts = make([]entity.Layout, condition.PageSize)
 	db := dao.Layout.Ctx(ctx)
 	if condition.LayoutName != "" {
 		db = db.WhereLike("layout_name", "%"+condition.LayoutName+"%")
@@ -61,32 +65,16 @@ func GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layou
 		db = db.Where("status", condition.Status)
 	}
 	if condition.SeatsMin > 0 && condition.SeatsMax > 0 {
-		db = db.WhereBetween("github.com/oldme-git/36hour/app/seats", condition.SeatsMin, condition.SeatsMax)
+		db = db.WhereBetween("seats", condition.SeatsMin, condition.SeatsMax)
 	}
-	err = db.Page(condition.Page, condition.PageSize).Scan(&layouts)
+	err = db.FieldsEx(dao.Layout.Columns().Map).
+		Page(condition.Page, condition.PageSize).
+		ScanAndCount(&layouts, &total, true)
 	if err != nil {
-		return nil, utility.Err.NewSys(err)
+		err = utility.Err.NewSys(err)
+		return
 	}
-	return layouts, nil
-}
-
-// GetTotal 获取 Layout 总数
-func GetTotal(ctx context.Context, condition *model.LayoutSearchCondition) (total int, err error) {
-	db := dao.Layout.Ctx(ctx)
-	if condition.LayoutName != "" {
-		db = db.WhereLike("layout_name", "%"+condition.LayoutName+"%")
-	}
-	if condition.Status > 0 {
-		db = db.Where("status", condition.Status)
-	}
-	if condition.SeatsMin > 0 && condition.SeatsMax > 0 {
-		db = db.WhereBetween("github.com/oldme-git/36hour/app/seats", condition.SeatsMin, condition.SeatsMax)
-	}
-	total, err = db.Count()
-	if err != nil {
-		return 0, utility.Err.NewSys(err)
-	}
-	return total, nil
+	return
 }
 
 func Update(ctx context.Context, layout *entity.Layout) (err error) {

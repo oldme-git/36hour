@@ -15,3 +15,8 @@ database:
   default:
     link:  "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_seat"
     debug: false
+
+redis:
+  default:
+    address: srv.com:6379
+    db:      1

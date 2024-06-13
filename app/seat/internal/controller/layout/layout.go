@@ -92,18 +92,9 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	layouts, err := layout.GetList(ctx, &model.LayoutSearchCondition{
+	layouts, total, err := layout.GetList(ctx, &model.LayoutSearchCondition{
 		Page:       int(req.Page),
 		PageSize:   int(req.PageSize),
-		LayoutName: req.LayoutName,
-		Status:     int(req.Status),
-		SeatsMin:   int(req.SeatsMin),
-		SeatsMax:   int(req.SeatsMax),
-	})
-	if err != nil {
-		return nil, err
-	}
-	total, err := layout.GetTotal(ctx, &model.LayoutSearchCondition{
 		LayoutName: req.LayoutName,
 		Status:     int(req.Status),
 		SeatsMin:   int(req.SeatsMin),

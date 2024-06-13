@@ -3,6 +3,8 @@
 
 # 当前技术栈
 - GoFrame
+- PgSQL
+- Redis
 - GRPC
 - 服务发现：Etcd
 
