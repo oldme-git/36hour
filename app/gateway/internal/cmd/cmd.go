@@ -23,8 +23,8 @@ var (
 				// group.Middleware(ghttp.MiddlewareCORS)
 				group.Middleware(middleware.Response)
 
-				group.Group("/admin", func(group *ghttp.RouterGroup) {
-					// 管理端 路由
+				group.Group("/v1", func(group *ghttp.RouterGroup) {
+					// App v1 路由
 					group.Group("/", func(group *ghttp.RouterGroup) {
 						group.Bind(login.NewAdmin())
 					})

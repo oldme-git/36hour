@@ -7,10 +7,10 @@ import (
 	auth "github.com/oldme-git/36hour/app/user/api/auth/v1"
 	"github.com/oldme-git/36hour/utility/svc_disc"
 
-	"github.com/oldme-git/36hour/app/gateway/api/account/admin"
+	"github.com/oldme-git/36hour/app/gateway/api/account/v1"
 )
 
-func (c *ControllerAdmin) Info(ctx context.Context, req *admin.InfoReq) (res *admin.InfoRes, err error) {
+func (c *ControllerAdmin) Info(ctx context.Context, req *v1.InfoReq) (res *v1.InfoRes, err error) {
 	var (
 		conn   = svc_disc.UserClient(ctx)
 		client = auth.NewAuthClient(conn)
@@ -23,7 +23,7 @@ func (c *ControllerAdmin) Info(ctx context.Context, req *admin.InfoReq) (res *ad
 		return nil, err
 	}
 
-	return &admin.InfoRes{
+	return &v1.InfoRes{
 		Id:       int(info.User.Id),
 		Username: info.User.Username,
 		Phone:    info.User.Phone,
