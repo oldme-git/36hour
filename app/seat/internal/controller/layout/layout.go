@@ -154,3 +154,58 @@ func (*Controller) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.Delet
 	}
 	return
 }
+
+func (*Controller) GetRuntimeLayout(ctx context.Context, req *v1.GetRuntimeLayoutReq) (res *v1.GetRuntimeLayoutRes, err error) {
+	var locationIds = make([]int, len(req.LocationIds))
+	for k, v := range req.LocationIds {
+		locationIds[k] = int(v)
+	}
+	layouts, err := layout.GetRuntimeLayout(ctx, locationIds...)
+	if err != nil {
+		return nil, err
+	}
+
+	var layoutsRes = make([]*pbentity.Layout, len(layouts))
+	for k, v := range layouts {
+		layoutsRes[k] = &pbentity.Layout{
+			Id:         int32(v.Id),
+			LocationId: int32(v.LocationId),
+			PolicyCId:  int32(v.PolicyCId),
+			PolicyLId:  int32(v.PolicyLId),
+			LayoutName: v.LayoutName,
+			Map:        v.Map,
+			Status:     int32(v.Status),
+			Sort:       int32(v.Sort),
+			Seats:      int32(v.Seats),
+			CreatedAt:  timestamppb.New(v.CreatedAt.Time),
+			UpdatedAt:  timestamppb.New(v.UpdatedAt.Time),
+		}
+	}
+	return &v1.GetRuntimeLayoutRes{
+		Layouts: layoutsRes,
+	}, nil
+}
+
+func (*Controller) GetRuntimeLayoutMap(ctx context.Context, req *v1.GetRuntimeLayoutMapReq) (res *v1.GetRuntimeLayoutMapRes, err error) {
+	var layoutId = int(req.LayoutId)
+	cells, err := layout.GetRuntimeLayoutMap(ctx, layoutId)
+	if err != nil {
+		return nil, err
+	}
+	var cellsRes = make([]*v1.LayoutMapCell, len(cells))
+	for k, v := range cells {
+		cellsRes[k] = &v1.LayoutMapCell{
+			X:       int64(v.X),
+			Y:       int64(v.Y),
+			VectorX: int64(v.VectorX),
+			VectorY: int64(v.VectorY),
+			No:      int64(v.No),
+			Label:   v.Label,
+			Type:    int64(v.Type),
+			Status:  int64(v.Status),
+		}
+	}
+	return &v1.GetRuntimeLayoutMapRes{
+		Cells: cellsRes,
+	}, nil
+}

@@ -751,6 +751,297 @@ func (x *DeleteRes) GetEmpty() *emptypb.Empty {
 	return nil
 }
 
+type GetRuntimeLayoutReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LocationIds []uint64 `protobuf:"varint,1,rep,packed,name=locationIds,proto3" json:"locationIds,omitempty" v:"required"` // v:required
+}
+
+func (x *GetRuntimeLayoutReq) Reset() {
+	*x = GetRuntimeLayoutReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_layout_v1_layout_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetRuntimeLayoutReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRuntimeLayoutReq) ProtoMessage() {}
+
+func (x *GetRuntimeLayoutReq) ProtoReflect() protoreflect.Message {
+	mi := &file_layout_v1_layout_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRuntimeLayoutReq.ProtoReflect.Descriptor instead.
+func (*GetRuntimeLayoutReq) Descriptor() ([]byte, []int) {
+	return file_layout_v1_layout_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetRuntimeLayoutReq) GetLocationIds() []uint64 {
+	if x != nil {
+		return x.LocationIds
+	}
+	return nil
+}
+
+type GetRuntimeLayoutRes struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Layouts []*pbentity.Layout `protobuf:"bytes,1,rep,name=layouts,proto3" json:"layouts,omitempty"`
+}
+
+func (x *GetRuntimeLayoutRes) Reset() {
+	*x = GetRuntimeLayoutRes{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_layout_v1_layout_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetRuntimeLayoutRes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRuntimeLayoutRes) ProtoMessage() {}
+
+func (x *GetRuntimeLayoutRes) ProtoReflect() protoreflect.Message {
+	mi := &file_layout_v1_layout_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRuntimeLayoutRes.ProtoReflect.Descriptor instead.
+func (*GetRuntimeLayoutRes) Descriptor() ([]byte, []int) {
+	return file_layout_v1_layout_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetRuntimeLayoutRes) GetLayouts() []*pbentity.Layout {
+	if x != nil {
+		return x.Layouts
+	}
+	return nil
+}
+
+type GetRuntimeLayoutMapReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LayoutId int64 `protobuf:"varint,1,opt,name=layoutId,proto3" json:"layoutId,omitempty" v:"required"` // v:required
+}
+
+func (x *GetRuntimeLayoutMapReq) Reset() {
+	*x = GetRuntimeLayoutMapReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_layout_v1_layout_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetRuntimeLayoutMapReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRuntimeLayoutMapReq) ProtoMessage() {}
+
+func (x *GetRuntimeLayoutMapReq) ProtoReflect() protoreflect.Message {
+	mi := &file_layout_v1_layout_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRuntimeLayoutMapReq.ProtoReflect.Descriptor instead.
+func (*GetRuntimeLayoutMapReq) Descriptor() ([]byte, []int) {
+	return file_layout_v1_layout_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GetRuntimeLayoutMapReq) GetLayoutId() int64 {
+	if x != nil {
+		return x.LayoutId
+	}
+	return 0
+}
+
+type GetRuntimeLayoutMapRes struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Cells []*LayoutMapCell `protobuf:"bytes,1,rep,name=cells,proto3" json:"cells,omitempty"`
+}
+
+func (x *GetRuntimeLayoutMapRes) Reset() {
+	*x = GetRuntimeLayoutMapRes{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_layout_v1_layout_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetRuntimeLayoutMapRes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRuntimeLayoutMapRes) ProtoMessage() {}
+
+func (x *GetRuntimeLayoutMapRes) ProtoReflect() protoreflect.Message {
+	mi := &file_layout_v1_layout_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRuntimeLayoutMapRes.ProtoReflect.Descriptor instead.
+func (*GetRuntimeLayoutMapRes) Descriptor() ([]byte, []int) {
+	return file_layout_v1_layout_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GetRuntimeLayoutMapRes) GetCells() []*LayoutMapCell {
+	if x != nil {
+		return x.Cells
+	}
+	return nil
+}
+
+type LayoutMapCell struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	X       int64  `protobuf:"varint,1,opt,name=x,proto3" json:"x,omitempty"`
+	Y       int64  `protobuf:"varint,2,opt,name=y,proto3" json:"y,omitempty"`
+	VectorX int64  `protobuf:"varint,3,opt,name=vectorX,proto3" json:"vectorX,omitempty"`
+	VectorY int64  `protobuf:"varint,4,opt,name=vectorY,proto3" json:"vectorY,omitempty"`
+	No      int64  `protobuf:"varint,5,opt,name=no,proto3" json:"no,omitempty"`
+	Label   string `protobuf:"bytes,6,opt,name=label,proto3" json:"label,omitempty"`
+	Type    int64  `protobuf:"varint,7,opt,name=type,proto3" json:"type,omitempty"`
+	Status  int64  `protobuf:"varint,8,opt,name=status,proto3" json:"status,omitempty"`
+}
+
+func (x *LayoutMapCell) Reset() {
+	*x = LayoutMapCell{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_layout_v1_layout_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *LayoutMapCell) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LayoutMapCell) ProtoMessage() {}
+
+func (x *LayoutMapCell) ProtoReflect() protoreflect.Message {
+	mi := &file_layout_v1_layout_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LayoutMapCell.ProtoReflect.Descriptor instead.
+func (*LayoutMapCell) Descriptor() ([]byte, []int) {
+	return file_layout_v1_layout_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *LayoutMapCell) GetX() int64 {
+	if x != nil {
+		return x.X
+	}
+	return 0
+}
+
+func (x *LayoutMapCell) GetY() int64 {
+	if x != nil {
+		return x.Y
+	}
+	return 0
+}
+
+func (x *LayoutMapCell) GetVectorX() int64 {
+	if x != nil {
+		return x.VectorX
+	}
+	return 0
+}
+
+func (x *LayoutMapCell) GetVectorY() int64 {
+	if x != nil {
+		return x.VectorY
+	}
+	return 0
+}
+
+func (x *LayoutMapCell) GetNo() int64 {
+	if x != nil {
+		return x.No
+	}
+	return 0
+}
+
+func (x *LayoutMapCell) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+func (x *LayoutMapCell) GetType() int64 {
+	if x != nil {
+		return x.Type
+	}
+	return 0
+}
+
+func (x *LayoutMapCell) GetStatus() int64 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
 var File_layout_v1_layout_proto protoreflect.FileDescriptor
 
 var file_layout_v1_layout_proto_rawDesc = []byte{
@@ -832,7 +1123,34 @@ var file_layout_v1_layout_proto_rawDesc = []byte{
 	0x09, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x12, 0x2c, 0x0a, 0x05, 0x65, 0x6d,
 	0x70, 0x74, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67,
 	0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74,
-	0x79, 0x52, 0x05, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x32, 0xa3, 0x02, 0x0a, 0x06, 0x4c, 0x61, 0x79,
+	0x79, 0x52, 0x05, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x37, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x52,
+	0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x52, 0x65, 0x71, 0x12,
+	0x20, 0x0a, 0x0b, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x73, 0x18, 0x01,
+	0x20, 0x03, 0x28, 0x04, 0x52, 0x0b, 0x6c, 0x6f, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64,
+	0x73, 0x22, 0x41, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x4c,
+	0x61, 0x79, 0x6f, 0x75, 0x74, 0x52, 0x65, 0x73, 0x12, 0x2a, 0x0a, 0x07, 0x6c, 0x61, 0x79, 0x6f,
+	0x75, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x70, 0x62, 0x65, 0x6e,
+	0x74, 0x69, 0x74, 0x79, 0x2e, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x52, 0x07, 0x6c, 0x61, 0x79,
+	0x6f, 0x75, 0x74, 0x73, 0x22, 0x34, 0x0a, 0x16, 0x47, 0x65, 0x74, 0x52, 0x75, 0x6e, 0x74, 0x69,
+	0x6d, 0x65, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x4d, 0x61, 0x70, 0x52, 0x65, 0x71, 0x12, 0x1a,
+	0x0a, 0x08, 0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x08, 0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x49, 0x64, 0x22, 0x48, 0x0a, 0x16, 0x47, 0x65,
+	0x74, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x4d, 0x61,
+	0x70, 0x52, 0x65, 0x73, 0x12, 0x2e, 0x0a, 0x05, 0x63, 0x65, 0x6c, 0x6c, 0x73, 0x18, 0x01, 0x20,
+	0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x2e, 0x76, 0x31, 0x2e,
+	0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x4d, 0x61, 0x70, 0x43, 0x65, 0x6c, 0x6c, 0x52, 0x05, 0x63,
+	0x65, 0x6c, 0x6c, 0x73, 0x22, 0xb1, 0x01, 0x0a, 0x0d, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x4d,
+	0x61, 0x70, 0x43, 0x65, 0x6c, 0x6c, 0x12, 0x0c, 0x0a, 0x01, 0x78, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x01, 0x78, 0x12, 0x0c, 0x0a, 0x01, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x01, 0x79, 0x12, 0x18, 0x0a, 0x07, 0x76, 0x65, 0x63, 0x74, 0x6f, 0x72, 0x58, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x07, 0x76, 0x65, 0x63, 0x74, 0x6f, 0x72, 0x58, 0x12, 0x18, 0x0a, 0x07,
+	0x76, 0x65, 0x63, 0x74, 0x6f, 0x72, 0x59, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x76,
+	0x65, 0x63, 0x74, 0x6f, 0x72, 0x59, 0x12, 0x0e, 0x0a, 0x02, 0x6e, 0x6f, 0x18, 0x05, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x02, 0x6e, 0x6f, 0x12, 0x14, 0x0a, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x18,
+	0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x12, 0x12, 0x0a, 0x04,
+	0x74, 0x79, 0x70, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65,
+	0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x32, 0xd8, 0x03, 0x0a, 0x06, 0x4c, 0x61, 0x79,
 	0x6f, 0x75, 0x74, 0x12, 0x36, 0x0a, 0x06, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x12, 0x14, 0x2e,
 	0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
 	0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e, 0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x2e, 0x76, 0x31, 0x2e,
@@ -850,11 +1168,22 @@ var file_layout_v1_layout_proto_rawDesc = []byte{
 	0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x12, 0x36, 0x0a, 0x06, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
 	0x12, 0x14, 0x2e, 0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c,
 	0x65, 0x74, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e, 0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x2e,
-	0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x42, 0x31,
-	0x5a, 0x2f, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6f, 0x6c, 0x64,
-	0x6d, 0x65, 0x2d, 0x67, 0x69, 0x74, 0x2f, 0x33, 0x36, 0x68, 0x6f, 0x75, 0x72, 0x2f, 0x61, 0x70,
-	0x70, 0x2f, 0x73, 0x65, 0x61, 0x74, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x6c, 0x69, 0x62, 0x2f, 0x76,
-	0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x73, 0x22, 0x00, 0x12, 0x54,
+	0x0a, 0x10, 0x47, 0x65, 0x74, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x4c, 0x61, 0x79, 0x6f,
+	0x75, 0x74, 0x12, 0x1e, 0x2e, 0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x47,
+	0x65, 0x74, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x52,
+	0x65, 0x71, 0x1a, 0x1e, 0x2e, 0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x47,
+	0x65, 0x74, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x52,
+	0x65, 0x73, 0x22, 0x00, 0x12, 0x5d, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x52, 0x75, 0x6e, 0x74, 0x69,
+	0x6d, 0x65, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x4d, 0x61, 0x70, 0x12, 0x21, 0x2e, 0x6c, 0x61,
+	0x79, 0x6f, 0x75, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x75, 0x6e, 0x74, 0x69,
+	0x6d, 0x65, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x4d, 0x61, 0x70, 0x52, 0x65, 0x71, 0x1a, 0x21,
+	0x2e, 0x6c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x75,
+	0x6e, 0x74, 0x69, 0x6d, 0x65, 0x4c, 0x61, 0x79, 0x6f, 0x75, 0x74, 0x4d, 0x61, 0x70, 0x52, 0x65,
+	0x73, 0x22, 0x00, 0x42, 0x31, 0x5a, 0x2f, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
+	0x6d, 0x2f, 0x6f, 0x6c, 0x64, 0x6d, 0x65, 0x2d, 0x67, 0x69, 0x74, 0x2f, 0x33, 0x36, 0x68, 0x6f,
+	0x75, 0x72, 0x2f, 0x61, 0x70, 0x70, 0x2f, 0x73, 0x65, 0x61, 0x74, 0x2f, 0x61, 0x70, 0x69, 0x2f,
+	0x6c, 0x69, 0x62, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -869,42 +1198,53 @@ func file_layout_v1_layout_proto_rawDescGZIP() []byte {
 	return file_layout_v1_layout_proto_rawDescData
 }
 
-var file_layout_v1_layout_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_layout_v1_layout_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_layout_v1_layout_proto_goTypes = []interface{}{
-	(*CreateReq)(nil),       // 0: layout.v1.CreateReq
-	(*CreateRes)(nil),       // 1: layout.v1.CreateRes
-	(*GetOneReq)(nil),       // 2: layout.v1.GetOneReq
-	(*GetOneRes)(nil),       // 3: layout.v1.GetOneRes
-	(*GetListReq)(nil),      // 4: layout.v1.GetListReq
-	(*LayoutList)(nil),      // 5: layout.v1.LayoutList
-	(*GetListRes)(nil),      // 6: layout.v1.GetListRes
-	(*UpdateReq)(nil),       // 7: layout.v1.UpdateReq
-	(*UpdateRes)(nil),       // 8: layout.v1.UpdateRes
-	(*DeleteReq)(nil),       // 9: layout.v1.DeleteReq
-	(*DeleteRes)(nil),       // 10: layout.v1.DeleteRes
-	(*pbentity.Layout)(nil), // 11: pbentity.Layout
-	(*emptypb.Empty)(nil),   // 12: google.protobuf.Empty
+	(*CreateReq)(nil),              // 0: layout.v1.CreateReq
+	(*CreateRes)(nil),              // 1: layout.v1.CreateRes
+	(*GetOneReq)(nil),              // 2: layout.v1.GetOneReq
+	(*GetOneRes)(nil),              // 3: layout.v1.GetOneRes
+	(*GetListReq)(nil),             // 4: layout.v1.GetListReq
+	(*LayoutList)(nil),             // 5: layout.v1.LayoutList
+	(*GetListRes)(nil),             // 6: layout.v1.GetListRes
+	(*UpdateReq)(nil),              // 7: layout.v1.UpdateReq
+	(*UpdateRes)(nil),              // 8: layout.v1.UpdateRes
+	(*DeleteReq)(nil),              // 9: layout.v1.DeleteReq
+	(*DeleteRes)(nil),              // 10: layout.v1.DeleteRes
+	(*GetRuntimeLayoutReq)(nil),    // 11: layout.v1.GetRuntimeLayoutReq
+	(*GetRuntimeLayoutRes)(nil),    // 12: layout.v1.GetRuntimeLayoutRes
+	(*GetRuntimeLayoutMapReq)(nil), // 13: layout.v1.GetRuntimeLayoutMapReq
+	(*GetRuntimeLayoutMapRes)(nil), // 14: layout.v1.GetRuntimeLayoutMapRes
+	(*LayoutMapCell)(nil),          // 15: layout.v1.LayoutMapCell
+	(*pbentity.Layout)(nil),        // 16: pbentity.Layout
+	(*emptypb.Empty)(nil),          // 17: google.protobuf.Empty
 }
 var file_layout_v1_layout_proto_depIdxs = []int32{
-	11, // 0: layout.v1.GetOneRes.layout:type_name -> pbentity.Layout
+	16, // 0: layout.v1.GetOneRes.layout:type_name -> pbentity.Layout
 	5,  // 1: layout.v1.GetListRes.layouts:type_name -> layout.v1.LayoutList
-	12, // 2: layout.v1.UpdateRes.empty:type_name -> google.protobuf.Empty
-	12, // 3: layout.v1.DeleteRes.empty:type_name -> google.protobuf.Empty
-	0,  // 4: layout.v1.Layout.Create:input_type -> layout.v1.CreateReq
-	2,  // 5: layout.v1.Layout.GetOne:input_type -> layout.v1.GetOneReq
-	4,  // 6: layout.v1.Layout.GetList:input_type -> layout.v1.GetListReq
-	7,  // 7: layout.v1.Layout.Update:input_type -> layout.v1.UpdateReq
-	9,  // 8: layout.v1.Layout.Delete:input_type -> layout.v1.DeleteReq
-	1,  // 9: layout.v1.Layout.Create:output_type -> layout.v1.CreateRes
-	3,  // 10: layout.v1.Layout.GetOne:output_type -> layout.v1.GetOneRes
-	6,  // 11: layout.v1.Layout.GetList:output_type -> layout.v1.GetListRes
-	8,  // 12: layout.v1.Layout.Update:output_type -> layout.v1.UpdateRes
-	10, // 13: layout.v1.Layout.Delete:output_type -> layout.v1.DeleteRes
-	9,  // [9:14] is the sub-list for method output_type
-	4,  // [4:9] is the sub-list for method input_type
-	4,  // [4:4] is the sub-list for extension type_name
-	4,  // [4:4] is the sub-list for extension extendee
-	0,  // [0:4] is the sub-list for field type_name
+	17, // 2: layout.v1.UpdateRes.empty:type_name -> google.protobuf.Empty
+	17, // 3: layout.v1.DeleteRes.empty:type_name -> google.protobuf.Empty
+	16, // 4: layout.v1.GetRuntimeLayoutRes.layouts:type_name -> pbentity.Layout
+	15, // 5: layout.v1.GetRuntimeLayoutMapRes.cells:type_name -> layout.v1.LayoutMapCell
+	0,  // 6: layout.v1.Layout.Create:input_type -> layout.v1.CreateReq
+	2,  // 7: layout.v1.Layout.GetOne:input_type -> layout.v1.GetOneReq
+	4,  // 8: layout.v1.Layout.GetList:input_type -> layout.v1.GetListReq
+	7,  // 9: layout.v1.Layout.Update:input_type -> layout.v1.UpdateReq
+	9,  // 10: layout.v1.Layout.Delete:input_type -> layout.v1.DeleteReq
+	11, // 11: layout.v1.Layout.GetRuntimeLayout:input_type -> layout.v1.GetRuntimeLayoutReq
+	13, // 12: layout.v1.Layout.GetRuntimeLayoutMap:input_type -> layout.v1.GetRuntimeLayoutMapReq
+	1,  // 13: layout.v1.Layout.Create:output_type -> layout.v1.CreateRes
+	3,  // 14: layout.v1.Layout.GetOne:output_type -> layout.v1.GetOneRes
+	6,  // 15: layout.v1.Layout.GetList:output_type -> layout.v1.GetListRes
+	8,  // 16: layout.v1.Layout.Update:output_type -> layout.v1.UpdateRes
+	10, // 17: layout.v1.Layout.Delete:output_type -> layout.v1.DeleteRes
+	12, // 18: layout.v1.Layout.GetRuntimeLayout:output_type -> layout.v1.GetRuntimeLayoutRes
+	14, // 19: layout.v1.Layout.GetRuntimeLayoutMap:output_type -> layout.v1.GetRuntimeLayoutMapRes
+	13, // [13:20] is the sub-list for method output_type
+	6,  // [6:13] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_layout_v1_layout_proto_init() }
@@ -1045,6 +1385,66 @@ func file_layout_v1_layout_proto_init() {
 				return nil
 			}
 		}
+		file_layout_v1_layout_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetRuntimeLayoutReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_layout_v1_layout_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetRuntimeLayoutRes); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_layout_v1_layout_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetRuntimeLayoutMapReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_layout_v1_layout_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetRuntimeLayoutMapRes); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_layout_v1_layout_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*LayoutMapCell); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1052,7 +1452,7 @@ func file_layout_v1_layout_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_layout_v1_layout_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
