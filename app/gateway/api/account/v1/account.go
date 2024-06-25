@@ -4,7 +4,7 @@ import "github.com/gogf/gf/v2/frame/g"
 
 type (
 	InfoReq struct {
-		g.Meta `path:"info" method:"get" sm:"获取账户信息" tags:"admin账户"`
+		g.Meta `path:"account/info" method:"get" sm:"获取账户信息" tags:"admin账户"`
 	}
 
 	InfoRes struct {
