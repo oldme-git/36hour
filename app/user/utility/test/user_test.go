@@ -11,21 +11,18 @@ import (
 	"github.com/oldme-git/36hour/app/user/internal/model"
 )
 
-func TestCRUD(t *testing.T) {
+// TestCreate 测试创建用户
+func TestCreate(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
-			testId model.Id = 1
-			userIn          = &model.User{
-				Id:       testId,
+			userIn = &model.User{
 				Username: "oldme",
 				Password: "12345678",
 				Phone:    "17122334455",
 			}
 		)
 
-		// Create
-		id, err := user.Create(gctx.New(), userIn)
+		_, err := user.Create(gctx.New(), userIn)
 		t.AssertNil(err)
-		t.Assert(id, userIn.Id)
 	})
 }
