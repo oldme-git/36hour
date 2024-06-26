@@ -10,7 +10,7 @@ option go_package = "github.com/oldme-git/36hour/app/user/api/pbentity";
 
 import "google/protobuf/timestamp.proto";
 
-message UserMain {
+message User {
     int64                     Id        = 1; //   
     string                    Username  = 2; //   
     string                    Password  = 3; //   

@@ -11,7 +11,6 @@ import (
 // UserLib is the golang structure of table user_lib for DAO operations like Where/Data.
 type UserLib struct {
 	g.Meta `orm:"table:user_lib, do:true"`
-	Id     interface{} //
 	UserId interface{} //
 	LibId  interface{} //
 }

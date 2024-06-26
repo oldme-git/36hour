@@ -26,7 +26,7 @@ func Create(ctx context.Context, user *model.User) (id model.Id, err error) {
 		return 0, err
 	}
 
-	_, err = dao.UserMain.Ctx(ctx).Data(do.UserMain{
+	_, err = dao.User.Ctx(ctx).Data(do.User{
 		Id:       user.Id,
 		Username: user.Username,
 		Password: user.Password,
@@ -40,7 +40,7 @@ func Create(ctx context.Context, user *model.User) (id model.Id, err error) {
 
 func GetList(ctx context.Context, page int, pageSize int) (users []*model.User, err error) {
 	users = make([]*model.User, 0)
-	err = dao.UserMain.Ctx(ctx).Page(page, pageSize).Scan(&users)
+	err = dao.User.Ctx(ctx).Page(page, pageSize).Scan(&users)
 	if err != nil {
 		return nil, utility.Err.NewSys(err)
 	}
@@ -49,7 +49,7 @@ func GetList(ctx context.Context, page int, pageSize int) (users []*model.User, 
 
 func GetOne(ctx context.Context, id model.Id) (user *model.User, err error) {
 	user = new(model.User)
-	err = dao.UserMain.Ctx(ctx).Where("id", id).Scan(user)
+	err = dao.User.Ctx(ctx).Where("id", id).Scan(user)
 	if err != nil {
 		return nil, utility.Err.NewSys(err)
 	}
@@ -59,7 +59,7 @@ func GetOne(ctx context.Context, id model.Id) (user *model.User, err error) {
 
 func GetOneByUsername(ctx context.Context, username string) (user *model.User, err error) {
 	user = new(model.User)
-	data, err := dao.UserMain.Ctx(ctx).Where("username", username).One()
+	data, err := dao.User.Ctx(ctx).Where("username", username).One()
 	if err != nil {
 		return nil, utility.Err.NewSys(err)
 	}
@@ -72,7 +72,7 @@ func GetOneByUsername(ctx context.Context, username string) (user *model.User, e
 
 // Update 不会修改密码
 func Update(ctx context.Context, user *model.User) (err error) {
-	_, err = dao.UserMain.Ctx(ctx).Data(do.UserMain{
+	_, err = dao.User.Ctx(ctx).Data(do.User{
 		Username: user.Username,
 		Phone:    user.Phone,
 	}).Where("id", user.Id).Update()
@@ -83,14 +83,14 @@ func Update(ctx context.Context, user *model.User) (err error) {
 }
 
 func Delete(ctx context.Context, id model.Id) (err error) {
-	_, err = dao.UserMain.Ctx(ctx).Where("id", id).Delete()
+	_, err = dao.User.Ctx(ctx).Where("id", id).Delete()
 	if err != nil {
 		return utility.Err.NewSys(err)
 	}
 	return err
 }
 
-// CheckPassword 输入明文和密码，判断密码是否正确
+// CheckPassword 输入明文密码和密文密码，判断密码是否正确
 func CheckPassword(ctx context.Context, plainPwd, hashedPwd string) (bool, error) {
 	encrypt, err := EncryptPwd(plainPwd)
 	if err != nil {

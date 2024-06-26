@@ -41,7 +41,7 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 		return nil, err
 	}
 	return &v1.GetOneRes{
-		User: &pbentity.UserMain{
+		User: &pbentity.User{
 			Id:        int64(userOne.Id),
 			Username:  userOne.Username,
 			Phone:     userOne.Phone,
@@ -56,9 +56,9 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 	if err != nil {
 		return nil, err
 	}
-	list := make([]*pbentity.UserMain, len(users))
+	list := make([]*pbentity.User, len(users))
 	for k, v := range users {
-		list[k] = &pbentity.UserMain{
+		list[k] = &pbentity.User{
 			Id:        int64(v.Id),
 			Username:  v.Username,
 			Phone:     v.Phone,
@@ -93,4 +93,12 @@ func (*Controller) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.Delet
 	return &v1.DeleteRes{
 		Id: req.Id,
 	}, nil
+}
+
+func (*Controller) BindLib(ctx context.Context, req *v1.BindLibRequest) (res *v1.BindLibResponse, err error) {
+	err = user.BindLib(ctx, model.Id(req.UserId), model.Id(req.LibId))
+	if err != nil {
+		return nil, err
+	}
+	return &v1.BindLibResponse{}, nil
 }

@@ -8,8 +8,8 @@ import (
 	"github.com/gogf/gf/v2/os/gtime"
 )
 
-// UserMain is the golang structure for table user_main.
-type UserMain struct {
+// User is the golang structure for table user.
+type User struct {
 	Id        int64       `json:"id"        orm:"id"         ` //
 	Username  string      `json:"username"  orm:"username"   ` //
 	Password  string      `json:"password"  orm:"password"   ` //

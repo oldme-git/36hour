@@ -1,0 +1,16 @@
+// ==========================================================================
+// Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
+// ==========================================================================
+
+syntax = "proto3";
+
+package pbentity;
+
+option go_package = "github.com/oldme-git/36hour/app/user/api/pbentity";
+
+
+
+message UserLib {
+    int64 UserId = 1; //   
+    int32 LibId  = 2; //   
+}

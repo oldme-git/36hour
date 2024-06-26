@@ -8,19 +8,19 @@ import (
 	"github.com/oldme-git/36hour/app/user/internal/dao/internal"
 )
 
-// internalUserMainDao is internal type for wrapping internal DAO implements.
-type internalUserMainDao = *internal.UserMainDao
+// internalUserDao is internal type for wrapping internal DAO implements.
+type internalUserDao = *internal.UserDao
 
-// userMainDao is the data access object for table user_main.
+// userDao is the data access object for table user.
 // You can define custom methods on it to extend its functionality as you wish.
-type userMainDao struct {
-	internalUserMainDao
+type userDao struct {
+	internalUserDao
 }
 
 var (
-	// UserMain is globally public accessible object for table user_main operations.
-	UserMain = userMainDao{
-		internal.NewUserMainDao(),
+	// User is globally public accessible object for table user operations.
+	User = userDao{
+		internal.NewUserDao(),
 	}
 )
 

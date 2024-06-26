@@ -36,7 +36,7 @@ func (*Controller) GetUserInfo(ctx context.Context, req *v1.GetUserInfoReq) (res
 		return nil, err
 	}
 	res = &v1.GetUserInfoRes{
-		User: &pbentity.UserMain{
+		User: &pbentity.User{
 			Id:        int64(user.Id),
 			Username:  user.Username,
 			Phone:     user.Phone,

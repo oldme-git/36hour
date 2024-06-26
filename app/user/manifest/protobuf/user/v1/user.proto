@@ -6,7 +6,7 @@ package user.v1;
 
 option go_package = "github.com/oldme-git/36hour/app/user/api/user/v1";
 
-import "pbentity/user_main.proto";
+import "pbentity/user.proto";
 
 service User{
   rpc Create(CreateReq) returns (CreateRes) {}
@@ -31,7 +31,7 @@ message GetOneReq {
 }
 
 message GetOneRes {
-  pbentity.UserMain user = 1;
+  pbentity.User user = 1;
 }
 
 message GetListReq {
@@ -40,7 +40,7 @@ message GetListReq {
 }
 
 message GetListRes {
-  repeated pbentity.UserMain users = 1;
+  repeated pbentity.User users = 1;
 }
 
 message UpdateReq {

@@ -20,14 +20,12 @@ type UserLibDao struct {
 
 // UserLibColumns defines and stores column names for table user_lib.
 type UserLibColumns struct {
-	Id     string //
 	UserId string //
 	LibId  string //
 }
 
 // userLibColumns holds the columns for table user_lib.
 var userLibColumns = UserLibColumns{
-	Id:     "id",
 	UserId: "user_id",
 	LibId:  "lib_id",
 }
