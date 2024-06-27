@@ -7,6 +7,7 @@ package auth.v1;
 option go_package = "github.com/oldme-git/36hour/app/user/api/auth/v1";
 
 import "pbentity/user.proto";
+import "user/v1/user.proto";
 
 service Auth {
   rpc Login(LoginReq) returns (LoginRes) {}
@@ -28,4 +29,5 @@ message GetUserInfoReq {
 
 message GetUserInfoRes {
   pbentity.User user = 1;
+  user.v1.Lib lib = 2;
 }

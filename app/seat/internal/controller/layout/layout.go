@@ -65,7 +65,7 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 
 	// 获取场馆名称
 	var (
-		conn   = svc_disc.LibManagerClient(ctx)
+		conn   = svc_disc.LibManagerClientConn(ctx)
 		client = libLocation.NewLocationClient(conn)
 	)
 	lib, err := client.GetOne(ctx, &libLocation.GetOneReq{Id: int32(layoutOne.LocationId)})

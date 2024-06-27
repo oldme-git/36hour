@@ -24,8 +24,8 @@ func BindLib(ctx context.Context, userId, libId model.Id) (err error) {
 	return err
 }
 
-// GetUserLib 获取用户绑定的图书馆 Id
-func GetUserLib(ctx context.Context, userId model.Id) (libId model.Id, err error) {
+// GetUserLibId 获取用户绑定的图书馆 Id
+func GetUserLibId(ctx context.Context, userId model.Id) (libId model.Id, err error) {
 	userLib := new(entity.UserLib)
 	err = dao.UserLib.Ctx(ctx).Where("user_id", userId).Scan(userLib)
 	if err != nil {

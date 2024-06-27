@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc"
 )
 
-// Client 获取一个 grpc 客户端
-func Client(ctx context.Context, service string, opts ...grpc.DialOption) *grpc.ClientConn {
+// ClientConn 获取一个 grpc 客户端
+func ClientConn(ctx context.Context, service string, opts ...grpc.DialOption) *grpc.ClientConn {
 	// 获取 grpc 服务地址，如果是开发环境，则使用本地地址
 	serviceNameOrAddress := getAddress(ctx, service)
 	opts = append(opts,
@@ -34,17 +34,17 @@ func getAddress(ctx context.Context, service string) string {
 	return service
 }
 
-// UserClient 获取用户服务的客户端
-func UserClient(ctx context.Context) *grpc.ClientConn {
-	return Client(ctx, "user")
+// UserClientConn 获取用户服务的客户端连接
+func UserClientConn(ctx context.Context) *grpc.ClientConn {
+	return ClientConn(ctx, "user")
 }
 
-// LibManagerClient 获取图书馆管理服务的客户端
-func LibManagerClient(ctx context.Context) *grpc.ClientConn {
-	return Client(ctx, "libManager")
+// LibManagerClientConn 获取图书馆管理服务的连接
+func LibManagerClientConn(ctx context.Context) *grpc.ClientConn {
+	return ClientConn(ctx, "libManager")
 }
 
-// SeatClient 获取座位服务的客户端
-func SeatClient(ctx context.Context) *grpc.ClientConn {
-	return Client(ctx, "seat")
+// SeatClientConn 获取座位服务的连接
+func SeatClientConn(ctx context.Context) *grpc.ClientConn {
+	return ClientConn(ctx, "seat")
 }

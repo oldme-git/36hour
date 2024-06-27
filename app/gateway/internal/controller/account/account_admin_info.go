@@ -12,7 +12,7 @@ import (
 
 func (c *ControllerAdmin) Info(ctx context.Context, req *v1.InfoReq) (res *v1.InfoRes, err error) {
 	var (
-		conn   = svc_disc.UserClient(ctx)
+		conn   = svc_disc.UserClientConn(ctx)
 		client = auth.NewAuthClient(conn)
 	)
 

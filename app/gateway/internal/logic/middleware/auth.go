@@ -12,7 +12,7 @@ func Auth(r *ghttp.Request) {
 	var (
 		ctx         = r.GetCtx()
 		tokenString = r.Header.Get("Authorization")
-		conn        = svc_disc.UserClient(ctx)
+		conn        = svc_disc.UserClientConn(ctx)
 		client      = auth.NewAuthClient(conn)
 	)
 

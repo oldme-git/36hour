@@ -10,7 +10,7 @@ import (
 
 func (c *ControllerAdmin) Login(ctx context.Context, req *v1.LoginReq) (res *v1.LoginRes, err error) {
 	var (
-		conn   = svc_disc.UserClient(ctx)
+		conn   = svc_disc.UserClientConn(ctx)
 		client = auth.NewAuthClient(conn)
 	)
 

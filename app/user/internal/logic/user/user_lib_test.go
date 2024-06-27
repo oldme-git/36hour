@@ -18,7 +18,7 @@ func TestBindLib(t *testing.T) {
 		err := user.BindLib(ctx, userId, libId)
 		t.AssertNil(err)
 
-		BoundLibId, err = user.GetUserLib(ctx, userId)
+		BoundLibId, err = user.GetUserLibId(ctx, userId)
 		t.AssertNil(err)
 		t.Assert(BoundLibId, libId)
 
@@ -26,7 +26,7 @@ func TestBindLib(t *testing.T) {
 		err = user.BindLib(ctx, userId, libId)
 		t.AssertNil(err)
 
-		BoundLibId, err = user.GetUserLib(ctx, userId)
+		BoundLibId, err = user.GetUserLibId(ctx, userId)
 		t.AssertNil(err)
 		t.Assert(BoundLibId, libId)
 	})
