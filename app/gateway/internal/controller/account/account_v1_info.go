@@ -10,7 +10,7 @@ import (
 	"github.com/oldme-git/36hour/app/gateway/api/account/v1"
 )
 
-func (c *ControllerAdmin) Info(ctx context.Context, req *v1.InfoReq) (res *v1.InfoRes, err error) {
+func (c *ControllerV1) Info(ctx context.Context, req *v1.InfoReq) (res *v1.InfoRes, err error) {
 	var (
 		conn   = svc_disc.UserClientConn(ctx)
 		client = auth.NewAuthClient(conn)
@@ -24,8 +24,12 @@ func (c *ControllerAdmin) Info(ctx context.Context, req *v1.InfoReq) (res *v1.In
 	}
 
 	return &v1.InfoRes{
-		Id:       int(info.User.Id),
-		Username: info.User.Username,
-		Phone:    info.User.Phone,
+		Id:       int(info.User.GetId()),
+		Username: info.User.GetUsername(),
+		Phone:    info.User.GetPhone(),
+		Lib: &v1.Lib{
+			LibId:   int(info.Lib.GetLibId()),
+			LibName: info.Lib.GetLibName(),
+		},
 	}, nil
 }

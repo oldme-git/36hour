@@ -8,8 +8,8 @@ import (
 	"github.com/oldme-git/36hour/app/gateway/api/account"
 )
 
-type ControllerAdmin struct{}
+type ControllerV1 struct{}
 
-func NewAdmin() account.IAccountAdmin {
-	return &ControllerAdmin{}
+func NewV1() account.IAccountV1 {
+	return &ControllerV1{}
 }

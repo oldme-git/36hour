@@ -2,14 +2,14 @@
 // Code generated and maintained by GoFrame CLI tool. DO NOT EDIT.
 // =================================================================================
 
-package account
+package seat
 
 import (
 	"context"
 
-	"github.com/oldme-git/36hour/app/gateway/api/account/v1"
+	"github.com/oldme-git/36hour/app/gateway/api/seat/v1"
 )
 
-type IAccountV1 interface {
-	Info(ctx context.Context, req *v1.InfoReq) (res *v1.InfoRes, err error)
+type ISeatV1 interface {
+	GetLayoutList(ctx context.Context, req *v1.GetLayoutListReq) (res *v1.GetLayoutListRes, err error)
 }
