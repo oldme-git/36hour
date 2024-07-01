@@ -4,21 +4,13 @@ import (
 	"context"
 
 	"github.com/gogf/gf/v2/frame/g"
-	auth "github.com/oldme-git/36hour/app/user/api/auth/v1"
-	"github.com/oldme-git/36hour/utility/svc_disc"
-
 	"github.com/oldme-git/36hour/app/gateway/api/account/v1"
+	"github.com/oldme-git/36hour/app/gateway/internal/logic/account"
 )
 
 func (c *ControllerV1) Info(ctx context.Context, req *v1.InfoReq) (res *v1.InfoRes, err error) {
-	var (
-		conn   = svc_disc.UserClientConn(ctx)
-		client = auth.NewAuthClient(conn)
-	)
-
-	info, err := client.GetUserInfo(ctx, &auth.GetUserInfoReq{
-		Token: g.RequestFromCtx(ctx).Request.Header.Get("Authorization"),
-	})
+	token := g.RequestFromCtx(ctx).Request.Header.Get("Authorization")
+	info, err := account.GetInfo(ctx, token)
 	if err != nil {
 		return nil, err
 	}
