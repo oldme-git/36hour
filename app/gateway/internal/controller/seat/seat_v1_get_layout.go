@@ -17,7 +17,6 @@ func (c *ControllerV1) GetLayout(ctx context.Context, req *v1.GetLayoutReq) (res
 		Id:           data.Id(layout.Layout.GetId()),
 		LocationId:   data.Id(layout.Layout.GetLocationId()),
 		LocationName: layout.GetLocationName(),
-		PolicyCId:    data.Id(layout.Layout.GetPolicyCId()),
 		LayoutName:   layout.Layout.GetLayoutName(),
 		Map:          layout.Layout.GetMap(),
 	}, nil

@@ -25,8 +25,6 @@ type (
 		Id           data.Id `json:"id"`
 		LocationId   data.Id `json:"locationId"`
 		LocationName string  `json:"locationName"`
-		PolicyCId    data.Id `json:"policyCId"`
-		PolicyLId    data.Id `json:"policyLId"`
 		LayoutName   string  `json:"layoutName"`
 		Map          string  `json:"map"`
 	}
