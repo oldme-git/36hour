@@ -11,5 +11,5 @@ import (
 )
 
 type ISeatV1 interface {
-	GetLayoutList(ctx context.Context, req *v1.GetLayoutListReq) (res *v1.GetLayoutListRes, err error)
+	GetLayouts(ctx context.Context, req *v1.GetLayoutsReq) (res *v1.GetLayoutsRes, err error)
 }

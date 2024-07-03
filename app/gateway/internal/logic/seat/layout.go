@@ -1,0 +1,46 @@
+package seat
+
+import (
+	"context"
+
+	"github.com/oldme-git/36hour/app/gateway/internal/logic/account"
+	locationSvc "github.com/oldme-git/36hour/app/lib-manager/api/location/v1"
+	layoutSvc "github.com/oldme-git/36hour/app/seat/api/layout/v1"
+	"github.com/oldme-git/36hour/utility/svc_disc"
+)
+
+// GetLayouts 获取座位布局列表
+func GetLayouts(ctx context.Context, token string) (*layoutSvc.GetRuntimeLayoutRes, error) {
+	userInfo, err := account.GetInfo(ctx, token)
+	if err != nil {
+		return nil, err
+	}
+
+	// 获取location列表
+	var (
+		libConn        = svc_disc.LibManagerClientConn(ctx)
+		locationClient = locationSvc.NewLocationClient(libConn)
+		locationIds    []uint64
+	)
+	locations, err := locationClient.GetList(ctx, &locationSvc.GetListReq{
+		Page:     1,
+		PageSize: 0,
+		LibId:    int32(userInfo.GetLib().GetLibId()),
+		FloorId:  0,
+	})
+	if err != nil {
+		return nil, err
+	}
+	for _, location := range locations.GetLocations() {
+		locationIds = append(locationIds, uint64(location.Id))
+	}
+
+	// 根据location列表获取座位布局列表
+	var (
+		seatConn     = svc_disc.SeatClientConn(ctx)
+		layoutClient = layoutSvc.NewLayoutClient(seatConn)
+	)
+	return layoutClient.GetRuntimeLayout(ctx, &layoutSvc.GetRuntimeLayoutReq{
+		LocationIds: locationIds,
+	})
+}
