@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/oldme-git/36hour/app/gateway/internal/logic/account"
+	"github.com/oldme-git/36hour/app/gateway/utility/data"
 	locationSvc "github.com/oldme-git/36hour/app/lib-manager/api/location/v1"
 	layoutSvc "github.com/oldme-git/36hour/app/seat/api/layout/v1"
 	"github.com/oldme-git/36hour/utility/svc_disc"
@@ -42,5 +43,16 @@ func GetLayouts(ctx context.Context, token string) (*layoutSvc.GetRuntimeLayoutR
 	)
 	return layoutClient.GetRuntimeLayout(ctx, &layoutSvc.GetRuntimeLayoutReq{
 		LocationIds: locationIds,
+	})
+}
+
+// GetLayout 获取座位布局
+func GetLayout(ctx context.Context, layoutId data.Id) (*layoutSvc.GetOneRes, error) {
+	var (
+		seatConn     = svc_disc.SeatClientConn(ctx)
+		layoutClient = layoutSvc.NewLayoutClient(seatConn)
+	)
+	return layoutClient.GetOne(ctx, &layoutSvc.GetOneReq{
+		Id: int32(layoutId),
 	})
 }
