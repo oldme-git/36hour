@@ -192,20 +192,20 @@ func (*Controller) GetRuntimeLayoutMap(ctx context.Context, req *v1.GetRuntimeLa
 	if err != nil {
 		return nil, err
 	}
-	var cellsRes = make([]*v1.LayoutMapCell, len(cells))
+	var cellsRes = make([]*v1.LayoutMapRuntime, len(cells))
 	for k, v := range cells {
-		cellsRes[k] = &v1.LayoutMapCell{
-			X:       int64(v.X),
-			Y:       int64(v.Y),
-			VectorX: int64(v.VectorX),
-			VectorY: int64(v.VectorY),
-			No:      int64(v.No),
-			Label:   v.Label,
-			Type:    int64(v.Type),
-			Status:  int64(v.Status),
+		cellsRes[k] = &v1.LayoutMapRuntime{
+			X:  int64(v.X),
+			Y:  int64(v.Y),
+			Vx: int64(v.VectorX),
+			Vy: int64(v.VectorY),
+			N:  int64(v.No),
+			L:  v.Label,
+			T:  int64(v.Type),
+			S:  int64(v.Status),
 		}
 	}
 	return &v1.GetRuntimeLayoutMapRes{
-		Cells: cellsRes,
+		Map: cellsRes,
 	}, nil
 }
