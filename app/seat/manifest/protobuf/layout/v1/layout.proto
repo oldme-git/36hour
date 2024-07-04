@@ -99,7 +99,7 @@ message GetRuntimeLayoutRes {
 }
 
 message GetRuntimeLayoutMapReq {
-  int64 layoutId = 1; // v:required
+  int32 layoutId = 1; // v:required
 }
 
 message GetRuntimeLayoutMapRes {
