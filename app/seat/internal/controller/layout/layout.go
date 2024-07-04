@@ -3,6 +3,7 @@ package layout
 import (
 	"context"
 
+	"github.com/gogf/gf/v2/encoding/gjson"
 	libLocation "github.com/oldme-git/36hour/app/lib-manager/api/location/v1"
 	v1 "github.com/oldme-git/36hour/app/seat/api/layout/v1"
 	"github.com/oldme-git/36hour/app/seat/api/pbentity"
@@ -10,6 +11,7 @@ import (
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
 	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
+	"github.com/oldme-git/36hour/utility"
 
 	"github.com/oldme-git/36hour/utility/svc_disc"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -155,7 +157,7 @@ func (*Controller) Delete(ctx context.Context, req *v1.DeleteReq) (res *v1.Delet
 	return
 }
 
-func (*Controller) GetRuntimeLayout(ctx context.Context, req *v1.GetRuntimeLayoutReq) (res *v1.GetRuntimeLayoutRes, err error) {
+func (*Controller) GetRuntimeLayouts(ctx context.Context, req *v1.GetRuntimeLayoutReq) (res *v1.GetRuntimeLayoutRes, err error) {
 	var locationIds = make([]int, len(req.LocationIds))
 	for k, v := range req.LocationIds {
 		locationIds[k] = int(v)
@@ -192,20 +194,9 @@ func (*Controller) GetRuntimeLayoutMap(ctx context.Context, req *v1.GetRuntimeLa
 	if err != nil {
 		return nil, err
 	}
-	var cellsRes = make([]*v1.LayoutMapRuntime, len(cells))
-	for k, v := range cells {
-		cellsRes[k] = &v1.LayoutMapRuntime{
-			X:  int64(v.X),
-			Y:  int64(v.Y),
-			Vx: int64(v.VectorX),
-			Vy: int64(v.VectorY),
-			N:  int64(v.No),
-			L:  v.Label,
-			T:  int64(v.Type),
-			S:  int64(v.Status),
-		}
+	cellsJson, err := gjson.EncodeString(cells)
+	if err != nil {
+		return nil, utility.Err.NewSys(err)
 	}
-	return &v1.GetRuntimeLayoutMapRes{
-		Map: cellsRes,
-	}, nil
+	return &v1.GetRuntimeLayoutMapRes{Map: cellsJson}, nil
 }

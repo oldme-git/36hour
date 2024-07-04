@@ -15,7 +15,7 @@ service Layout {
   rpc GetList(GetListReq) returns (GetListRes) {}
   rpc Update(UpdateReq) returns (UpdateRes) {}
   rpc Delete(DeleteReq) returns (DeleteRes) {}
-  rpc GetRuntimeLayout (GetRuntimeLayoutReq) returns (GetRuntimeLayoutRes) {}
+  rpc GetRuntimeLayouts (GetRuntimeLayoutReq) returns (GetRuntimeLayoutRes) {}
   rpc GetRuntimeLayoutMap (GetRuntimeLayoutMapReq) returns (GetRuntimeLayoutMapRes) {}
 }
 
@@ -103,16 +103,5 @@ message GetRuntimeLayoutMapReq {
 }
 
 message GetRuntimeLayoutMapRes {
-  repeated LayoutMapRuntime map = 1;
-}
-
-message LayoutMapRuntime {
-  int64 x = 1;
-  int64 y = 2;
-  int64 vx = 3;
-  int64 vy = 4;
-  int64 n = 5;
-  string l = 6;
-  int64 t = 7;
-  int64 s = 8;
+  string Map = 1;
 }

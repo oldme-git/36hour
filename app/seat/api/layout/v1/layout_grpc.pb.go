@@ -28,7 +28,7 @@ type LayoutClient interface {
 	GetList(ctx context.Context, in *GetListReq, opts ...grpc.CallOption) (*GetListRes, error)
 	Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*UpdateRes, error)
 	Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteRes, error)
-	GetRuntimeLayout(ctx context.Context, in *GetRuntimeLayoutReq, opts ...grpc.CallOption) (*GetRuntimeLayoutRes, error)
+	GetRuntimeLayouts(ctx context.Context, in *GetRuntimeLayoutReq, opts ...grpc.CallOption) (*GetRuntimeLayoutRes, error)
 	GetRuntimeLayoutMap(ctx context.Context, in *GetRuntimeLayoutMapReq, opts ...grpc.CallOption) (*GetRuntimeLayoutMapRes, error)
 }
 
@@ -85,9 +85,9 @@ func (c *layoutClient) Delete(ctx context.Context, in *DeleteReq, opts ...grpc.C
 	return out, nil
 }
 
-func (c *layoutClient) GetRuntimeLayout(ctx context.Context, in *GetRuntimeLayoutReq, opts ...grpc.CallOption) (*GetRuntimeLayoutRes, error) {
+func (c *layoutClient) GetRuntimeLayouts(ctx context.Context, in *GetRuntimeLayoutReq, opts ...grpc.CallOption) (*GetRuntimeLayoutRes, error) {
 	out := new(GetRuntimeLayoutRes)
-	err := c.cc.Invoke(ctx, "/layout.v1.Layout/GetRuntimeLayout", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/layout.v1.Layout/GetRuntimeLayouts", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -112,7 +112,7 @@ type LayoutServer interface {
 	GetList(context.Context, *GetListReq) (*GetListRes, error)
 	Update(context.Context, *UpdateReq) (*UpdateRes, error)
 	Delete(context.Context, *DeleteReq) (*DeleteRes, error)
-	GetRuntimeLayout(context.Context, *GetRuntimeLayoutReq) (*GetRuntimeLayoutRes, error)
+	GetRuntimeLayouts(context.Context, *GetRuntimeLayoutReq) (*GetRuntimeLayoutRes, error)
 	GetRuntimeLayoutMap(context.Context, *GetRuntimeLayoutMapReq) (*GetRuntimeLayoutMapRes, error)
 	mustEmbedUnimplementedLayoutServer()
 }
@@ -136,8 +136,8 @@ func (UnimplementedLayoutServer) Update(context.Context, *UpdateReq) (*UpdateRes
 func (UnimplementedLayoutServer) Delete(context.Context, *DeleteReq) (*DeleteRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedLayoutServer) GetRuntimeLayout(context.Context, *GetRuntimeLayoutReq) (*GetRuntimeLayoutRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRuntimeLayout not implemented")
+func (UnimplementedLayoutServer) GetRuntimeLayouts(context.Context, *GetRuntimeLayoutReq) (*GetRuntimeLayoutRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRuntimeLayouts not implemented")
 }
 func (UnimplementedLayoutServer) GetRuntimeLayoutMap(context.Context, *GetRuntimeLayoutMapReq) (*GetRuntimeLayoutMapRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRuntimeLayoutMap not implemented")
@@ -245,20 +245,20 @@ func _Layout_Delete_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Layout_GetRuntimeLayout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Layout_GetRuntimeLayouts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRuntimeLayoutReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LayoutServer).GetRuntimeLayout(ctx, in)
+		return srv.(LayoutServer).GetRuntimeLayouts(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/layout.v1.Layout/GetRuntimeLayout",
+		FullMethod: "/layout.v1.Layout/GetRuntimeLayouts",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LayoutServer).GetRuntimeLayout(ctx, req.(*GetRuntimeLayoutReq))
+		return srv.(LayoutServer).GetRuntimeLayouts(ctx, req.(*GetRuntimeLayoutReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -309,8 +309,8 @@ var Layout_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Layout_Delete_Handler,
 		},
 		{
-			MethodName: "GetRuntimeLayout",
-			Handler:    _Layout_GetRuntimeLayout_Handler,
+			MethodName: "GetRuntimeLayouts",
+			Handler:    _Layout_GetRuntimeLayouts_Handler,
 		},
 		{
 			MethodName: "GetRuntimeLayoutMap",
