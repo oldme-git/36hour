@@ -41,12 +41,12 @@ func GetLayouts(ctx context.Context, token string) (*layoutSvc.GetRuntimeLayoutR
 		seatConn     = svc_disc.SeatClientConn(ctx)
 		layoutClient = layoutSvc.NewLayoutClient(seatConn)
 	)
-	return layoutClient.GetRuntimeLayout(ctx, &layoutSvc.GetRuntimeLayoutReq{
+	return layoutClient.GetRuntimeLayouts(ctx, &layoutSvc.GetRuntimeLayoutReq{
 		LocationIds: locationIds,
 	})
 }
 
-// GetLayout 获取座位布局
+// GetLayout 获取座位布局详情
 func GetLayout(ctx context.Context, layoutId data.Id) (*layoutSvc.GetOneRes, error) {
 	var (
 		seatConn     = svc_disc.SeatClientConn(ctx)
@@ -54,5 +54,16 @@ func GetLayout(ctx context.Context, layoutId data.Id) (*layoutSvc.GetOneRes, err
 	)
 	return layoutClient.GetOne(ctx, &layoutSvc.GetOneReq{
 		Id: int32(layoutId),
+	})
+}
+
+// GetLayoutRuntimeMap 获取座位布局运行时的 Map
+func GetLayoutRuntimeMap(ctx context.Context, layoutId data.Id) (*layoutSvc.GetRuntimeLayoutMapRes, error) {
+	var (
+		seatConn     = svc_disc.SeatClientConn(ctx)
+		layoutClient = layoutSvc.NewLayoutClient(seatConn)
+	)
+	return layoutClient.GetRuntimeLayoutMap(ctx, &layoutSvc.GetRuntimeLayoutMapReq{
+		LayoutId: int32(layoutId),
 	})
 }

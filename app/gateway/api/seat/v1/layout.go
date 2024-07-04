@@ -29,3 +29,14 @@ type (
 		Map          string  `json:"map"`
 	}
 )
+
+type (
+	GetLayoutRuntimeReq struct {
+		g.Meta `path:"seat/layout/{id}/runtime" method:"get" sm:"获取layout运行时信息" tags:"seat"`
+		*data.IdInput
+	}
+
+	GetLayoutRuntimeRes struct {
+		Map string `json:"map"`
+	}
+)
