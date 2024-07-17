@@ -23,6 +23,10 @@ func GetLayouts(ctx context.Context, token string) (*layoutSvc.GetRuntimeLayoutR
 		locationClient = locationSvc.NewLocationClient(libConn)
 		locationIds    []uint64
 	)
+
+	ctx, cancel := context.WithTimeout(ctx, svc_disc.Timeout)
+	defer cancel()
+
 	locations, err := locationClient.GetList(ctx, &locationSvc.GetListReq{
 		Page:     1,
 		PageSize: 0,
@@ -41,6 +45,9 @@ func GetLayouts(ctx context.Context, token string) (*layoutSvc.GetRuntimeLayoutR
 		seatConn     = svc_disc.SeatClientConn(ctx)
 		layoutClient = layoutSvc.NewLayoutClient(seatConn)
 	)
+
+	ctx, cancel = context.WithTimeout(ctx, svc_disc.Timeout)
+	defer cancel()
 	return layoutClient.GetRuntimeLayouts(ctx, &layoutSvc.GetRuntimeLayoutReq{
 		LocationIds: locationIds,
 	})
@@ -52,6 +59,9 @@ func GetLayout(ctx context.Context, layoutId data.Id) (*layoutSvc.GetOneRes, err
 		seatConn     = svc_disc.SeatClientConn(ctx)
 		layoutClient = layoutSvc.NewLayoutClient(seatConn)
 	)
+
+	ctx, cancel := context.WithTimeout(ctx, svc_disc.Timeout)
+	defer cancel()
 	return layoutClient.GetOne(ctx, &layoutSvc.GetOneReq{
 		Id: int32(layoutId),
 	})
@@ -63,6 +73,9 @@ func GetLayoutRuntimeMap(ctx context.Context, layoutId data.Id) (*layoutSvc.GetR
 		seatConn     = svc_disc.SeatClientConn(ctx)
 		layoutClient = layoutSvc.NewLayoutClient(seatConn)
 	)
+
+	ctx, cancel := context.WithTimeout(ctx, svc_disc.Timeout)
+	defer cancel()
 	return layoutClient.GetRuntimeLayoutMap(ctx, &layoutSvc.GetRuntimeLayoutMapReq{
 		LayoutId: int32(layoutId),
 	})

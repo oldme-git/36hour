@@ -20,6 +20,9 @@ func GetInfo(ctx context.Context, token string) (*auth.GetUserInfoRes, error) {
 		client = auth.NewAuthClient(conn)
 	)
 
+	ctx, cancel := context.WithTimeout(ctx, svc_disc.Timeout)
+	defer cancel()
+
 	return client.GetUserInfo(ctx, &auth.GetUserInfoReq{
 		Token: token,
 	})

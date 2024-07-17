@@ -70,6 +70,9 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 		conn   = svc_disc.LibManagerClientConn(ctx)
 		client = libLocation.NewLocationClient(conn)
 	)
+
+	ctx, cancel := context.WithTimeout(ctx, svc_disc.Timeout)
+	defer cancel()
 	lib, err := client.GetOne(ctx, &libLocation.GetOneReq{Id: int32(layoutOne.LocationId)})
 	if err != nil {
 		return nil, err

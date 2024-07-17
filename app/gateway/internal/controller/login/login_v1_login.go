@@ -15,6 +15,9 @@ func (c *ControllerV1) Login(ctx context.Context, req *v1.LoginReq) (res *v1.Log
 		client = auth.NewAuthClient(conn)
 	)
 
+	ctx, cancel := context.WithTimeout(ctx, svc_disc.Timeout)
+	defer cancel()
+
 	user, err := client.Login(ctx, &auth.LoginReq{
 		Username: req.Username,
 		Password: req.Password,

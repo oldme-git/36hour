@@ -8,13 +8,12 @@ import (
 	"google.golang.org/grpc"
 )
 
+var Timeout = 5 * time.Second
+
 // ClientConn 获取一个 grpc 客户端
 func ClientConn(ctx context.Context, service string, opts ...grpc.DialOption) *grpc.ClientConn {
 	// 获取 grpc 服务地址，如果是开发环境，则使用本地地址
 	serviceNameOrAddress := getAddress(ctx, service)
-	opts = append(opts,
-		grpc.WithBlock(),
-		grpc.WithTimeout(5*time.Second))
 	return grpcx.Client.MustNewGrpcClientConn(serviceNameOrAddress, opts...)
 }
 

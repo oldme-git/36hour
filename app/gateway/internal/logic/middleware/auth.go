@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/gogf/gf/v2/net/ghttp"
@@ -15,6 +16,9 @@ func Auth(r *ghttp.Request) {
 		conn        = svc_disc.UserClientConn(ctx)
 		client      = auth.NewAuthClient(conn)
 	)
+
+	ctx, cancel := context.WithTimeout(ctx, svc_disc.Timeout)
+	defer cancel()
 
 	info, err := client.GetUserInfo(ctx, &auth.GetUserInfoReq{
 		Token: tokenString,

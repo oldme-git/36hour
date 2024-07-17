@@ -57,6 +57,9 @@ func (*Controller) GetUserInfo(ctx context.Context, req *v1.GetUserInfoReq) (res
 		lib    *libPb.GetOneRes
 	)
 
+	ctx, cancel := context.WithTimeout(ctx, svc_disc.Timeout)
+	defer cancel()
+
 	lib, err = client.GetOne(ctx, &libPb.GetOneReq{
 		Id: int32(userLibId),
 	})
