@@ -2,11 +2,13 @@ package layout
 
 import (
 	"context"
+	"strconv"
 	"time"
 
 	"github.com/gogf/gf/v2/container/gvar"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/util/gconv"
 	"github.com/oldme-git/36hour/app/seat/internal/dao"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_common"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
@@ -56,45 +58,72 @@ func GetRuntimeLayoutMap(ctx context.Context, layoutId int) (cells []layout.Cell
 		redis    = g.Redis()
 		cacheKey = cache_key.LayoutMapKey(layoutId)
 	)
-	mapGvar, err = redis.Get(ctx, cacheKey)
+
+	mapGvar, err = redis.HGetAll(ctx, cacheKey)
 	if err != nil {
 		err = utility.Err.NewSys(err)
 		return
 	}
-	err = mapGvar.Scan(&cells)
-	if err != nil {
-		err = utility.Err.NewSys(err)
-		return
+	var mapGvarMap = mapGvar.Map()
+	for _, v := range mapGvarMap {
+		cell := layout.Cell{}
+		if err = gconv.Struct(v, &cell); err != nil {
+			err = utility.Err.NewSys(err)
+			return
+		}
 	}
 	if len(cells) != 0 {
 		return
 	}
 
-	// 读库并载入缓存
-	var expireAt = gtime.Now().EndOfDay().Time
-	layoutData, err := GetOne(ctx, layoutId)
+	err = InitLayout(ctx, layoutId)
 	if err != nil {
 		return nil, err
 	}
-	cells, err = JsonToLayoutCells(ctx, layoutData.Map)
+
+	return GetRuntimeLayoutMap(ctx, layoutId)
+}
+
+// InitLayout 初始化布局
+func InitLayout(ctx context.Context, layoutId int) error {
+	var (
+		redis    = g.Redis()
+		cacheKey = cache_key.LayoutMapKey(layoutId)
+		expireAt = gtime.Now().EndOfDay().Time
+	)
+	layoutData, err := GetOne(ctx, layoutId)
 	if err != nil {
-		return nil, err
+		return err
+	}
+	cells, err := JsonToLayoutCells(ctx, layoutData.Map)
+	if err != nil {
+		return err
 	}
 	if len(cells) == 0 {
 		// 预防缓存穿透
-		layoutData.Map = `[{"x":0,"y":0}]`
+		cells = []layout.Cell{
+			{
+				X: 0,
+				Y: 0,
+			},
+		}
 		expireAt = gtime.Now().
 			Add(5 * time.Second).Time
 	}
 
-	_, err = redis.Set(ctx, cacheKey, layoutData.Map)
+	var layoutCells = make(map[string]interface{}, len(cells))
+	for _, cell := range cells {
+		layoutCells[strconv.Itoa(cell.No)] = cell
+	}
+
+	err = redis.HMSet(ctx, cacheKey, layoutCells)
 	if err != nil {
-		return nil, err
+		return utility.Err.NewSys(err)
 	}
 	_, err = redis.ExpireAt(ctx, cacheKey, expireAt)
 	if err != nil {
-		return nil, err
+		return utility.Err.NewSys(err)
 	}
 
-	return
+	return nil
 }

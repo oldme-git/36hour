@@ -4,7 +4,7 @@ import "fmt"
 
 const (
 	// LayoutMap 运行中的布局座位图
-	LayoutMap = "layout_map:%d"
+	LayoutMap = "layout_runtime_map:%d"
 )
 
 // LayoutMapKey 运行中的布局座位图
