@@ -20,7 +20,7 @@ spec:
           volumeMounts:
             - name: conf-volume
               mountPath: /app/config.yaml
-              subPath: seat.yaml
+              subPath: seat_handle.yaml
 
             - name: conf-volume
               mountPath: /app/etcd.yaml

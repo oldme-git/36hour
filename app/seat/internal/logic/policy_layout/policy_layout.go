@@ -4,9 +4,9 @@ import (
 	"context"
 
 	"github.com/oldme-git/36hour/app/seat/internal/dao"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel/policy"
 	"github.com/oldme-git/36hour/app/seat/internal/model/do"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
 	"github.com/oldme-git/36hour/utility"
 )
 

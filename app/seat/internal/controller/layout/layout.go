@@ -7,9 +7,9 @@ import (
 	libLocation "github.com/oldme-git/36hour/app/lib-manager/api/location/v1"
 	v1 "github.com/oldme-git/36hour/app/seat/api/layout/v1"
 	"github.com/oldme-git/36hour/app/seat/api/pbentity"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/layout"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
-	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/utility"
 
@@ -97,7 +97,7 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	layouts, total, err := layout.GetList(ctx, &model.LayoutSearchCondition{
+	layouts, total, err := layout.GetList(ctx, &imodel.LayoutSearchCondition{
 		Page:       int(req.Page),
 		PageSize:   int(req.PageSize),
 		LayoutName: req.LayoutName,

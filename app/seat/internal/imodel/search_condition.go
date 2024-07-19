@@ -1,4 +1,4 @@
-package model
+package imodel
 
 type LayoutSearchCondition struct {
 	Page       int

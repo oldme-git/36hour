@@ -7,7 +7,7 @@ import (
 	"github.com/gogf/gf/v2/encoding/gjson"
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/oldme-git/36hour/app/seat/internal/dao"
-	"github.com/oldme-git/36hour/app/seat/internal/model"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel"
 	"github.com/oldme-git/36hour/app/seat/internal/model/do"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 	"github.com/oldme-git/36hour/utility"
@@ -49,7 +49,7 @@ func GetOne(ctx context.Context, id int) (layout *entity.Layout, err error) {
 	return layout, nil
 }
 
-func GetList(ctx context.Context, condition *model.LayoutSearchCondition) (layouts []entity.Layout, total int, err error) {
+func GetList(ctx context.Context, condition *imodel.LayoutSearchCondition) (layouts []entity.Layout, total int, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}

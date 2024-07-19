@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/oldme-git/36hour/app/seat/internal/dao"
-	"github.com/oldme-git/36hour/app/seat/internal/model"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel/policy"
 	"github.com/oldme-git/36hour/app/seat/internal/model/do"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
 	"github.com/oldme-git/36hour/utility"
 )
 
@@ -37,7 +37,7 @@ func GetOne(ctx context.Context, id int) (policyCommon *entity.PolicyCommon, err
 	return policyCommon, nil
 }
 
-func GetList(ctx context.Context, condition *model.PolicyCommonSearchCondition) (policyCommons []*entity.PolicyCommon, err error) {
+func GetList(ctx context.Context, condition *imodel.PolicyCommonSearchCondition) (policyCommons []*entity.PolicyCommon, err error) {
 	if condition.Page <= 0 {
 		condition.Page = 1
 	}
@@ -57,7 +57,7 @@ func GetList(ctx context.Context, condition *model.PolicyCommonSearchCondition) 
 }
 
 // GetTotal 获取PolicyPrepare总数
-func GetTotal(ctx context.Context, condition *model.PolicyCommonSearchCondition) (total int, err error) {
+func GetTotal(ctx context.Context, condition *imodel.PolicyCommonSearchCondition) (total int, err error) {
 	db := dao.PolicyCommon.Ctx(ctx)
 	if condition.Name != "" {
 		db = db.WhereLike("name", "%"+condition.Name+"%")

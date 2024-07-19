@@ -6,7 +6,7 @@ syntax = "proto3";
 
 package pbentity;
 
-option go_package = "github.com/oldme-git/36hour/app/seat/api/pbentity";
+option go_package = "github.com/oldme-git/36hour/app/seat_handle/api/pbentity";
 
 import "google/protobuf/timestamp.proto";
 

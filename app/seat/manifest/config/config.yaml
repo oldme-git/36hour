@@ -1,5 +1,5 @@
 grpc:
-  name:             "seat"  # 服务名称
+  name:             "seat_handle"  # 服务名称
   address:          ":32002" # 自定义服务监听地址
   logPath:          "./log" # 日志存储目录路径
   logStdout:        true    # 日志是否输出到终端

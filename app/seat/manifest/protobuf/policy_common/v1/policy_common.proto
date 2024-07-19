@@ -4,7 +4,7 @@ syntax = "proto3";
 
 package policy_common.v1;
 
-option go_package = "github.com/oldme-git/36hour/app/seat/api/lib/v1";
+option go_package = "github.com/oldme-git/36hour/app/seat_handle/api/lib/v1";
 
 import "pbentity/policy_common.proto";
 import "google/protobuf/empty.proto";

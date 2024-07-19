@@ -6,10 +6,10 @@ on:
       - master
 
     paths:
-      - "app/seat/api/**"
-      - "app/seat/internal/**"
-      - "app/seat/utility/**"
-      - "app/seat/main.go"
+      - "app/seat_handle/api/**"
+      - "app/seat_handle/internal/**"
+      - "app/seat_handle/utility/**"
+      - "app/seat_handle/main.go"
       - "utility/**"
 
 env:

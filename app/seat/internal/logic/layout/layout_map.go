@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/gogf/gf/v2/encoding/gjson"
-	"github.com/oldme-git/36hour/app/seat/internal/model/layout"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel/layout"
 	"github.com/oldme-git/36hour/utility"
 )
 

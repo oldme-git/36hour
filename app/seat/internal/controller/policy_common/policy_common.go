@@ -5,8 +5,8 @@ import (
 
 	"github.com/oldme-git/36hour/app/seat/api/pbentity"
 	v1 "github.com/oldme-git/36hour/app/seat/api/policy_common/v1"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_common"
-	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
 
 	"github.com/gogf/gf/contrib/rpc/grpcx/v2"
@@ -46,7 +46,7 @@ func (*Controller) GetOne(ctx context.Context, req *v1.GetOneReq) (res *v1.GetOn
 }
 
 func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.GetListRes, err error) {
-	policies, err := policy_common.GetList(ctx, &model.PolicyCommonSearchCondition{
+	policies, err := policy_common.GetList(ctx, &imodel.PolicyCommonSearchCondition{
 		Page:     int(req.Page),
 		PageSize: int(req.PageSize),
 		Name:     req.Name,
@@ -54,7 +54,7 @@ func (*Controller) GetList(ctx context.Context, req *v1.GetListReq) (res *v1.Get
 	if err != nil {
 		return nil, err
 	}
-	total, err := policy_common.GetTotal(ctx, &model.PolicyCommonSearchCondition{
+	total, err := policy_common.GetTotal(ctx, &imodel.PolicyCommonSearchCondition{
 		Name: req.Name,
 	})
 	if err != nil {
