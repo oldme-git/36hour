@@ -53,6 +53,25 @@ func GetRuntimeLayout(ctx context.Context, locationIds ...int) (layouts []entity
 
 // GetRuntimeLayoutMap 获取运行中的布局地图
 func GetRuntimeLayoutMap(ctx context.Context, layoutId int) (cells []layout.Cell, err error) {
+	cells, err = getRuntimeLayoutMapFromCache(ctx, layoutId)
+	if err != nil {
+		return nil, err
+	}
+	if len(cells) != 0 {
+		return
+	}
+
+	// 如果缓存中没有数据，则初始化后再获取
+	err = InitLayout(ctx, layoutId)
+	if err != nil {
+		return nil, err
+	}
+
+	return getRuntimeLayoutMapFromCache(ctx, layoutId)
+}
+
+// getRuntimeLayoutMapFromCache 从缓存获取运行中的布局地图
+func getRuntimeLayoutMapFromCache(ctx context.Context, layoutId int) (cells []layout.Cell, err error) {
 	var (
 		mapGvar  = gvar.New(nil)
 		redis    = g.Redis()
@@ -71,17 +90,9 @@ func GetRuntimeLayoutMap(ctx context.Context, layoutId int) (cells []layout.Cell
 			err = utility.Err.NewSys(err)
 			return
 		}
+		cells = append(cells, cell)
 	}
-	if len(cells) != 0 {
-		return
-	}
-
-	err = InitLayout(ctx, layoutId)
-	if err != nil {
-		return nil, err
-	}
-
-	return GetRuntimeLayoutMap(ctx, layoutId)
+	return
 }
 
 // InitLayout 初始化布局
