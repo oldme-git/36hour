@@ -7,7 +7,7 @@ import (
 
 type (
 	GetLayoutsReq struct {
-		g.Meta `path:"seat_handle/layouts" method:"get" sm:"获取layout列表" tags:"seat_handle"`
+		g.Meta `path:"seat/layouts" method:"get" sm:"获取layout列表" tags:"seat"`
 	}
 
 	GetLayoutsRes struct {
@@ -17,7 +17,7 @@ type (
 
 type (
 	GetLayoutReq struct {
-		g.Meta `path:"seat_handle/layout/{id}" method:"get" sm:"获取layout详情" tags:"seat_handle"`
+		g.Meta `path:"seat/layout/{id}" method:"get" sm:"获取layout详情" tags:"seat"`
 		*data.IdInput
 	}
 
@@ -32,7 +32,7 @@ type (
 
 type (
 	GetLayoutRuntimeReq struct {
-		g.Meta `path:"seat_handle/layout/{id}/runtime" method:"get" sm:"获取layout运行时信息" tags:"seat_handle"`
+		g.Meta `path:"seat/layout/{id}/runtime" method:"get" sm:"获取layout运行时信息" tags:"seat"`
 		*data.IdInput
 	}
 

@@ -45,5 +45,5 @@ func LibManagerClientConn(ctx context.Context) *grpc.ClientConn {
 
 // SeatClientConn 获取座位服务的连接
 func SeatClientConn(ctx context.Context) *grpc.ClientConn {
-	return ClientConn(ctx, "seat_handle")
+	return ClientConn(ctx, "seat")
 }
