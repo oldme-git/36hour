@@ -8,10 +8,10 @@ import (
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
 	"github.com/oldme-git/36hour/app/seat/internal/dao"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel/policy"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_prepare"
-	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
 )
 
 func TestCRUD(t *testing.T) {
@@ -38,7 +38,7 @@ func TestCRUD(t *testing.T) {
 		t.AssertNil(err)
 
 		// GetList
-		condition := &model.PolicyPrepareSearchCondition{
+		condition := &imodel.PolicyPrepareSearchCondition{
 			Page:     1,
 			PageSize: 1,
 			Name:     "Prepare",

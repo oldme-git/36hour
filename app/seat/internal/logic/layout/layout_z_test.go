@@ -8,12 +8,12 @@ import (
 	_ "github.com/gogf/gf/contrib/nosql/redis/v2"
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/test/gtest"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel"
+	layoutModel "github.com/oldme-git/36hour/app/seat/internal/imodel/layout"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/layout"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
 	_ "github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
-	"github.com/oldme-git/36hour/app/seat/internal/model"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	layoutModel "github.com/oldme-git/36hour/app/seat/internal/model/layout"
 )
 
 func TestCRUD(t *testing.T) {
@@ -38,7 +38,7 @@ func TestCRUD(t *testing.T) {
 		t.AssertNil(err)
 
 		// GetList
-		condition := &model.LayoutSearchCondition{
+		condition := &imodel.LayoutSearchCondition{
 			Page:     1,
 			PageSize: 1,
 		}

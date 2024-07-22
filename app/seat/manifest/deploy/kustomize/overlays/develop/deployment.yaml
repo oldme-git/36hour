@@ -7,8 +7,8 @@ spec:
     spec:
       containers:
         - name : main
-          image: registry.cn-hangzhou.aliyuncs.com/36hour/seat_handle:latest
+          image: registry.cn-hangzhou.aliyuncs.com/36hour/seat:latest
           volumeMounts:
             - name: conf-volume
               mountPath: /app/config.yaml
-              subPath: seat_handle.yaml
+              subPath: seat.yaml

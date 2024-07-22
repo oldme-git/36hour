@@ -14,7 +14,7 @@ import (
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_common"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_layout"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	"github.com/oldme-git/36hour/app/seat/utility/cache_key"
+	"github.com/oldme-git/36hour/app/seat/utility/cache"
 	"github.com/oldme-git/36hour/utility"
 )
 
@@ -56,7 +56,7 @@ func GetRuntimeLayoutMap(ctx context.Context, layoutId int) (cells []layout.Cell
 	var (
 		mapGvar  = gvar.New(nil)
 		redis    = g.Redis()
-		cacheKey = cache_key.LayoutMapKey(layoutId)
+		cacheKey = cache.LayoutMapKey(layoutId)
 	)
 
 	mapGvar, err = redis.HGetAll(ctx, cacheKey)
@@ -88,7 +88,7 @@ func GetRuntimeLayoutMap(ctx context.Context, layoutId int) (cells []layout.Cell
 func InitLayout(ctx context.Context, layoutId int) error {
 	var (
 		redis    = g.Redis()
-		cacheKey = cache_key.LayoutMapKey(layoutId)
+		cacheKey = cache.LayoutMapKey(layoutId)
 		expireAt = gtime.Now().EndOfDay().Time
 	)
 	layoutData, err := GetOne(ctx, layoutId)
