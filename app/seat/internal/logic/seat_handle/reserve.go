@@ -6,6 +6,7 @@ import (
 
 	"github.com/gogf/gf/v2/frame/g"
 	"github.com/oldme-git/36hour/app/seat/internal/imodel"
+	"github.com/oldme-git/36hour/app/seat/internal/logic/layout"
 	"github.com/oldme-git/36hour/app/seat/utility/cache"
 	"github.com/oldme-git/36hour/utility"
 )
@@ -64,6 +65,11 @@ func writeCacheReserve(ctx context.Context, userSeat *imodel.UserSeat) (err erro
 	err = cache.ExpireAtEndOfDay(ctx, key)
 	if err != nil {
 		return utility.Err.NewSys(err)
+	}
+	// 更新座位状态
+	err = layout.UpdateCellStatus(ctx, int(userSeat.LocationId), userSeat.CellNo, userSeat.Status)
+	if err != nil {
+		return
 	}
 
 	return
