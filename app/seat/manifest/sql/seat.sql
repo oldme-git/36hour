@@ -43,6 +43,17 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for seat_log_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."seat_log_id_seq";
+CREATE SEQUENCE "public"."seat_log_id_seq"
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 2147483647
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Table structure for layout
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."layout";
@@ -106,32 +117,47 @@ COMMENT ON COLUMN "public"."policy_prepare"."info" IS '策略信息';
 COMMENT ON TABLE "public"."policy_prepare" IS '策略预设';
 
 -- ----------------------------
+-- Table structure for seat_log
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."seat_log";
+CREATE TABLE "public"."seat_log" (
+  "id" int4 NOT NULL DEFAULT nextval('seat_log_id_seq'::regclass),
+  "location_id" int4 NOT NULL,
+  "layout_id" int4 NOT NULL,
+  "no" int4 NOT NULL,
+  "type" int2 NOT NULL,
+  "uid" int4 NOT NULL
+)
+;
+COMMENT ON COLUMN "public"."seat_log"."type" IS '1预约 2签到 3退坐';
+
+-- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."layout_id_seq"
 OWNED BY "public"."layout"."id";
-SELECT setval('"public"."layout_id_seq"', 1, false);
+SELECT setval('"public"."layout_id_seq"', 16, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."policy_common_id_seq"
 OWNED BY "public"."policy_common"."id";
-SELECT setval('"public"."policy_common_id_seq"', 1, false);
+SELECT setval('"public"."policy_common_id_seq"', 5, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."policy_layout_id_seq"
 OWNED BY "public"."policy_layout"."id";
-SELECT setval('"public"."policy_layout_id_seq"', 1, false);
+SELECT setval('"public"."policy_layout_id_seq"', 3, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."policy_prepare_id_seq"
 OWNED BY "public"."policy_prepare"."id";
-SELECT setval('"public"."policy_prepare_id_seq"', 1, false);
+SELECT setval('"public"."policy_prepare_id_seq"', 3, true);
 
 -- ----------------------------
 -- Primary Key structure for table layout
@@ -166,3 +192,8 @@ CREATE UNIQUE INDEX "policy_prepare_name_unique" ON "public"."policy_prepare" US
 -- Primary Key structure for table policy_prepare
 -- ----------------------------
 ALTER TABLE "public"."policy_prepare" ADD CONSTRAINT "policy_prepare_pkey" PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table seat_log
+-- ----------------------------
+ALTER TABLE "public"."seat_log" ADD CONSTRAINT "seat_log_pkey" PRIMARY KEY ("id");
