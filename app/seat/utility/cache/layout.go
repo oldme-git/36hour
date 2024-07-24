@@ -16,6 +16,6 @@ func LayoutMapKey(layoutId int) string {
 }
 
 // SeatStatusKey 座位使用情况
-func SeatStatusKey(locationId uint) string {
+func SeatStatusKey(locationId int) string {
 	return fmt.Sprintf(SeatStatus, locationId)
 }

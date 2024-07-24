@@ -5,8 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gogf/gf/v2/frame/g"
-	"github.com/oldme-git/36hour/app/seat/internal/imodel"
-	"github.com/oldme-git/36hour/app/seat/internal/logic/layout"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel/seat"
 	"github.com/oldme-git/36hour/app/seat/utility/cache"
 	"github.com/oldme-git/36hour/utility"
 )
@@ -15,7 +14,7 @@ import (
 // 1. 检查座位是否已经被预定
 // 2. 预定座位
 // 3. 返回预定结果
-func Reserve(ctx context.Context, userSeat *imodel.UserSeat) (err error) {
+func Reserve(ctx context.Context, userSeat *seat.UserSeat) (err error) {
 	// 检查座位是否已经被预定
 	isExist, err := checkReserve(ctx, userSeat)
 	if err != nil {
@@ -32,7 +31,7 @@ func Reserve(ctx context.Context, userSeat *imodel.UserSeat) (err error) {
 }
 
 // checkReserve 检查座位是否已经被预定
-func checkReserve(ctx context.Context, userSeat *imodel.UserSeat) (isReserve bool, err error) {
+func checkReserve(ctx context.Context, userSeat *seat.UserSeat) (isReserve bool, err error) {
 	var (
 		redis     = g.Redis()
 		key       = cache.SeatStatusKey(userSeat.LocationId)
@@ -48,7 +47,7 @@ func checkReserve(ctx context.Context, userSeat *imodel.UserSeat) (isReserve boo
 }
 
 // writeCacheReserve 将预约信息写入缓存
-func writeCacheReserve(ctx context.Context, userSeat *imodel.UserSeat) (err error) {
+func writeCacheReserve(ctx context.Context, userSeat *seat.UserSeat) (err error) {
 	var (
 		redis     = g.Redis()
 		key       = cache.SeatStatusKey(userSeat.LocationId)
@@ -57,6 +56,7 @@ func writeCacheReserve(ctx context.Context, userSeat *imodel.UserSeat) (err erro
 
 	_, err = redis.HSetNX(ctx, key, cellNoStr, map[string]interface{}{
 		"uid":    userSeat.Uid,
+		"type":   userSeat.Type,
 		"status": userSeat.Status,
 	})
 	if err != nil {
@@ -67,7 +67,12 @@ func writeCacheReserve(ctx context.Context, userSeat *imodel.UserSeat) (err erro
 		return utility.Err.NewSys(err)
 	}
 	// 更新座位状态
-	err = layout.UpdateCellStatus(ctx, int(userSeat.LocationId), userSeat.CellNo, userSeat.Status)
+	err = updateCellStatus(ctx, userSeat.LocationId, userSeat.CellNo, userSeat.Status)
+	if err != nil {
+		return
+	}
+	// 写入日志到数据库
+	err = writeLog(ctx, 0, userSeat)
 	if err != nil {
 		return
 	}

@@ -7,7 +7,7 @@ import (
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 	_ "github.com/gogf/gf/contrib/nosql/redis/v2"
 	"github.com/gogf/gf/v2/test/gtest"
-	"github.com/oldme-git/36hour/app/seat/internal/imodel"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel/seat"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/seat_handle"
 	"github.com/oldme-git/36hour/utility"
 )
@@ -16,11 +16,12 @@ func TestReserve(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var (
 			ctx      = context.TODO()
-			userSeat = imodel.UserSeat{
-				LocationId: 1,
-				CellNo:     2,
+			userSeat = seat.UserSeat{
+				LocationId: 8,
+				CellNo:     4,
 				Uid:        1,
-				Status:     1,
+				Type:       seat.TypeReserve,
+				Status:     seat_handle.GetCellStatus(ctx, seat.TypeReserve),
 			}
 		)
 		err := seat_handle.Reserve(ctx, &userSeat)
