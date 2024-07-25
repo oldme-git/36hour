@@ -63,8 +63,7 @@ func updateCellStatus(ctx context.Context, layoutId, cellNo int, status layout.C
 // GetCellStatus 根据操作类型获取座位状态
 func GetCellStatus(ctx context.Context, t seat.Type) (status layout.CellStatus) {
 	switch t {
-	case seat.TypeReserve:
-	case seat.TypeSign:
+	case seat.TypeReserve, seat.TypeSign:
 		status = layout.CellStatusUsing
 	case seat.TypeCancel:
 		status = layout.CellStatusFree

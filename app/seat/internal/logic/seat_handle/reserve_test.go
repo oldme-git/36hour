@@ -17,8 +17,8 @@ func TestReserve(t *testing.T) {
 		var (
 			ctx      = context.TODO()
 			userSeat = seat.UserSeat{
-				LocationId: 8,
-				CellNo:     4,
+				LocationId: 9,
+				CellNo:     1,
 				Uid:        1,
 				Type:       seat.TypeReserve,
 				Status:     seat_handle.GetCellStatus(ctx, seat.TypeReserve),

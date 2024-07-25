@@ -98,9 +98,10 @@ func getRuntimeLayoutMapFromCache(ctx context.Context, layoutId int) (cells []la
 // InitLayout 初始化布局
 func InitLayout(ctx context.Context, layoutId int) error {
 	var (
-		redis    = g.Redis()
-		cacheKey = cache.LayoutMapKey(layoutId)
-		expireAt = gtime.Now().EndOfDay().Time
+		redis        = g.Redis()
+		cacheKey     = cache.LayoutMapKey(layoutId)
+		cacheSeatKey = cache.LayoutSeatStatusKey(layoutId)
+		expireAt     = gtime.Now().EndOfDay().Time
 	)
 	layoutData, err := GetOne(ctx, layoutId)
 	if err != nil {
@@ -124,6 +125,7 @@ func InitLayout(ctx context.Context, layoutId int) error {
 
 	var layoutCells = make(map[string]interface{}, len(cells))
 	for _, cell := range cells {
+		cell.Status = layout.CellStatusFree
 		layoutCells[strconv.Itoa(cell.No)] = cell
 	}
 
@@ -132,6 +134,10 @@ func InitLayout(ctx context.Context, layoutId int) error {
 		return utility.Err.NewSys(err)
 	}
 	_, err = redis.ExpireAt(ctx, cacheKey, expireAt)
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
+	_, err = redis.Del(ctx, cacheSeatKey)
 	if err != nil {
 		return utility.Err.NewSys(err)
 	}

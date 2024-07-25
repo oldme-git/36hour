@@ -13,7 +13,7 @@ import (
 func TestInitLayout(t *testing.T) {
 	gtest.C(t, func(t *gtest.T) {
 		var ctx = gctx.New()
-		err := layout.InitLayout(ctx, 8)
+		err := layout.InitLayout(ctx, 9)
 		t.AssertNil(err)
 	})
 }

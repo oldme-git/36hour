@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gogf/gf/v2/frame/g"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel/layout"
 	"github.com/oldme-git/36hour/app/seat/internal/imodel/seat"
 	"github.com/oldme-git/36hour/app/seat/utility/cache"
 	"github.com/oldme-git/36hour/utility"
@@ -15,12 +16,11 @@ import (
 // 2. 预定座位
 // 3. 返回预定结果
 func Reserve(ctx context.Context, userSeat *seat.UserSeat) (err error) {
-	// 检查座位是否已经被预定
-	isExist, err := checkReserve(ctx, userSeat)
+	isFree, err := seatIsFree(ctx, userSeat)
 	if err != nil {
 		return
 	}
-	if isExist {
+	if !isFree {
 		return utility.Err.New(3003)
 	}
 	err = writeCacheReserve(ctx, userSeat)
@@ -30,34 +30,40 @@ func Reserve(ctx context.Context, userSeat *seat.UserSeat) (err error) {
 	return
 }
 
-// checkReserve 检查座位是否已经被预定
-func checkReserve(ctx context.Context, userSeat *seat.UserSeat) (isReserve bool, err error) {
+// seatIsFree 检查座位是否是空闲状态
+func seatIsFree(ctx context.Context, userSeat *seat.UserSeat) (isFree bool, err error) {
 	var (
 		redis     = g.Redis()
-		key       = cache.SeatStatusKey(userSeat.LocationId)
+		key       = cache.LayoutMapKey(userSeat.LocationId)
 		cellNoStr = strconv.Itoa(userSeat.CellNo)
+		cell      = new(layout.Cell)
 	)
 
-	isExist, err := redis.HExists(ctx, key, cellNoStr)
+	data, err := redis.HGet(ctx, key, cellNoStr)
 	if err != nil {
 		return false, utility.Err.NewSys(err)
 	}
+	if err := data.Scan(&cell); err != nil {
+		return false, utility.Err.NewSys(err)
+	}
 
-	return isExist == 1, nil
+	return cell.Status == layout.CellStatusFree, nil
 }
 
 // writeCacheReserve 将预约信息写入缓存
 func writeCacheReserve(ctx context.Context, userSeat *seat.UserSeat) (err error) {
 	var (
 		redis     = g.Redis()
-		key       = cache.SeatStatusKey(userSeat.LocationId)
+		key       = cache.LayoutSeatStatusKey(userSeat.LocationId)
 		cellNoStr = strconv.Itoa(userSeat.CellNo)
 	)
 
-	_, err = redis.HSetNX(ctx, key, cellNoStr, map[string]interface{}{
-		"uid":    userSeat.Uid,
-		"type":   userSeat.Type,
-		"status": userSeat.Status,
+	_, err = redis.HSet(ctx, key, map[string]interface{}{
+		cellNoStr: map[string]interface{}{
+			"uid":    userSeat.Uid,
+			"type":   userSeat.Type,
+			"status": userSeat.Status,
+		},
 	})
 	if err != nil {
 		return utility.Err.NewSys(err)
