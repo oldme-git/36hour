@@ -1,0 +1,20 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package seat_handle.v1;
+
+option go_package = "github.com/oldme-git/36hour/app/seat/api/seat_handle/v1";
+
+service SeatHandle {
+  rpc Reserve(ReserveReq) returns (ReserveRes) {}
+}
+
+message ReserveReq {
+  int64 uid = 1;
+  int64 locationId = 2;
+  int64 cellNo = 3;
+}
+
+message ReserveRes {
+}

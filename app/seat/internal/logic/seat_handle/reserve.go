@@ -16,6 +16,7 @@ import (
 // 2. 预定座位
 // 3. 返回预定结果
 func Reserve(ctx context.Context, userSeat *seat.UserSeat) (err error) {
+	userSeat.Status = GetCellStatus(ctx, userSeat.Type)
 	isFree, err := seatIsFree(ctx, userSeat)
 	if err != nil {
 		return

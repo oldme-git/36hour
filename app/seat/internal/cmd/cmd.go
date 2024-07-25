@@ -8,6 +8,7 @@ import (
 	"github.com/oldme-git/36hour/app/seat/internal/controller/layout"
 	"github.com/oldme-git/36hour/app/seat/internal/controller/policy_common"
 	"github.com/oldme-git/36hour/app/seat/internal/controller/policy_prepare"
+	"github.com/oldme-git/36hour/app/seat/internal/controller/seat_handle"
 	"google.golang.org/grpc"
 )
 
@@ -27,6 +28,7 @@ var (
 			policy_prepare.Register(s)
 			policy_common.Register(s)
 			layout.Register(s)
+			seat_handle.Register(s)
 			s.Run()
 			return nil
 		},
