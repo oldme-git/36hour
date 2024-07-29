@@ -19,7 +19,7 @@ func TestReserve(t *testing.T) {
 			userSeat = seat.UserSeat{
 				LocationId: 9,
 				CellNo:     1,
-				Uid:        1,
+				Uid:        1805425223755894,
 				Type:       seat.TypeReserve,
 				Status:     seat_handle.GetCellStatus(ctx, seat.TypeReserve),
 			}

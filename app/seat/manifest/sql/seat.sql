@@ -126,7 +126,7 @@ CREATE TABLE "public"."seat_log" (
   "layout_id" int4 NOT NULL,
   "no" int4 NOT NULL,
   "type" int2 NOT NULL,
-  "uid" int4 NOT NULL,
+  "uid" int8 NOT NULL,
   "created_at" timestamptz(6) NOT NULL
 )
 ;

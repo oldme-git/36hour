@@ -14,4 +14,5 @@ type ISeatV1 interface {
 	GetLayouts(ctx context.Context, req *v1.GetLayoutsReq) (res *v1.GetLayoutsRes, err error)
 	GetLayout(ctx context.Context, req *v1.GetLayoutReq) (res *v1.GetLayoutRes, err error)
 	GetLayoutRuntime(ctx context.Context, req *v1.GetLayoutRuntimeReq) (res *v1.GetLayoutRuntimeRes, err error)
+	Reserve(ctx context.Context, req *v1.ReserveReq) (res *v1.ReserveRes, err error)
 }
