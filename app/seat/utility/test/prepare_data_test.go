@@ -8,11 +8,11 @@ import (
 	"github.com/gogf/gf/v2/os/gctx"
 	"github.com/gogf/gf/v2/util/gutil"
 	"github.com/oldme-git/36hour/app/seat/internal/dao"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel/layout"
+	"github.com/oldme-git/36hour/app/seat/internal/imodel/policy"
 	layoutSrv "github.com/oldme-git/36hour/app/seat/internal/logic/layout"
 	"github.com/oldme-git/36hour/app/seat/internal/logic/policy_common"
 	"github.com/oldme-git/36hour/app/seat/internal/model/entity"
-	"github.com/oldme-git/36hour/app/seat/internal/model/layout"
-	"github.com/oldme-git/36hour/app/seat/internal/model/policy"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
 )
