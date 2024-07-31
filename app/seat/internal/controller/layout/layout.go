@@ -203,3 +203,11 @@ func (*Controller) GetRuntimeLayoutMap(ctx context.Context, req *v1.GetRuntimeLa
 	}
 	return &v1.GetRuntimeLayoutMapRes{Map: cellsJson}, nil
 }
+
+func (*Controller) InitLayout(ctx context.Context, req *v1.InitLayoutReq) (res *v1.InitLayoutRes, err error) {
+	err = layout.InitLayout(ctx, int(req.LayoutId))
+	if err != nil {
+		return nil, err
+	}
+	return
+}

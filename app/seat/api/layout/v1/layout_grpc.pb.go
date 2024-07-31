@@ -30,6 +30,7 @@ type LayoutClient interface {
 	Delete(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*DeleteRes, error)
 	GetRuntimeLayouts(ctx context.Context, in *GetRuntimeLayoutReq, opts ...grpc.CallOption) (*GetRuntimeLayoutRes, error)
 	GetRuntimeLayoutMap(ctx context.Context, in *GetRuntimeLayoutMapReq, opts ...grpc.CallOption) (*GetRuntimeLayoutMapRes, error)
+	InitLayout(ctx context.Context, in *InitLayoutReq, opts ...grpc.CallOption) (*InitLayoutRes, error)
 }
 
 type layoutClient struct {
@@ -103,6 +104,15 @@ func (c *layoutClient) GetRuntimeLayoutMap(ctx context.Context, in *GetRuntimeLa
 	return out, nil
 }
 
+func (c *layoutClient) InitLayout(ctx context.Context, in *InitLayoutReq, opts ...grpc.CallOption) (*InitLayoutRes, error) {
+	out := new(InitLayoutRes)
+	err := c.cc.Invoke(ctx, "/layout.v1.Layout/InitLayout", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LayoutServer is the server API for Layout service.
 // All implementations must embed UnimplementedLayoutServer
 // for forward compatibility
@@ -114,6 +124,7 @@ type LayoutServer interface {
 	Delete(context.Context, *DeleteReq) (*DeleteRes, error)
 	GetRuntimeLayouts(context.Context, *GetRuntimeLayoutReq) (*GetRuntimeLayoutRes, error)
 	GetRuntimeLayoutMap(context.Context, *GetRuntimeLayoutMapReq) (*GetRuntimeLayoutMapRes, error)
+	InitLayout(context.Context, *InitLayoutReq) (*InitLayoutRes, error)
 	mustEmbedUnimplementedLayoutServer()
 }
 
@@ -141,6 +152,9 @@ func (UnimplementedLayoutServer) GetRuntimeLayouts(context.Context, *GetRuntimeL
 }
 func (UnimplementedLayoutServer) GetRuntimeLayoutMap(context.Context, *GetRuntimeLayoutMapReq) (*GetRuntimeLayoutMapRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRuntimeLayoutMap not implemented")
+}
+func (UnimplementedLayoutServer) InitLayout(context.Context, *InitLayoutReq) (*InitLayoutRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InitLayout not implemented")
 }
 func (UnimplementedLayoutServer) mustEmbedUnimplementedLayoutServer() {}
 
@@ -281,6 +295,24 @@ func _Layout_GetRuntimeLayoutMap_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Layout_InitLayout_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InitLayoutReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LayoutServer).InitLayout(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/layout.v1.Layout/InitLayout",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LayoutServer).InitLayout(ctx, req.(*InitLayoutReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Layout_ServiceDesc is the grpc.ServiceDesc for Layout service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -315,6 +347,10 @@ var Layout_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRuntimeLayoutMap",
 			Handler:    _Layout_GetRuntimeLayoutMap_Handler,
+		},
+		{
+			MethodName: "InitLayout",
+			Handler:    _Layout_InitLayout_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

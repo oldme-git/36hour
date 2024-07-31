@@ -40,3 +40,13 @@ type (
 		Map string `json:"map"`
 	}
 )
+
+type (
+	InitLayoutReq struct {
+		g.Meta `path:"/seat/layout/init" method:"post" sm:"初始化layout" tags:"seat"`
+		*data.IdInput
+	}
+
+	InitLayoutRes struct {
+	}
+)

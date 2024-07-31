@@ -17,6 +17,7 @@ service Layout {
   rpc Delete(DeleteReq) returns (DeleteRes) {}
   rpc GetRuntimeLayouts (GetRuntimeLayoutReq) returns (GetRuntimeLayoutRes) {}
   rpc GetRuntimeLayoutMap (GetRuntimeLayoutMapReq) returns (GetRuntimeLayoutMapRes) {}
+  rpc InitLayout (InitLayoutReq) returns (InitLayoutRes) {}
 }
 
 message CreateReq {
@@ -104,4 +105,12 @@ message GetRuntimeLayoutMapReq {
 
 message GetRuntimeLayoutMapRes {
   string Map = 1;
+}
+
+message InitLayoutReq {
+  int64 layoutId = 1; // v:required
+}
+
+message InitLayoutRes {
+
 }
