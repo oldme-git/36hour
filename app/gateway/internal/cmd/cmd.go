@@ -18,27 +18,27 @@ import (
 
 var (
 	meter = gmetric.GetGlobalProvider().Meter(gmetric.MeterOption{
-		Instrument:        "github.com/gogf/gf/example/metric/basic",
+		Instrument:        "gateway",
 		InstrumentVersion: "v1.0",
 	})
 	counter = meter.MustCounter(
-		"goframe.metric.demo.counter",
+		"gateway.counter",
 		gmetric.MetricOption{
-			Help: "This is a simple demo for Counter usage",
+			Help: "Gateway for Counter usage",
 			Unit: "bytes",
 		},
 	)
 	upDownCounter = meter.MustUpDownCounter(
-		"goframe.metric.demo.updown_counter",
+		"gateway.updown_counter",
 		gmetric.MetricOption{
-			Help: "This is a simple demo for UpDownCounter usage",
+			Help: "Gateway for UpDownCounter usage",
 			Unit: "%",
 		},
 	)
 	histogram = meter.MustHistogram(
-		"goframe.metric.demo.histogram",
+		"gateway.histogram",
 		gmetric.MetricOption{
-			Help:    "This is a simple demo for histogram usage",
+			Help:    "Gateway for histogram usage",
 			Unit:    "ms",
 			Buckets: []float64{0, 10, 20, 50, 100, 500, 1000, 2000, 5000, 10000},
 		},
