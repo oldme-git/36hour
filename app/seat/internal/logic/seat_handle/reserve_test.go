@@ -2,6 +2,7 @@ package seat_handle_test
 
 import (
 	"context"
+	"sync"
 	"testing"
 
 	_ "github.com/gogf/gf/contrib/drivers/pgsql/v2"
@@ -29,5 +30,32 @@ func TestReserve(t *testing.T) {
 
 		err = seat_handle.Reserve(ctx, &userSeat)
 		t.Assert(err, utility.Err.New(3003))
+	})
+}
+
+// 并发预约测试
+func TestReserveConcurrent(t *testing.T) {
+	gtest.C(t, func(t *gtest.T) {
+		var (
+			ctx      = context.TODO()
+			constNum = 5000
+			wg       = sync.WaitGroup{}
+			userSeat = seat.UserSeat{
+				LocationId: 9,
+				CellNo:     1,
+				Uid:        1805425223755894,
+				Type:       seat.TypeReserve,
+				Status:     seat_handle.GetCellStatus(ctx, seat.TypeReserve),
+			}
+		)
+
+		wg.Add(constNum)
+		for i := 0; i < constNum; i++ {
+			go func() {
+				defer wg.Done()
+				seat_handle.Reserve(ctx, &userSeat)
+			}()
+		}
+		wg.Wait()
 	})
 }

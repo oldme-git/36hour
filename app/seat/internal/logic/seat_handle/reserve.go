@@ -24,11 +24,57 @@ func Reserve(ctx context.Context, userSeat *seat.UserSeat) (err error) {
 	if !isFree {
 		return utility.Err.New(3003)
 	}
+	is, err := reserveLock(ctx, userSeat)
+	if err != nil {
+		return
+	}
+	if !is {
+		return utility.Err.New(3003)
+	}
+	defer reserveUnlock(ctx, userSeat)
+
 	err = writeCacheReserve(ctx, userSeat)
 	if err != nil {
 		return err
 	}
+
 	return
+}
+
+// reserveLock 预约锁
+// 只有拿到锁的用户才能进行预约
+func reserveLock(ctx context.Context, userSeat *seat.UserSeat) (is bool, err error) {
+	var (
+		redis = g.Redis()
+		key   = cache.ReserveLock(userSeat.LocationId, userSeat.CellNo)
+	)
+
+	is, err = redis.SetNX(ctx, key, int64(userSeat.Uid))
+	if err != nil {
+		return false, utility.Err.NewSys(err)
+	}
+	if !is {
+		return false, nil
+	}
+	_, err = redis.Expire(ctx, key, 5)
+	if err != nil {
+		return false, utility.Err.NewSys(err)
+	}
+	return is, nil
+}
+
+// reserveUnlock 预约释放锁
+func reserveUnlock(ctx context.Context, userSeat *seat.UserSeat) (err error) {
+	var (
+		redis = g.Redis()
+		key   = cache.ReserveLock(userSeat.LocationId, userSeat.CellNo)
+	)
+
+	_, err = redis.Del(ctx, key)
+	if err != nil {
+		return utility.Err.NewSys(err)
+	}
+	return nil
 }
 
 // seatIsFree 检查座位是否是空闲状态
