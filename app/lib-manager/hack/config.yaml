@@ -7,6 +7,12 @@ gfcli:
 
     dao:
       - link: "pgsql:postgres:12345678@tcp(srv.com:5432)/36hour_lib"
+        removePrefix: ""
+        descriptionTag: true
+        noModelComment: true
+        daoPath: "repository/db/dao"
+        doPath: "repository/db/do"
+        entityPath: "repository/db/entity"
 
   build:
     name: "github.com/oldme-git/36hour/user"

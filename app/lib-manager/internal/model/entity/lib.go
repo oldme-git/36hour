@@ -10,10 +10,10 @@ import (
 
 // Lib is the golang structure for table lib.
 type Lib struct {
-	Id        int         `json:"id"        ` //
-	LibName   string      `json:"libName"   ` //
-	Address   string      `json:"address"   ` // 地址
-	Active    bool        `json:"active"    ` // 是否正在使用
-	CreatedAt *gtime.Time `json:"createdAt" ` //
-	UpdatedAt *gtime.Time `json:"updatedAt" ` //
+	Id        int         `json:"id"        orm:"id"         ` //
+	LibName   string      `json:"libName"   orm:"lib_name"   ` //
+	Address   string      `json:"address"   orm:"address"    ` // 地址
+	Active    bool        `json:"active"    orm:"active"     ` // 是否正在使用
+	CreatedAt *gtime.Time `json:"createdAt" orm:"created_at" ` //
+	UpdatedAt *gtime.Time `json:"updatedAt" orm:"updated_at" ` //
 }
